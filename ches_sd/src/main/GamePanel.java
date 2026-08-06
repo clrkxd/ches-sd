@@ -11,15 +11,15 @@ import mech.Board;
 
 public class GamePanel extends JPanel{
 	
-	public final int FIN_W = 1024;
-	public final int FIN_H = 768;
+	public final static int FIN_W = 1024;
+	public final static int FIN_H = 768;
 	
 	
 	Board board = new Board();
 	
 	public GamePanel() {
 		setPreferredSize(new Dimension(FIN_W, FIN_H));
-		setBackground(Color.black);
+		setBackground(Color.gray);
 	}
 
 	public void paintComponent(Graphics g) {
@@ -29,6 +29,7 @@ public class GamePanel extends JPanel{
 		
 		// board
 		board.draw(g2);
+		
 		
 	}
 }
