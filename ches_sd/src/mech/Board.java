@@ -12,17 +12,29 @@ public class Board {
 	
 	int scale = 2;
 	public final int SQ_SIZE = 32 * scale;
-	public final int HALFSQ = SQ_SIZE/2 * scale;
+	public final int HALFSQ = (SQ_SIZE/2)* scale;
 	
-	public int x, y, boardX, boardY;
+	public int boardX, boardY;
 	
 	public Board() {
-		this.x = x;
-		this.y = y;
 		
-		int boardSize = SQ_SIZE * 8;
-		boardX = (GamePanel.FIN_W - boardSize) / 2;
-		boardY = (GamePanel.FIN_H - boardSize) / 2;
+		
+//		int boardSize = SQ_SIZE * 8;
+//		boardX = (GamePanel.FIN_W - boardSize) / 2;
+//		boardY = (GamePanel.FIN_H - boardSize) / 2;
+		centerTheBoard();
+	}
+	
+	
+	public void centerTheBoard() {
+//		int boardSize = SQ_SIZE * 8;
+//		boardX = (GamePanel.FIN_W - boardSize) / 2;
+//		boardY = (GamePanel.FIN_H - boardSize) / 2;	
+		
+		int boardWidth = MAX_COL * SQ_SIZE;
+        int boardHeight = MAX_ROW * SQ_SIZE;
+        boardX = (GamePanel.FIN_W - boardWidth) / 2;
+        boardY = (GamePanel.FIN_H - boardHeight) / 2;
 	}
 	             	
 	public void draw(Graphics2D g2) {
