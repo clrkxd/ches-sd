@@ -1,6 +1,9 @@
 package piece;
 
 import java.awt.image.BufferedImage;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 import mech.Board;
 
@@ -14,6 +17,23 @@ public class SuperPiece {
 		this.turn = turn;
 		this.col = col;
 		this.row = row;
+		x = getX(col);
+		y = getY(row);
+		prevCol = col;
+		prevRow = row;
+	}
+	
+	public BufferedImage getImg(String pathImg) {
+		
+		BufferedImage img = null;
+		
+		try {
+			img = ImageIO.read(getClass().getResourceAsStream(pathImg + ".png"));
+		} catch(IOException e) {
+			e.printStackTrace();
+		}
+		
+		return img;
 	}
 	
 	public int getX(int col) {
