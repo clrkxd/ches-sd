@@ -9,17 +9,50 @@ import javax.swing.JPanel;
 
 import mech.Board;
 
-public class GamePanel extends JPanel{
+public class GamePanel extends JPanel implements Runnable{
 	
 	public final static int FIN_W = 1024;
 	public final static int FIN_H = 768;
-	
+	final int FPS = 60;
+	Thread gt;
 	
 	Board board = new Board();
 	
 	public GamePanel() {
 		setPreferredSize(new Dimension(FIN_W, FIN_H));
 		setBackground(Color.gray);
+	}
+	
+	public void launch() {
+		gt = new Thread(this);
+		gt.start();
+	}
+	
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		// game loop
+		double interval = 1000000000/FPS;
+		double delta = 0;
+		long lastTime = System.nanoTime();
+		long currentTime;
+		
+		while (gt != null) {
+			currentTime = System.nanoTime();
+			
+			delta += (currentTime - lastTime) / interval;
+			lastTime = currentTime;
+			
+			if (delta >= 1) {
+				update();
+				repaint();
+				delta--;
+			}
+		}
+	}
+	
+	public void update() {
+		
 	}
 
 	public void paintComponent(Graphics g) {
@@ -32,4 +65,6 @@ public class GamePanel extends JPanel{
 		
 		
 	}
+
+	
 }

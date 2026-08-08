@@ -10,9 +10,9 @@ public class Board {
 	public final int MAX_COL = 8;
 	public final int MAX_ROW = 8;
 	
-	int scale = 2;
-	public final int SQ_SIZE = 32 * scale;
-	public final int HALFSQ = (SQ_SIZE/2)* scale;
+	static int scale = 2;
+	public final static int SQ_SIZE = 32 * scale;
+	public final static int HALFSQ = (SQ_SIZE/2)* scale;
 	
 	public int boardX, boardY;
 	
