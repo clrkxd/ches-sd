@@ -10,6 +10,7 @@ public class Knight extends SuperPiece{
 		super(turn, col, row);
 		// TODO Auto-generated constructor stub
 		
+		type = Type.KNIGHT;
 		img = getImg("/piece/knight");
 
 		if(turn == GamePanel.BLACK) {

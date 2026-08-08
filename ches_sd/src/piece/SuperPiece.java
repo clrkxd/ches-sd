@@ -9,6 +9,7 @@ import mech.Board;
 
 public class SuperPiece {
 
+	public Type type;
 	public BufferedImage img;
 	public int x, y, col, row, prevCol, prevRow; //prevCol and prevRow are the previous col and row
 	public int turn; // color of turn

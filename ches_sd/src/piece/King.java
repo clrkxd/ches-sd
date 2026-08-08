@@ -10,6 +10,7 @@ public class King extends SuperPiece{
 		super(turn, col, row);
 		// TODO Auto-generated constructor stub
 		
+		type = Type.KING;
 		img = getImg("/piece/pawn");
 
 		if(turn == GamePanel.BLACK) {

@@ -10,6 +10,7 @@ public class Pawn extends SuperPiece{
 		super(turn, col, row);
 		// TODO Auto-generated constructor stub
 		
+		type = Type.PAWN;
 		img = getImg("/piece/pawn");
 
 		if(turn == GamePanel.BLACK) {

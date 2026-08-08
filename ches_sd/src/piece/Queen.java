@@ -10,6 +10,7 @@ public class Queen extends SuperPiece{
 		super(turn, col, row);
 		// TODO Auto-generated constructor stub
 		
+		type = Type.QUEEN;
 		img = getImg("/piece/queen");
 
 		if(turn == GamePanel.BLACK) {

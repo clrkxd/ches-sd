@@ -10,6 +10,7 @@ public class Rook extends SuperPiece{
 		super(turn, col, row);
 		// TODO Auto-generated constructor stub
 		
+		type = Type.ROOK;
 		img = getImg("/piece/rook");
 
 		if(turn == GamePanel.BLACK) {

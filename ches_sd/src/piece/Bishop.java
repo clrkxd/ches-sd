@@ -10,6 +10,7 @@ public class Bishop extends SuperPiece{
 		super(turn, col, row);
 		// TODO Auto-generated constructor stub
 		
+		type = Type.BISHOP;
 		img = getImg("/piece/bishop");
 
 		if(turn == GamePanel.BLACK) {
