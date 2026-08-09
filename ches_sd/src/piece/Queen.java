@@ -1,6 +1,7 @@
 package piece;
 
 import main.GamePanel;
+import mech.MoveMechanics;
 import mech.PaletteSwap;
 import mech.PiecePalette;
 
@@ -13,7 +14,7 @@ public class Queen extends SuperPiece{
 		type = Type.QUEEN;
 		img = getImg("/piece/queen");
 
-		if(turn == GamePanel.BLACK) {
+		if(turn == MoveMechanics.BLACK) {
 		    img = PaletteSwap.swap(
 		        img,
 		        PiecePalette.BLACK

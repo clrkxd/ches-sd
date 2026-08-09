@@ -8,6 +8,7 @@ import java.awt.Graphics2D;
 import javax.swing.JPanel;
 
 import mech.Board;
+import mech.MoveMechanics;
 
 public class GamePanel extends JPanel implements Runnable{
 	
@@ -17,15 +18,18 @@ public class GamePanel extends JPanel implements Runnable{
 	Thread gt;
 	
 	Board board = new Board();
+	MoveMechanics movMech;
 	
-	// color
-	public static final int WHITE = 0;
-	public static final int BLACK = 1;
-	int currentTurn = WHITE;
+//	// color
+//	public static final int WHITE = 0;
+//	public static final int BLACK = 1;
+//	int currentTurn = WHITE;
 	
 	public GamePanel() {
 		setPreferredSize(new Dimension(FIN_W, FIN_H));
 		setBackground(Color.gray);
+		
+		movMech = new MoveMechanics(this);
 	}
 	
 	public void launch() {
