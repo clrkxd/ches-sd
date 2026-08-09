@@ -1,10 +1,12 @@
 package piece;
 
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import main.GamePanel;
 import mech.Board;
 
 public class SuperPiece {
@@ -13,6 +15,7 @@ public class SuperPiece {
 	public BufferedImage img;
 	public int x, y, col, row, prevCol, prevRow; //prevCol and prevRow are the previous col and row
 	public int turn; // color of turn
+	public int pieceX, pieceY;
 	
 	public SuperPiece(int turn, int col, int row) {
 		this.turn = turn;
@@ -22,6 +25,8 @@ public class SuperPiece {
 		y = getY(row);
 		prevCol = col;
 		prevRow = row;
+		
+		centerThePiece();
 	}
 	
 	public BufferedImage getImg(String pathImg) {
@@ -45,4 +50,18 @@ public class SuperPiece {
 		return row * Board.SQ_SIZE;
 	}
 	
+	public void centerThePiece() {
+//		int boardSize = SQ_SIZE * 8;
+//		boardX = (GamePanel.FIN_W - boardSize) / 2;
+//		boardY = (GamePanel.FIN_H - boardSize) / 2;	
+		
+		int boardWidth = Board.MAX_COL * Board.SQ_SIZE;
+        int boardHeight = Board.MAX_ROW * Board.SQ_SIZE;
+        pieceX = (GamePanel.FIN_W - boardWidth) / 2;
+        pieceY = (GamePanel.FIN_H - boardHeight) / 2;
+	}
+	
+	public void draw(Graphics2D g2) {
+		g2.drawImage(img, pieceX+x, pieceY+y, Board.SQ_SIZE, Board.SQ_SIZE, null);
+	}
 }

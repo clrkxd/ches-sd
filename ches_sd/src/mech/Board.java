@@ -7,8 +7,8 @@ import main.GamePanel;
 
 public class Board {
 
-	public final int MAX_COL = 8;
-	public final int MAX_ROW = 8;
+	public final static int MAX_COL = 8;
+	public final static int MAX_ROW = 8;
 	
 	static int scale = 2;
 	public final static int SQ_SIZE = 32 * scale;
