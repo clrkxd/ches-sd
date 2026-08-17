@@ -27,6 +27,7 @@ public class GamePanel extends JPanel implements Runnable{
 	
 	Board board = new Board();
 	MoveMechanics movMech;
+	MouseDetection md = new MouseDetection();
 	
 	// pieces and simulation
 	public static ArrayList<SuperPiece> pieces = new ArrayList<>(); // backup

@@ -13,6 +13,6 @@ public class MoveMechanics {
 		int currentTurn = WHITE;
 		
 	public MoveMechanics(GamePanel gp) {
-		
+		this.gp = gp;
 	}
 }
