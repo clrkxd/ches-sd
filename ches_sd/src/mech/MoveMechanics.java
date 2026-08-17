@@ -1,12 +1,14 @@
 package mech;
 
 import main.GamePanel;
+import main.MouseDetection;
 import piece.SuperPiece;
 
 public class MoveMechanics {
 	
 	
 	GamePanel gp;
+	MouseDetection md;
 	
 	public SuperPiece selectedP;
 	public SuperPiece activeP;
@@ -60,5 +62,9 @@ public class MoveMechanics {
 	
 	private void simulateMove() {
 		
+		
+		// if piece is held, update the pos
+		activeP.x = md.x;
+		activeP.y = md.y;
 	}
 }
