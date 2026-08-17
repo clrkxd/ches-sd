@@ -31,7 +31,7 @@ public class GamePanel extends JPanel implements Runnable{
 	
 	// pieces and simulation
 	public static ArrayList<SuperPiece> pieces = new ArrayList<>(); // backup
-	public static ArrayList<SuperPiece> sim = new ArrayList<>(); // simulates the pieces
+	public ArrayList<SuperPiece> sim = new ArrayList<>(); // simulates the pieces
 	
 	// piece selection UI
 //	SuperPiece activeP = movMech.activeP();
