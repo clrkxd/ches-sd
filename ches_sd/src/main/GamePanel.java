@@ -159,10 +159,24 @@ public class GamePanel extends JPanel implements Runnable{
 	
 	public void update() {
 		
+		// mouse is clicked
 		if (md.clicked) {
-			if(movMech.activeP == null || movMech.selectedP == null) {
-				
-			}
+			
+			movMech.handleClick(md.x, md.y);
+	        md.clicked = false;
+			
+//			// if activeP and selectedP == null, you can pick up a piece
+//			if (movMech.activeP == null || movMech.selectedP == null) {
+//				for (SuperPiece sp : sim) {		// if mouse is on current player's pieces, you can select it as the current piece
+//					if (sp.turn == movMech.getCurrentTurn() && sp.col == md.x/Board.SQ_SIZE && sp.row == md.y/Board.SQ_SIZE) {
+//						movMech.activeP = sp;
+//					}
+//				}
+//			} else {
+//				// if the player is holding a piece, simulate the moves 
+//				simulateMove();
+//				
+//			}
 		}
 	}
 
