@@ -37,6 +37,7 @@ public class MoveMechanics {
 	            sp.row == row) {
 
 	            activeP = sp;
+	            selectedP = sp;
 	            return;
 	        }
 	    }
