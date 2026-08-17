@@ -8,8 +8,8 @@ public class MoveMechanics {
 	
 	GamePanel gp;
 	
-	SuperPiece selectedP;
-	SuperPiece activeP;
+	public SuperPiece selectedP;
+	public SuperPiece activeP;
 
 	// color
 		public static final int WHITE = 0;

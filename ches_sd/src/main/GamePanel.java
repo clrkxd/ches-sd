@@ -33,6 +33,8 @@ public class GamePanel extends JPanel implements Runnable{
 	public static ArrayList<SuperPiece> pieces = new ArrayList<>(); // backup
 	public static ArrayList<SuperPiece> sim = new ArrayList<>(); // simulates the pieces
 	
+	// piece selection UI
+//	SuperPiece activeP = movMech.activeP();
 	
 //	// color
 //	public static final int WHITE = 0;
@@ -158,7 +160,7 @@ public class GamePanel extends JPanel implements Runnable{
 	public void update() {
 		
 		if (md.clicked) {
-			if(moveMech.activeP == null || selectedP == null) {
+			if(movMech.activeP == null || movMech.selectedP == null) {
 				
 			}
 		}
