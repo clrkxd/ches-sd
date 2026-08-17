@@ -42,6 +42,8 @@ public class GamePanel extends JPanel implements Runnable{
 	public GamePanel() {
 		setPreferredSize(new Dimension(FIN_W, FIN_H));
 		setBackground(Color.gray);
+		addMouseMotionListener(md);
+		addMouseListener(md);
 		
 		movMech = new MoveMechanics(this);
 		
