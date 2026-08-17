@@ -1,11 +1,15 @@
 package mech;
 
 import main.GamePanel;
+import piece.SuperPiece;
 
 public class MoveMechanics {
 	
 	
 	GamePanel gp;
+	
+	SuperPiece selectedP;
+	SuperPiece activeP;
 
 	// color
 		public static final int WHITE = 0;

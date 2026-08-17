@@ -26,7 +26,7 @@ public class GamePanel extends JPanel implements Runnable{
 	Thread gt;
 	
 	Board board = new Board();
-	MoveMechanics movMech;
+	MoveMechanics movMech = new MoveMechanics(this);
 	MouseDetection md = new MouseDetection();
 	
 	// pieces and simulation
@@ -45,7 +45,7 @@ public class GamePanel extends JPanel implements Runnable{
 		addMouseMotionListener(md);
 		addMouseListener(md);
 		
-		movMech = new MoveMechanics(this);
+		
 		
 		setThemPieces();
 		copyPieces(pieces, sim);
@@ -157,6 +157,11 @@ public class GamePanel extends JPanel implements Runnable{
 	
 	public void update() {
 		
+		if (md.clicked) {
+			if(moveMech.activeP == null || selectedP == null) {
+				
+			}
+		}
 	}
 
 	public void paintComponent(Graphics g) {
