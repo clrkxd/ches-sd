@@ -334,7 +334,7 @@ public class GamePanel extends JPanel implements Runnable{
 		if (movMech.activeP != null) {
 			
 			
-			
+		// CLARK FIX MO SIMULATEMOVE, ILIPAT DITO SA GAMEPANEL LAHAT YUN	
 			
 			g2.setColor(Color.WHITE);
 			g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.7f));
