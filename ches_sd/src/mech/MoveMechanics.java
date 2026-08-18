@@ -64,7 +64,11 @@ public class MoveMechanics {
 	        simulateMove();
 	    }
 	}
-	
+	/* 
+	 * simulateMove is not really important but it is an advanced feature for a chess game
+	 * chess is not a real-time game unlike action platformers or 2D RPG games 
+	 * that's why a simulation for all the move is a great feature for a chess game
+	 */
 	private void simulateMove() {
 		// this method will be passed on the handleClick method
 		
