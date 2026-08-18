@@ -77,6 +77,8 @@ public class MoveMechanics {
 
 	    activeP.x = md.x - Board.boardX - Board.HALFSQ;
 	    activeP.y = md.y - Board.boardY - Board.HALFSQ;
+	    activeP.col = activeP.getCol(activeP.x);
+	    activeP.row = activeP.getRow(activeP.y);
 
 //	    activeP.x = md.x - Board.HALFSQ;
 //	    activeP.y = md.y - Board.HALFSQ;

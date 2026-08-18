@@ -50,6 +50,14 @@ public class SuperPiece {
 		return row * Board.SQ_SIZE;
 	}
 	
+	public int getCol(int x) {
+		return (x + Board.SQ_SIZE) / Board.SQ_SIZE;
+	}
+	
+	public int getRow(int y) {
+		return (y + Board.SQ_SIZE) / Board.SQ_SIZE;
+	}
+	
 	public void centerThePiece() {
 //		int boardSize = SQ_SIZE * 8;
 //		boardX = (GamePanel.FIN_W - boardSize) / 2;

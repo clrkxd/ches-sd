@@ -1,5 +1,6 @@
 package main;
 
+import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -318,8 +319,32 @@ public class GamePanel extends JPanel implements Runnable{
 		// pieces
 		for (SuperPiece p: sim) {
 			p.draw(g2);
+			
+			g2.setColor(Color.RED);
+
+			g2.drawRect(
+					p.pieceX,
+			        p.pieceY,
+			    Board.SQ_SIZE,
+			    Board.SQ_SIZE
+			);
 		}
+
 		
+		if (movMech.activeP != null) {
+			
+			
+			
+			
+			g2.setColor(Color.WHITE);
+			g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.7f));
+			g2.fillRect(board.boardX + movMech.activeP.col * Board.SQ_SIZE, board.boardY + movMech.activeP.row * Board.SQ_SIZE, Board.SQ_SIZE, Board.SQ_SIZE);
+			g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+		    movMech.activeP.draw(g2);
+		    
+		    
+		    
+		}
 	}
 
 	
