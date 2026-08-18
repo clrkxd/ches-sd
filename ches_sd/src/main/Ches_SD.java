@@ -15,5 +15,7 @@ public class Ches_SD {
 		
 		w.setLocationRelativeTo(null);
 		w.setVisible(true);
+		
+		gp.launch();
 	}
 }
