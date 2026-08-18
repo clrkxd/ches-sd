@@ -160,24 +160,79 @@ public class GamePanel extends JPanel implements Runnable{
 	public void update() {
 		
 		// mouse is clicked
-		if (md.clicked) {
+//		if (md.pressed) {
+//			
+//			movMech.handleClick(md.x, md.y);
+//	        md.pressed = false;
+//	        System.out.println("nice");
 			
-			movMech.handleClick(md.x, md.y);
-	        md.clicked = false;
+	
+
+//			    if (md.pressed) {
+//
+//			        if (movMech.activeP == null) {
+//
+//			            // select piece
+//			            int col = md.x / Board.SQ_SIZE;
+//			            int row = md.y / Board.SQ_SIZE;
+//
+//			            movMech.selectPiece(col, row);
+//
+//			        } else {
+//
+//			            // drag
+//			            movMech.simulateMove();
+//			        }
+//			    }
+			
 			
 //			// if activeP and selectedP == null, you can pick up a piece
-//			if (movMech.activeP == null || movMech.selectedP == null) {
+//			if (movMech.activeP == null && movMech.selectedP == null) {
 //				for (SuperPiece sp : sim) {		// if mouse is on current player's pieces, you can select it as the current piece
 //					if (sp.turn == movMech.getCurrentTurn() && sp.col == md.x/Board.SQ_SIZE && sp.row == md.y/Board.SQ_SIZE) {
 //						movMech.activeP = sp;
+//						movMech.selectedP = sp;
 //					}
 //				}
 //			} else {
 //				// if the player is holding a piece, simulate the moves 
-//				simulateMove();
+//				movMech.simulateMove(md.x, md.y);
 //				
 //			}
-		}
+//		}
+			
+
+		    if (md.pressed) {
+
+		        // No piece selected yet
+		        if (movMech.activeP == null && movMech.selectedP == null) {
+
+//		            int col = md.x / Board.SQ_SIZE;
+//		            int row = md.y / Board.SQ_SIZE;
+		        	int col = (md.x - board.boardX) / Board.SQ_SIZE;
+		        	int row = (md.y - board.boardY) / Board.SQ_SIZE;
+
+		            for (SuperPiece sp : sim) {
+
+		                if (sp.turn == movMech.getCurrentTurn()
+		                        && sp.col == col
+		                        && sp.row == row) {
+
+		                    movMech.activeP = sp;
+		                    movMech.selectedP = sp;
+
+		                    System.out.println("picked " + sp.type);
+
+		                    break;
+		                }
+		            }
+
+		        } else {
+
+		            // Piece is being dragged
+		            movMech.simulateMove(md.x, md.y);
+		        }
+		    }
 	}
 
 	public void paintComponent(Graphics g) {

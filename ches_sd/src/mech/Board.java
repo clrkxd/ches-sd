@@ -26,6 +26,8 @@ public class Board {
 	}
 	
 	
+	
+	
 	public void centerTheBoard() {
 //		int boardSize = SQ_SIZE * 8;
 //		boardX = (GamePanel.FIN_W - boardSize) / 2;
@@ -36,6 +38,8 @@ public class Board {
         boardX = (GamePanel.FIN_W - boardWidth) / 2;
         boardY = (GamePanel.FIN_H - boardHeight) / 2;
 	}
+	
+	
 	             	
 	public void draw(Graphics2D g2) {
 		
