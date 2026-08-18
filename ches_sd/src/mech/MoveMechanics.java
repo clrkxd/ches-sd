@@ -32,8 +32,10 @@ public class MoveMechanics {
 	
 	private void selectPiece(int col, int row) {
 
+		// if activeP is null that is passed to game panel, check if user can pick up a piece
 	    for (SuperPiece sp : gp.sim) {
 
+	    	// if mouse is on current turn's piece, the user can pick up the piece
 	        if (sp.turn == currentTurn &&
 	            sp.col == col &&
 	            sp.row == row) {
@@ -43,6 +45,8 @@ public class MoveMechanics {
 	            return;
 	        }
 	    }
+	    
+	    // this method will be passed on the handleClick method
 	}
 	
 	public void handleClick(int mouseX, int mouseY) {
@@ -50,20 +54,21 @@ public class MoveMechanics {
 	    int col = mouseX / Board.SQ_SIZE;
 	    int row = mouseY / Board.SQ_SIZE;
 
+	    
 	    if (activeP == null && selectedP == null) {
 
 	        selectPiece(col, row);
 
 	    } else {
 
-//	        simulateMove(col, row);
+	        simulateMove();
 	    }
 	}
 	
 	private void simulateMove() {
+		// this method will be passed on the handleClick method
 		
-		
-		// if piece is held, update the pos
+		// if piece is held, update the position
 		activeP.x = md.x;
 		activeP.y = md.y;
 	}
