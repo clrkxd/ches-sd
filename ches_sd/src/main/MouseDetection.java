@@ -12,8 +12,8 @@ public class MouseDetection extends MouseAdapter{
 	@Override
 	public void mousePressed(MouseEvent e) {
 		pressed = true;
-		 x = e.getX();
-		 y = e.getY();
+//		 x = e.getX();
+//		 y = e.getY();
 		 
 //		 System.out.println("MOUSE PRESSED: " + x + ", " + y);
 	}

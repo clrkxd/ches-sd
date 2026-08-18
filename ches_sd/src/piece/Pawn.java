@@ -14,7 +14,7 @@ public class Pawn extends SuperPiece{
 		type = Type.PAWN;
 		img = getImg("/piece/pawn");
 
-		if(turn == MoveMechanics.BLACK) {
+		if(turn == GamePanel.BLACK) {
 		    img = PaletteSwap.swap(
 		        img,
 		        PiecePalette.BLACK

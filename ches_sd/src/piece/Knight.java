@@ -14,7 +14,7 @@ public class Knight extends SuperPiece{
 		type = Type.KNIGHT;
 		img = getImg("/piece/knight");
 
-		if(turn == MoveMechanics.BLACK) {
+		if(turn == GamePanel.BLACK) {
 		    img = PaletteSwap.swap(
 		        img,
 		        PiecePalette.BLACK

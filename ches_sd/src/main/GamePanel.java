@@ -33,15 +33,15 @@ public class GamePanel extends JPanel implements Runnable{
 	
 	// pieces and simulation
 	public static ArrayList<SuperPiece> pieces = new ArrayList<>(); // backup
-	public ArrayList<SuperPiece> sim = new ArrayList<>(); // simulates the pieces
+	public static ArrayList<SuperPiece> sim = new ArrayList<>(); // simulates the pieces
 	
 	// piece selection UI
-//	SuperPiece activeP = movMech.activeP();
+	SuperPiece activeP, selectedP;
 	
-//	// color
-//	public static final int WHITE = 0;
-//	public static final int BLACK = 1;
-//	int currentTurn = WHITE;
+	// color
+	public static final int WHITE = 0;
+	public static final int BLACK = 1;
+	int currentTurn = WHITE;
 	
 	public GamePanel() {
 		setPreferredSize(new Dimension(FIN_W, FIN_H));
@@ -52,7 +52,7 @@ public class GamePanel extends JPanel implements Runnable{
 		
 		
 		setThemPieces();
-		copyPieces(pieces, sim);
+		copyPieces(pieces, sim); // from, to (respectively)
 	}
 	
 	public void launch() {
@@ -62,40 +62,40 @@ public class GamePanel extends JPanel implements Runnable{
 	
 	public void setThemPieces() {
 		// white 
-		pieces.add(new Pawn(movMech.WHITE, 0, 6));
-		pieces.add(new Pawn(movMech.WHITE, 1, 6));
-		pieces.add(new Pawn(movMech.WHITE, 2, 6));
-		pieces.add(new Pawn(movMech.WHITE, 3, 6));
-		pieces.add(new Pawn(movMech.WHITE, 4, 6));
-		pieces.add(new Pawn(movMech.WHITE, 5, 6));
-		pieces.add(new Pawn(movMech.WHITE, 6, 6));
-		pieces.add(new Pawn(movMech.WHITE, 7, 6));
-		pieces.add(new Rook(movMech.WHITE, 0, 7));
-		pieces.add(new Rook(movMech.WHITE, 7, 7));
-		pieces.add(new Knight(movMech.WHITE, 1, 7));
-		pieces.add(new Knight(movMech.WHITE, 6, 7));
-		pieces.add(new Bishop(movMech.WHITE, 2, 7));
-		pieces.add(new Bishop(movMech.WHITE, 5, 7));
-		pieces.add(new Queen(movMech.WHITE, 3, 7));
-		pieces.add(new King(movMech.WHITE, 4, 7));
+		pieces.add(new Pawn(WHITE, 0, 6));
+		pieces.add(new Pawn(WHITE, 1, 6));
+		pieces.add(new Pawn(WHITE, 2, 6));
+		pieces.add(new Pawn(WHITE, 3, 6));
+		pieces.add(new Pawn(WHITE, 4, 6));
+		pieces.add(new Pawn(WHITE, 5, 6));
+		pieces.add(new Pawn(WHITE, 6, 6));
+		pieces.add(new Pawn(WHITE, 7, 6));
+		pieces.add(new Rook(WHITE, 0, 7));
+		pieces.add(new Rook(WHITE, 7, 7));
+		pieces.add(new Knight(WHITE, 1, 7));
+		pieces.add(new Knight(WHITE, 6, 7));
+		pieces.add(new Bishop(WHITE, 2, 7));
+		pieces.add(new Bishop(WHITE, 5, 7));
+		pieces.add(new Queen(WHITE, 3, 7));
+		pieces.add(new King(WHITE, 4, 7));
 		
 		// black
-		pieces.add(new Pawn(movMech.BLACK, 0, 1));
-		pieces.add(new Pawn(movMech.BLACK, 1, 1));
-		pieces.add(new Pawn(movMech.BLACK, 2, 1));
-		pieces.add(new Pawn(movMech.BLACK, 3, 1));
-		pieces.add(new Pawn(movMech.BLACK, 4, 1));
-		pieces.add(new Pawn(movMech.BLACK, 5, 1));
-		pieces.add(new Pawn(movMech.BLACK, 6, 1));
-		pieces.add(new Pawn(movMech.BLACK, 7, 1));
-		pieces.add(new Rook(movMech.BLACK, 0, 0));
-		pieces.add(new Rook(movMech.BLACK, 7, 0));
-		pieces.add(new Knight(movMech.BLACK, 1, 0));
-		pieces.add(new Knight(movMech.BLACK, 6, 0));
-		pieces.add(new Bishop(movMech.BLACK, 2, 0));
-		pieces.add(new Bishop(movMech.BLACK, 5, 0));
-		pieces.add(new Queen(movMech.BLACK, 3, 0));
-		pieces.add(new King(movMech.BLACK, 4, 0));
+		pieces.add(new Pawn(BLACK, 0, 1));
+		pieces.add(new Pawn(BLACK, 1, 1));
+		pieces.add(new Pawn(BLACK, 2, 1));
+		pieces.add(new Pawn(BLACK, 3, 1));
+		pieces.add(new Pawn(BLACK, 4, 1));
+		pieces.add(new Pawn(BLACK, 5, 1));
+		pieces.add(new Pawn(BLACK, 6, 1));
+		pieces.add(new Pawn(BLACK, 7, 1));
+		pieces.add(new Rook(BLACK, 0, 0));
+		pieces.add(new Rook(BLACK, 7, 0));
+		pieces.add(new Knight(BLACK, 1, 0));
+		pieces.add(new Knight(BLACK, 6, 0));
+		pieces.add(new Bishop(BLACK, 2, 0));
+		pieces.add(new Bishop(BLACK, 5, 0));
+		pieces.add(new Queen(BLACK, 3, 0));
+		pieces.add(new King(BLACK, 4, 0));
 	}
 	
 	private void copyPieces(ArrayList<SuperPiece> from, ArrayList<SuperPiece> to) {
@@ -159,154 +159,9 @@ public class GamePanel extends JPanel implements Runnable{
 //	    }
 //	}
 	
-	public void update() {
-		 if (md.pressed) {
-//			 if activeP and selectedP == null, you can pick up a piece
-				if (movMech.activeP == null && movMech.selectedP == null) {
-					
-					int col = (md.x - board.boardX) / Board.SQ_SIZE;
-		            int row = (md.y - board.boardY) / Board.SQ_SIZE;
-					for (SuperPiece sp : sim) {		// if mouse is on current player's pieces, you can select it as the current piece
-						if (sp.turn == movMech.getCurrentTurn() && sp.col == col && sp.row == row) {
-							movMech.activeP = sp;
-							movMech.selectedP = sp;
-						}
-					}
-				} else {
-					// if the player is holding a piece, simulate the moves 
-//					movMech.simulateMove(md.x, md.y);
-					movMech.simulateMove();
-					
-				}
-		 }
+	private void update() {
+		
 	}
-	
-	
-//	public void update() {
-//		
-//		System.out.println("update is running");
-//
-//	    if (md.pressed) {
-//	    	
-//	    	System.out.println("nappress sya");
-//
-//	        int col = (md.x - board.boardX) / Board.SQ_SIZE;
-//	        int row = (md.y - board.boardY) / Board.SQ_SIZE;
-//	        
-//	        System.out.println("col: " + col);
-//	        System.out.println("row: " + row);
-//
-//	        System.out.println(
-//	            "Mouse: " + md.x + ", " + md.y +
-//	            " | Board: " + board.boardX + ", " + board.boardY +
-//	            " | Square: " + col + ", " + row
-//	        );
-//
-//	        if (movMech.activeP == null && movMech.selectedP == null) {
-//
-//	            for (SuperPiece sp : sim) {
-//
-//	                System.out.println(
-//	                    sp.type + " -> col: " + sp.col +
-//	                    ", row: " + sp.row +
-//	                    ", turn: " + sp.turn
-//	                );
-//
-//	                if (sp.turn == movMech.getCurrentTurn()
-//	                        && sp.col == col
-//	                        && sp.row == row) {
-//
-//	                    movMech.activeP = sp;
-//	                    movMech.selectedP = sp;
-//
-//	                    System.out.println("🔥 PICKED: " + sp.type);
-//	                    break;
-//	                }
-//	            }
-//
-//	        } else {
-//	            movMech.simulateMove(md.x, md.y);
-//	        }
-//	    }
-//	}
-	
-//	public void update() {
-//		
-//		 mouse is clicked
-//		if (md.pressed) {
-//			
-//			movMech.handleClick(md.x, md.y);
-//	        md.pressed = false;
-//	        System.out.println("nice");
-			
-	
-
-//			    if (md.pressed) {
-//
-//			        if (movMech.activeP == null) {
-//
-//			            // select piece
-//			            int col = md.x / Board.SQ_SIZE;
-//			            int row = md.y / Board.SQ_SIZE;
-//
-//			            movMech.selectPiece(col, row);
-//
-//			        } else {
-//
-//			            // drag
-//			            movMech.simulateMove();
-//			        }
-//			    }
-			
-			
-			// if activeP and selectedP == null, you can pick up a piece
-//			if (movMech.activeP == null && movMech.selectedP == null) {
-//				for (SuperPiece sp : sim) {		// if mouse is on current player's pieces, you can select it as the current piece
-//					if (sp.turn == movMech.getCurrentTurn() && sp.col == md.x/Board.SQ_SIZE && sp.row == md.y/Board.SQ_SIZE) {
-//						movMech.activeP = sp;
-//						movMech.selectedP = sp;
-//					}
-//				}
-//			} else {
-//				// if the player is holding a piece, simulate the moves 
-//				movMech.simulateMove(md.x, md.y);
-//				
-//			}
-//		}
-			
-
-//		    if (md.pressed) {
-//
-//		        // No piece selected yet
-//		        if (movMech.activeP == null && movMech.selectedP == null) {
-//
-////		            int col = md.x / Board.SQ_SIZE;
-////		            int row = md.y / Board.SQ_SIZE;
-//		        	int col = (md.x - board.boardX) / Board.SQ_SIZE;
-//		        	int row = (md.y - board.boardY) / Board.SQ_SIZE;
-//
-//		            for (SuperPiece sp : sim) {
-//
-//		                if (sp.turn == movMech.getCurrentTurn()
-//		                        && sp.col == col
-//		                        && sp.row == row) {
-//
-//		                    movMech.activeP = sp;
-//		                    movMech.selectedP = sp;
-//
-//		                    System.out.println("picked " + sp.type);
-//
-//		                    break;
-//		                }
-//		            }
-//
-//		        } else {
-//
-//		            // Piece is being dragged
-//		            movMech.simulateMove(md.x, md.y);
-//		        }
-//		    }
-//	}
 
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
@@ -330,21 +185,21 @@ public class GamePanel extends JPanel implements Runnable{
 			);
 		}
 
-		
-		if (movMech.activeP != null) {
-			
-			
-		// CLARK FIX MO SIMULATEMOVE, ILIPAT DITO SA GAMEPANEL LAHAT YUN	
-			
-			g2.setColor(Color.WHITE);
-			g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.7f));
-			g2.fillRect(board.boardX + movMech.activeP.col * Board.SQ_SIZE, board.boardY + movMech.activeP.row * Board.SQ_SIZE, Board.SQ_SIZE, Board.SQ_SIZE);
-			g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
-		    movMech.activeP.draw(g2);
-		    
-		    
-		    
-		}
+//		
+//		if (movMe ch.activeP != null) {
+//			
+//			
+//		// CLARK FIX MO SIMULATEMOVE, ILIPAT DITO SA GAMEPANEL LAHAT YUN	
+//			
+//			g2.setColor(Color.WHITE);
+//			g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.7f));
+//			g2.fillRect(board.boardX + movMech.activeP.col * Board.SQ_SIZE, board.boardY + movMech.activeP.row * Board.SQ_SIZE, Board.SQ_SIZE, Board.SQ_SIZE);
+//			g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+//		    movMech.activeP.draw(g2);
+//		    
+//		    
+//		    
+//		}
 	}
 
 	

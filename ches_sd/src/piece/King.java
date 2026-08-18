@@ -14,7 +14,7 @@ public class King extends SuperPiece{
 		type = Type.KING;
 		img = getImg("/piece/pawn");
 
-		if(turn == MoveMechanics.BLACK) {
+		if(turn == GamePanel.BLACK) {
 		    img = PaletteSwap.swap(
 		        img,
 		        PiecePalette.BLACK

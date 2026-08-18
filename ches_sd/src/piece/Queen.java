@@ -14,7 +14,7 @@ public class Queen extends SuperPiece{
 		type = Type.QUEEN;
 		img = getImg("/piece/queen");
 
-		if(turn == MoveMechanics.BLACK) {
+		if(turn == GamePanel.BLACK) {
 		    img = PaletteSwap.swap(
 		        img,
 		        PiecePalette.BLACK

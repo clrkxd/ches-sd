@@ -8,28 +8,28 @@ public class MoveMechanics {
 	
 	
 	GamePanel gp;
-	MouseDetection md;
+//	MouseDetection md;
 	
-	public SuperPiece selectedP;
-	public SuperPiece activeP;
+//	public SuperPiece selectedP;
+//	public SuperPiece activeP;
 
 	// color
-		public static final int WHITE = 0;
-		public static final int BLACK = 1;
-		private int currentTurn = WHITE;
+//		public static final int WHITE = 0;
+//		public static final int BLACK = 1;
+//		private int currentTurn = WHITE;
 		
 	public MoveMechanics(GamePanel gp, MouseDetection md) {
 		this.gp = gp;
-		this.md = md;
+//		this.md = md;
 	}
 
-	public int getCurrentTurn() {
-		return currentTurn;
-	}
-
-	public void setCurrentTurn(int currentTurn) {
-		this.currentTurn = currentTurn;
-	}
+//	public int getCurrentTurn() {
+//		return currentTurn;
+//	}
+//
+//	public void setCurrentTurn(int currentTurn) {
+//		this.currentTurn = currentTurn;
+//	}
 	
 //	public void selectPiece(int col, int row) {
 //
@@ -73,17 +73,17 @@ public class MoveMechanics {
 	 * chess is a turn-based strategy game, not real-time game unlike action platformers or 2D RPG games 
 	 * that's why a simulation for all the move is a great feature for a chess game
 	 */
-	public void simulateMove() {
-
-	    activeP.x = md.x - Board.boardX - Board.HALFSQ;
-	    activeP.y = md.y - Board.boardY - Board.HALFSQ;
-	    activeP.col = activeP.getCol(activeP.x);
-	    activeP.row = activeP.getRow(activeP.y);
-
-//	    activeP.x = md.x - Board.HALFSQ;
-//	    activeP.y = md.y - Board.HALFSQ;
-	}
-//	public void simulateMove(int mouseX, int mouseY) {
+//	public void simulateMove() {
+//
+//	    activeP.x = md.x - Board.boardX - Board.HALFSQ;
+//	    activeP.y = md.y - Board.boardY - Board.HALFSQ;
+//	    activeP.col = activeP.getCol(activeP.x);
+//	    activeP.row = activeP.getRow(activeP.y);
+//
+////	    activeP.x = md.x - Board.HALFSQ;
+////	    activeP.y = md.y - Board.HALFSQ;
+//	}
+////	public void simulateMove(int mouseX, int mouseY) {
 //		// this method will be passed on the handleClick method
 //		
 //		// if piece is held, update the position

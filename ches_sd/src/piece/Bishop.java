@@ -14,7 +14,7 @@ public class Bishop extends SuperPiece{
 		type = Type.BISHOP;
 		img = getImg("/piece/bishop");
 
-		if(turn == MoveMechanics.BLACK) {
+		if(turn == GamePanel.BLACK) {
 		    img = PaletteSwap.swap(
 		        img,
 		        PiecePalette.BLACK

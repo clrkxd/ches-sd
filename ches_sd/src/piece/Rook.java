@@ -14,7 +14,7 @@ public class Rook extends SuperPiece{
 		type = Type.ROOK;
 		img = getImg("/piece/rook");
 
-		if(turn == MoveMechanics.BLACK) {
+		if(turn == GamePanel.BLACK) {
 		    img = PaletteSwap.swap(
 		        img,
 		        PiecePalette.BLACK
