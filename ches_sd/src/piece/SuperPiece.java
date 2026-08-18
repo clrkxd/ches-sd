@@ -1,5 +1,6 @@
 package piece;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -15,7 +16,8 @@ public class SuperPiece {
 	public BufferedImage img;
 	public int x, y, col, row, prevCol, prevRow; //prevCol and prevRow are the previous col and row
 	public int turn; // color of turn
-	public int pieceX, pieceY;
+	public static int pieceX;
+	public static int pieceY;
 	
 	public SuperPiece(int turn, int col, int row) {
 		this.turn = turn;
@@ -71,5 +73,7 @@ public class SuperPiece {
 	
 	public void draw(Graphics2D g2) {
 		g2.drawImage(img, pieceX+x, pieceY+y, Board.SQ_SIZE, Board.SQ_SIZE, null);
+		g2.setColor(Color.red);
+		g2.drawRect(pieceX+x, pieceY+y, Board.SQ_SIZE, Board.SQ_SIZE);
 	}
 }
