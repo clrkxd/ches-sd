@@ -20,14 +20,15 @@ import piece.SuperPiece;
 
 public class GamePanel extends JPanel implements Runnable{
 	
-	public final static int FIN_W = 1024;
-	public final static int FIN_H = 768;
+	public final static int FIN_W = 896; // 1024
+	public final static int FIN_H = 640;  // 768
 	final int FPS = 60;
 	Thread gt;
 	
 	Board board = new Board();
-	MoveMechanics movMech = new MoveMechanics(this);
 	MouseDetection md = new MouseDetection();
+	MoveMechanics movMech = new MoveMechanics(this, md);
+	
 	
 	// pieces and simulation
 	public static ArrayList<SuperPiece> pieces = new ArrayList<>(); // backup
@@ -157,100 +158,122 @@ public class GamePanel extends JPanel implements Runnable{
 //	    }
 //	}
 	
-	
 	public void update() {
-		
-		System.out.println("update is running");
-
-	    if (md.pressed) {
-	    	
-	    	System.out.println("nappress sya");
-
-	        int col = (md.x - board.boardX) / Board.SQ_SIZE;
-	        int row = (md.y - board.boardY) / Board.SQ_SIZE;
-	        
-	        System.out.println("col: " + col);
-	        System.out.println("row: " + row);
-
-	        System.out.println(
-	            "Mouse: " + md.x + ", " + md.y +
-	            " | Board: " + board.boardX + ", " + board.boardY +
-	            " | Square: " + col + ", " + row
-	        );
-
-	        if (movMech.activeP == null && movMech.selectedP == null) {
-
-	            for (SuperPiece sp : sim) {
-
-	                System.out.println(
-	                    sp.type + " -> col: " + sp.col +
-	                    ", row: " + sp.row +
-	                    ", turn: " + sp.turn
-	                );
-
-	                if (sp.turn == movMech.getCurrentTurn()
-	                        && sp.col == col
-	                        && sp.row == row) {
-
-	                    movMech.activeP = sp;
-	                    movMech.selectedP = sp;
-
-	                    System.out.println("🔥 PICKED: " + sp.type);
-	                    break;
-	                }
-	            }
-
-	        } else {
-	            movMech.simulateMove(md.x, md.y);
-	        }
-	    }
+		 if (md.pressed) {
+//			 if activeP and selectedP == null, you can pick up a piece
+				if (movMech.activeP == null && movMech.selectedP == null) {
+					
+					int col = (md.x - board.boardX) / Board.SQ_SIZE;
+		            int row = (md.y - board.boardY) / Board.SQ_SIZE;
+					for (SuperPiece sp : sim) {		// if mouse is on current player's pieces, you can select it as the current piece
+						if (sp.turn == movMech.getCurrentTurn() && sp.col == col && sp.row == row) {
+							movMech.activeP = sp;
+							movMech.selectedP = sp;
+						}
+					}
+				} else {
+					// if the player is holding a piece, simulate the moves 
+//					movMech.simulateMove(md.x, md.y);
+					movMech.simulateMove();
+					
+				}
+		 }
 	}
+	
 	
 //	public void update() {
 //		
-//		// mouse is clicked
-////		if (md.pressed) {
-////			
-////			movMech.handleClick(md.x, md.y);
-////	        md.pressed = false;
-////	        System.out.println("nice");
-//			
-//	
+//		System.out.println("update is running");
 //
-////			    if (md.pressed) {
-////
-////			        if (movMech.activeP == null) {
-////
-////			            // select piece
-////			            int col = md.x / Board.SQ_SIZE;
-////			            int row = md.y / Board.SQ_SIZE;
-////
-////			            movMech.selectPiece(col, row);
-////
-////			        } else {
-////
-////			            // drag
-////			            movMech.simulateMove();
-////			        }
-////			    }
-//			
-//			
-////			// if activeP and selectedP == null, you can pick up a piece
-////			if (movMech.activeP == null && movMech.selectedP == null) {
-////				for (SuperPiece sp : sim) {		// if mouse is on current player's pieces, you can select it as the current piece
-////					if (sp.turn == movMech.getCurrentTurn() && sp.col == md.x/Board.SQ_SIZE && sp.row == md.y/Board.SQ_SIZE) {
-////						movMech.activeP = sp;
-////						movMech.selectedP = sp;
-////					}
-////				}
-////			} else {
-////				// if the player is holding a piece, simulate the moves 
-////				movMech.simulateMove(md.x, md.y);
-////				
-////			}
-////		}
-//			
+//	    if (md.pressed) {
+//	    	
+//	    	System.out.println("nappress sya");
 //
+//	        int col = (md.x - board.boardX) / Board.SQ_SIZE;
+//	        int row = (md.y - board.boardY) / Board.SQ_SIZE;
+//	        
+//	        System.out.println("col: " + col);
+//	        System.out.println("row: " + row);
+//
+//	        System.out.println(
+//	            "Mouse: " + md.x + ", " + md.y +
+//	            " | Board: " + board.boardX + ", " + board.boardY +
+//	            " | Square: " + col + ", " + row
+//	        );
+//
+//	        if (movMech.activeP == null && movMech.selectedP == null) {
+//
+//	            for (SuperPiece sp : sim) {
+//
+//	                System.out.println(
+//	                    sp.type + " -> col: " + sp.col +
+//	                    ", row: " + sp.row +
+//	                    ", turn: " + sp.turn
+//	                );
+//
+//	                if (sp.turn == movMech.getCurrentTurn()
+//	                        && sp.col == col
+//	                        && sp.row == row) {
+//
+//	                    movMech.activeP = sp;
+//	                    movMech.selectedP = sp;
+//
+//	                    System.out.println("🔥 PICKED: " + sp.type);
+//	                    break;
+//	                }
+//	            }
+//
+//	        } else {
+//	            movMech.simulateMove(md.x, md.y);
+//	        }
+//	    }
+//	}
+	
+//	public void update() {
+//		
+//		 mouse is clicked
+//		if (md.pressed) {
+//			
+//			movMech.handleClick(md.x, md.y);
+//	        md.pressed = false;
+//	        System.out.println("nice");
+			
+	
+
+//			    if (md.pressed) {
+//
+//			        if (movMech.activeP == null) {
+//
+//			            // select piece
+//			            int col = md.x / Board.SQ_SIZE;
+//			            int row = md.y / Board.SQ_SIZE;
+//
+//			            movMech.selectPiece(col, row);
+//
+//			        } else {
+//
+//			            // drag
+//			            movMech.simulateMove();
+//			        }
+//			    }
+			
+			
+			// if activeP and selectedP == null, you can pick up a piece
+//			if (movMech.activeP == null && movMech.selectedP == null) {
+//				for (SuperPiece sp : sim) {		// if mouse is on current player's pieces, you can select it as the current piece
+//					if (sp.turn == movMech.getCurrentTurn() && sp.col == md.x/Board.SQ_SIZE && sp.row == md.y/Board.SQ_SIZE) {
+//						movMech.activeP = sp;
+//						movMech.selectedP = sp;
+//					}
+//				}
+//			} else {
+//				// if the player is holding a piece, simulate the moves 
+//				movMech.simulateMove(md.x, md.y);
+//				
+//			}
+//		}
+			
+
 //		    if (md.pressed) {
 //
 //		        // No piece selected yet

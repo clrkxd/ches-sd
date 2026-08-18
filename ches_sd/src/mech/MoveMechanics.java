@@ -18,8 +18,9 @@ public class MoveMechanics {
 		public static final int BLACK = 1;
 		private int currentTurn = WHITE;
 		
-	public MoveMechanics(GamePanel gp) {
+	public MoveMechanics(GamePanel gp, MouseDetection md) {
 		this.gp = gp;
+		this.md = md;
 	}
 
 	public int getCurrentTurn() {
@@ -72,15 +73,23 @@ public class MoveMechanics {
 	 * chess is a turn-based strategy game, not real-time game unlike action platformers or 2D RPG games 
 	 * that's why a simulation for all the move is a great feature for a chess game
 	 */
-	public void simulateMove(int mouseX, int mouseY) {
-		// this method will be passed on the handleClick method
-		
-		// if piece is held, update the position
-//		activeP.x = md.x;
-//		activeP.y = md.y;
-		if (activeP != null) {
-	        activeP.x = mouseX;
-	        activeP.y = mouseY;
-	    }
+	public void simulateMove() {
+
+	    activeP.x = md.x - Board.boardX - Board.HALFSQ;
+	    activeP.y = md.y - Board.boardY - Board.HALFSQ;
+
+//	    activeP.x = md.x - Board.HALFSQ;
+//	    activeP.y = md.y - Board.HALFSQ;
 	}
+//	public void simulateMove(int mouseX, int mouseY) {
+//		// this method will be passed on the handleClick method
+//		
+//		// if piece is held, update the position
+////		activeP.x = md.x;
+////		activeP.y = md.y;
+//		if (activeP != null) {
+//	        activeP.x = mouseX;
+//	        activeP.y = mouseY;
+//	    }
+//	}
 }

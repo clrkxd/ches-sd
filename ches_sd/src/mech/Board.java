@@ -12,9 +12,10 @@ public class Board {
 	
 	static int scale = 2;
 	public final static int SQ_SIZE = 32 * scale;
-	public final static int HALFSQ = (SQ_SIZE/2)* scale;
+	public final static int HALFSQ = SQ_SIZE/2;
 	
-	public int boardX, boardY;
+	public static int boardX;
+	public static int boardY;
 	
 	public Board() {
 		
