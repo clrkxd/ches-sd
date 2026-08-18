@@ -2,7 +2,7 @@ package main;
 
 import javax.swing.JFrame;
 
-public class Main {
+public class Ches_SD {
 
 	public static void main(String[] args) {
 		JFrame w = new JFrame("ches-sd");
