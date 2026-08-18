@@ -36,7 +36,7 @@ public class GamePanel extends JPanel implements Runnable{
 	public static ArrayList<SuperPiece> sim = new ArrayList<>(); // simulates the pieces
 	
 	// piece selection UI
-	SuperPiece activeP, selectedP;
+	SuperPiece activePiece, selectedPiece;
 	
 	// color
 	public static final int WHITE = 0;
@@ -160,7 +160,25 @@ public class GamePanel extends JPanel implements Runnable{
 //	}
 	
 	private void update() {
+		// mouse pressed
+		if (md.pressed) {
+			if (activePiece == null) {
+				// if activePiece is null, user can pick up the pieces
+				for (SuperPiece p : sim) { //if md is on currentTurn's pieces, user can pick it up as the activePiecee
+					if (p.turn == currentTurn && p.col == md.x/Board.SQ_SIZE && p.row == md.y/Board.SQ_SIZE) {
+						activePiece = p;
+					}
+				}
+			} else {
+				simulateMove(); // if the player is holding a piece, simulate the next move
+			}
+		}
+	}
+	
+	private void simulateMove() {
 		
+		activePiece.x = md.x - Board.HALFSQ;
+		activePiece.y = md.y - Board.HALFSQ;
 	}
 
 	public void paintComponent(Graphics g) {
