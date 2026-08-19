@@ -44,16 +44,11 @@ public class GamePanel extends JPanel implements Runnable{
 	    int boardX = Board.SQ_SIZE;
 	    int boardY = Board.SQ_SIZE;
 
-	    chessPanel.setBounds(
-	        boardX,
-	        boardY,
-	        boardWidth,
-	        boardHeight
-	    );
+	    chessPanel.setBounds(boardX, boardY, boardWidth, boardHeight);
         add(chessPanel);
 		
-		addMouseMotionListener(md);
-		addMouseListener(md);
+//		addMouseMotionListener(md);
+//		addMouseListener(md);
 	}
 	
 	public void launch() {

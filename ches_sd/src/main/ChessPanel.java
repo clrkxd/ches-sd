@@ -22,7 +22,7 @@ public class ChessPanel extends JPanel{
 
 	Board board = new Board();
 	MouseDetection md;
-	MoveMechanics movMech = new MoveMechanics(this, md);
+	MoveMechanics movMech;
 	
 	// pieces and simulation
 	public static ArrayList<SuperPiece> pieces = new ArrayList<>(); // backup
@@ -39,6 +39,7 @@ public class ChessPanel extends JPanel{
 	
 	public ChessPanel(MouseDetection md) {
 		this.md = md;
+		
 		addMouseMotionListener(md);
 		addMouseListener(md);
 		
@@ -50,6 +51,8 @@ public class ChessPanel extends JPanel{
 	    setPreferredSize(new Dimension(boardWidth, boardHeight));
 	    setMinimumSize(new Dimension(boardWidth, boardHeight));
 	    setMaximumSize(new Dimension(boardWidth, boardHeight));
+	    setFocusable(true);
+	    requestFocusInWindow();
 
         movMech = new MoveMechanics(this, md);
 
@@ -111,8 +114,8 @@ public class ChessPanel extends JPanel{
 				int boardX = md.x - getX();
 				int boardY = md.y - getY();
 
-			    int col = boardX / Board.SQ_SIZE;
-			    int row = boardY / Board.SQ_SIZE;
+			    int col = md.x / Board.SQ_SIZE;
+			    int row = md.y / Board.SQ_SIZE;
 				// if activePiece is null, user can pick up the pieces
 				for (SuperPiece p : sim) { //if md is on currentTurn's pieces, user can pick it up as the activePiecee
 					if (p.turn == currentTurn && p.col == col && p.row == row) {
@@ -127,11 +130,14 @@ public class ChessPanel extends JPanel{
 	
 	private void simulateMove() {
 		
-	    int boardX = md.x - getX();
-	    int boardY = md.y - getY();
+	    int boardX = md.x;
+	    int boardY = md.y;
 
 	    activePiece.x = boardX - Board.HALFSQ;
 	    activePiece.y = boardY - Board.HALFSQ;
+		
+//		activePiece.x = md.x;
+//		activePiece.y = md.y;
 	}
 
 	public void paintComponent(Graphics g) {
@@ -148,12 +154,7 @@ public class ChessPanel extends JPanel{
 			
 			g2.setColor(Color.RED);
 
-			g2.drawRect(
-					p.pieceX,
-			        p.pieceY,
-			    Board.SQ_SIZE,
-			    Board.SQ_SIZE
-			);
+			g2.drawRect(p.pieceX, p.pieceY, Board.SQ_SIZE, Board.SQ_SIZE);
 		}
 
 //		

@@ -11,6 +11,8 @@ public class MouseDetection extends MouseAdapter{
 
 	@Override
 	public void mousePressed(MouseEvent e) {
+		x = e.getX();
+	    y = e.getY();
 		pressed = true;
 //		 x = e.getX();
 //		 y = e.getY();
@@ -19,9 +21,10 @@ public class MouseDetection extends MouseAdapter{
 	}
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		pressed = false;
-		 x = e.getX();
+		x = e.getX();
 		 y = e.getY();
+		pressed = false;
+		 
 	}
 	@Override
 	public void mouseDragged(MouseEvent e) {
