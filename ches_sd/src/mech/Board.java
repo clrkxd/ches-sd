@@ -23,23 +23,23 @@ public class Board {
 //		int boardSize = SQ_SIZE * 8;
 //		boardX = (GamePanel.FIN_W - boardSize) / 2;
 //		boardY = (GamePanel.FIN_H - boardSize) / 2;
-		centerTheBoard();
+//		centerTheBoard();
 	}
 	
 	
 	
 	
-	public void centerTheBoard() {
-//		int boardSize = SQ_SIZE * 8;
-//		boardX = (GamePanel.FIN_W - boardSize) / 2;
-//		boardY = (GamePanel.FIN_H - boardSize) / 2;	
-		
-		int boardWidth = MAX_COL * SQ_SIZE;
-        int boardHeight = MAX_ROW * SQ_SIZE;
-        boardX = (GamePanel.FIN_W - boardWidth) / 2;
-        boardY = (GamePanel.FIN_H - boardHeight) / 2;
-	}
-	
+//	public void centerTheBoard() {
+////		int boardSize = SQ_SIZE * 8;
+////		boardX = (GamePanel.FIN_W - boardSize) / 2;
+////		boardY = (GamePanel.FIN_H - boardSize) / 2;	
+//		
+//		int boardWidth = MAX_COL * SQ_SIZE;
+//        int boardHeight = MAX_ROW * SQ_SIZE;
+//        boardX = (GamePanel.FIN_W - boardWidth) / 2;
+//        boardY = (GamePanel.FIN_H - boardHeight) / 2;
+//	}
+//	
 	
 	             	
 	public void draw(Graphics2D g2) {

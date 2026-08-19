@@ -1,5 +1,6 @@
 package mech;
 
+import main.ChessPanel;
 import main.GamePanel;
 import main.MouseDetection;
 import piece.SuperPiece;
@@ -7,7 +8,7 @@ import piece.SuperPiece;
 public class MoveMechanics {
 	
 	
-	GamePanel gp;
+	ChessPanel chP;
 //	MouseDetection md;
 	
 //	public SuperPiece selectedP;
@@ -18,8 +19,8 @@ public class MoveMechanics {
 //		public static final int BLACK = 1;
 //		private int currentTurn = WHITE;
 		
-	public MoveMechanics(GamePanel gp, MouseDetection md) {
-		this.gp = gp;
+	public MoveMechanics(ChessPanel chessPanel, MouseDetection md) {
+		this.chP = chessPanel;
 //		this.md = md;
 	}
 

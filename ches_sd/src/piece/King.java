@@ -1,5 +1,6 @@
 package piece;
 
+import main.ChessPanel;
 import main.GamePanel;
 import mech.MoveMechanics;
 import mech.PaletteSwap;
@@ -14,7 +15,7 @@ public class King extends SuperPiece{
 		type = Type.KING;
 		img = getImg("/piece/pawn");
 
-		if(turn == GamePanel.BLACK) {
+		if(turn == ChessPanel.BLACK) {
 		    img = PaletteSwap.swap(
 		        img,
 		        PiecePalette.BLACK
