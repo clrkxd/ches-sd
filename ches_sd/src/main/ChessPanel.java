@@ -1,5 +1,6 @@
 package main;
 
+import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -29,7 +30,8 @@ public class ChessPanel extends JPanel{
 	public static ArrayList<SuperPiece> sim = new ArrayList<>(); // simulates the pieces
 	
 	// piece selection UI
-	SuperPiece activePiece, selectedPiece;
+	SuperPiece activePiece;
+	SuperPiece selectedPiece;
 	
 	
 	// color
@@ -111,8 +113,8 @@ public class ChessPanel extends JPanel{
 		if (md.pressed) {
 			if (activePiece == null) {
 				
-				int boardX = md.x - getX();
-				int boardY = md.y - getY();
+//				int boardX = md.x - getX();
+//				int boardY = md.y - getY();
 
 			    int col = md.x / Board.SQ_SIZE;
 			    int row = md.y / Board.SQ_SIZE;
@@ -120,6 +122,7 @@ public class ChessPanel extends JPanel{
 				for (SuperPiece p : sim) { //if md is on currentTurn's pieces, user can pick it up as the activePiecee
 					if (p.turn == currentTurn && p.col == col && p.row == row) {
 						activePiece = p;
+//						selectedPiece = activePiece;
 					}
 				}
 			} else {
@@ -138,6 +141,9 @@ public class ChessPanel extends JPanel{
 		
 //		activePiece.x = md.x;
 //		activePiece.y = md.y;
+	    
+	    activePiece.col = activePiece.getCol(activePiece.x);
+	    activePiece.row = activePiece.getRow(activePiece.y);
 	}
 
 	public void paintComponent(Graphics g) {
@@ -152,11 +158,22 @@ public class ChessPanel extends JPanel{
 		for (SuperPiece p: sim) {
 			p.draw(g2);
 			
-			g2.setColor(Color.RED);
-
-			g2.drawRect(p.pieceX, p.pieceY, Board.SQ_SIZE, Board.SQ_SIZE);
+//			g2.setColor(Color.RED);
+//
+//			g2.drawRect(SuperPiece.pieceX, SuperPiece.pieceY, Board.SQ_SIZE, Board.SQ_SIZE);
 		}
-
+		
+		if (activePiece != null) {
+			g2.setColor(Color.WHITE);
+			g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.7f));
+			g2.fillRect(board.boardX + activePiece.col * Board.SQ_SIZE, board.boardY + activePiece.row * Board.SQ_SIZE, Board.SQ_SIZE, Board.SQ_SIZE);
+			g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+		
+			// draw the activePiece
+			activePiece.draw(g2);
+		}
+//
+		
 //		
 //		if (movMe ch.activeP != null) {
 //			
