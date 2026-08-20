@@ -71,6 +71,14 @@ public class SuperPiece {
 //        pieceY = (GamePanel.FIN_H - boardHeight) / 2;
 //	}
 	
+	public void updatePos() {
+		
+		x = getX(col);
+		y = getY(row);
+		prevCol = getCol(x);
+		prevRow = getRow(y);
+	}
+	
 	public void draw(Graphics2D g2) {
 		g2.drawImage(img, x, y, Board.SQ_SIZE, Board.SQ_SIZE, null);
 //		g2.setColor(Color.red);

@@ -127,6 +127,13 @@ public class ChessPanel extends JPanel{
 				}
 			} else {
 				simulateMove(); // if the player is holding a piece, simulate the next move
+			}	
+		}
+		// release
+		if (!md.pressed) {
+			if (activePiece != null) {
+				activePiece.updatePos();
+				activePiece = null;
 			}
 		}
 	}
