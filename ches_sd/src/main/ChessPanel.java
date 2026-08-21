@@ -32,6 +32,7 @@ public class ChessPanel extends JPanel{
 	// piece selection UI
 	SuperPiece activePiece;
 	SuperPiece selectedPiece;
+	boolean draggin = false;
 	
 	
 	// color
@@ -111,7 +112,7 @@ public class ChessPanel extends JPanel{
 	public void updateGame() {
 		// mouse pressed
 		if (md.pressed) {
-			if (activePiece == null) {
+			if (activePiece == null && selectedPiece == null) {
 				
 //				int boardX = md.x - getX();
 //				int boardY = md.y - getY();
@@ -125,17 +126,49 @@ public class ChessPanel extends JPanel{
 //						selectedPiece = activePiece;
 					}
 				}
-			} else {
-				simulateMove(); // if the player is holding a piece, simulate the next move
-			}	
+			} 
+//			else {
+//				simulateMove(); // if the player is holding a piece, simulate the next move
+//			}
+			// A piece is being held
+	        if (activePiece != null && md.dragged) {
+	            draggin = true;
+	            simulateMove();
+	        }
 		}
-		// release
-		if (!md.pressed) {
-			if (activePiece != null) {
-				activePiece.updatePos();
-				activePiece = null;
-			}
-		}
+//		// release
+//		if (!md.pressed) {
+//			if (activePiece != null) {
+//				activePiece.updatePos();
+//				activePiece = null;
+//			}
+//		}
+		// Mouse released
+	    if (!md.pressed) {
+
+	        if (activePiece != null) {
+
+	            if (draggin) {
+
+	                // ==========================
+	                // DRAG AND DROP
+	                // ==========================
+
+	                activePiece.updatePos();
+
+	            } else {
+
+	                // ==========================
+	                // SELECT TO MOVE
+	                // ==========================
+
+	                selectedPiece = activePiece;
+	            }
+
+	            activePiece = null;
+	            draggin = false;
+	        }
+	    }
 	}
 	
 	private void simulateMove() {

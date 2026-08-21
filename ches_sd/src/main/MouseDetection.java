@@ -8,12 +8,20 @@ public class MouseDetection extends MouseAdapter{
 	
 	public int x, y;
 	public boolean pressed;
+	public boolean dragged;
+	
+	public int pressX, pressY;
 
 	@Override
 	public void mousePressed(MouseEvent e) {
+		pressed = true;
+		dragged = false;
+
+	    pressX = e.getX();
+	    pressY = e.getY();
 		x = e.getX();
 	    y = e.getY();
-		pressed = true;
+		
 //		 x = e.getX();
 //		 y = e.getY();
 		 
@@ -30,7 +38,14 @@ public class MouseDetection extends MouseAdapter{
 	public void mouseDragged(MouseEvent e) {
 	
 		x = e.getX();
-		y = e.getY();
+	    y = e.getY();
+
+	    int dx = x - pressX;
+	    int dy = y - pressY;
+
+	    if (Math.abs(dx) > 5 || Math.abs(dy) > 5) {
+	        dragged = true;
+	    }
 	}
 	@Override
 	public void mouseMoved(MouseEvent e) {
