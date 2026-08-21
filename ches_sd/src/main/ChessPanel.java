@@ -149,18 +149,14 @@ public class ChessPanel extends JPanel{
 	        if (activePiece != null) {
 
 	            if (draggin) {
-
-	                // ==========================
 	                // DRAG AND DROP
-	                // ==========================
-
+	               
 	                activePiece.updatePos();
 
 	            } else {
 
-	                // ==========================
 	                // SELECT TO MOVE
-	                // ==========================
+	                
 
 	                selectedPiece = activePiece;
 	            }
@@ -214,21 +210,7 @@ public class ChessPanel extends JPanel{
 		}
 //
 		
-//		
-//		if (movMe ch.activeP != null) {
-//			
-//			
-//		// CLARK FIX MO SIMULATEMOVE, ILIPAT DITO SA GAMEPANEL LAHAT YUN	
-//			
-//			g2.setColor(Color.WHITE);
-//			g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.7f));
-//			g2.fillRect(board.boardX + movMech.activeP.col * Board.SQ_SIZE, board.boardY + movMech.activeP.row * Board.SQ_SIZE, Board.SQ_SIZE, Board.SQ_SIZE);
-//			g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
-//		    movMech.activeP.draw(g2);
-//		    
-//		    
-//		    
-//		}
+
 	}
 
 }

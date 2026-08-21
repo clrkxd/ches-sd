@@ -14,8 +14,8 @@ public class Board {
 	public final static int SQ_SIZE = 32 * scale;
 	public final static int HALFSQ = SQ_SIZE/2;
 	
-	public static int boardX;
-	public static int boardY;
+	public int boardX;
+	public int boardY;
 	
 	public Board() {
 		
