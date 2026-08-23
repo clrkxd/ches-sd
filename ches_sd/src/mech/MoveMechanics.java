@@ -9,15 +9,7 @@ public class MoveMechanics {
 	
 	
 	ChessPanel chP;
-//	MouseDetection md;
-	
-//	public SuperPiece selectedP;
-//	public SuperPiece activeP;
 
-	// color
-//		public static final int WHITE = 0;
-//		public static final int BLACK = 1;
-//		private int currentTurn = WHITE;
 		
 	public MoveMechanics(ChessPanel chessPanel, MouseDetection md) {
 		this.chP = chessPanel;
