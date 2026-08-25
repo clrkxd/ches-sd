@@ -109,13 +109,42 @@ public class ChessPanel extends JPanel{
 		}
 	}
 	
+	private void moveSelectedPiece(int col, int row) {
+
+	    selectedPiece.col = col;
+	    selectedPiece.row = row;
+
+	    selectedPiece.updatePos();
+
+	    selectedPiece = null;
+	}
+	
 	public void updateGame() {
+		
+		// second click logicm check this later
+		 if (md.justPressed) {
+
+		        int col = md.x / Board.SQ_SIZE;
+		        int row = md.y / Board.SQ_SIZE;
+
+		        // SECOND CLICK
+		        if (selectedPiece != null) {
+
+		            moveSelectedPiece(col, row);
+
+		            md.justPressed = false;
+		            return;
+		        }
+		    }
+		
+		
+		
 		// mouse pressed
 		if (md.pressed) {
 			if (activePiece == null && selectedPiece == null) {
 				
-//				int boardX = md.x - getX();
-//				int boardY = md.y - getY();
+				int boardX = md.x - getX();
+				int boardY = md.y - getY();
 
 			    int col = md.x / Board.SQ_SIZE;
 			    int row = md.y / Board.SQ_SIZE;
@@ -165,6 +194,9 @@ public class ChessPanel extends JPanel{
 	            draggin = false;
 	        }
 	    }
+	    
+	    // Reset click
+	    md.justPressed = false;
 	}
 	
 	private void simulateMove() {
