@@ -208,7 +208,6 @@ public class ChessPanel extends JPanel{
 			// draw the activePiece
 			activePiece.draw(g2);
 		}
-//
 		
 
 	}
