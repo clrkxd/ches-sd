@@ -9,7 +9,9 @@ public class MouseDetection extends MouseAdapter{
 	public int x, y;
 	public boolean pressed;
 	public boolean dragged;
+//	public boolean justPressed;
 	public boolean justPressed;
+//	public int pressCount;
 	
 	public int pressX, pressY;
 
@@ -19,6 +21,8 @@ public class MouseDetection extends MouseAdapter{
 		dragged = false;
 		justPressed = true;
 
+//		pressCount += 1;
+//		System.out.println(pressCount);
 	    pressX = e.getX();
 	    pressY = e.getY();
 		x = e.getX();
