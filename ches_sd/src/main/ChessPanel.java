@@ -156,22 +156,14 @@ public class ChessPanel extends JPanel{
 					}
 				}
 			} 
-//			else {
-//				simulateMove(); // if the player is holding a piece, simulate the next move
-//			}
+			
 			// A piece is being held
 	        if (activePiece != null && md.dragged) {
 	            draggin = true;
 	            simulateMove();
 	        }
 		}
-//		// release
-//		if (!md.pressed) {
-//			if (activePiece != null) {
-//				activePiece.updatePos();
-//				activePiece = null;
-//			}
-//		}
+
 		// Mouse released
 	    if (!md.pressed) {
 
@@ -188,6 +180,7 @@ public class ChessPanel extends JPanel{
 	                
 
 	                selectedPiece = activePiece;
+	                System.out.println(selectedPiece.type);
 	            }
 
 	            activePiece = null;
