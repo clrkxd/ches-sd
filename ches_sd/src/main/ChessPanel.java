@@ -145,11 +145,7 @@ public class ChessPanel extends JPanel{
 		            
 //		            return;
 		        }
-		        
-		        
 		    }
-		
-		
 		
 		// mouse pressed
 		if (md.pressed) {
@@ -159,7 +155,6 @@ public class ChessPanel extends JPanel{
 				int boardY = md.y - getY();
 				
 //				pressCount += 1;
-
 			    int col = md.x / Board.SQ_SIZE;
 			    int row = md.y / Board.SQ_SIZE;
 				// if activePiece is null, user can pick up the pieces
@@ -191,23 +186,18 @@ public class ChessPanel extends JPanel{
 	            } else {
 
 	                // SELECT TO MOVE
-	                
-
 	                selectedPiece = activePiece;
 	                System.out.println(selectedPiece.type);
 	                pressCount = 0;
 	            }
 
 	            activePiece = null;
-	            draggin = false;
-	            
-	            
+	            draggin = false;  
 	        }
 	    }
 	    
 	    // Reset click
-	            md.justPressed = false;
-	            
+	            md.justPressed = false;  
 	}
 	
 	private void simulateMove() {
