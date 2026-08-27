@@ -81,7 +81,7 @@ public class SuperPiece {
 	
 	public void draw(Graphics2D g2) {
 		g2.drawImage(img, x, y, Board.SQ_SIZE, Board.SQ_SIZE, null);
-//		g2.setColor(Color.red);
-//		g2.drawRect(pieceX+x, pieceY+y, Board.SQ_SIZE, Board.SQ_SIZE);
+		g2.setColor(Color.red);
+		g2.drawRect(pieceX+x, pieceY+y, Board.SQ_SIZE, Board.SQ_SIZE);
 	}
 }
