@@ -13,12 +13,12 @@
 * Pixel-art graphics
 
    
-## 📁 Project Structure
+## Project Structure
 
 ```
 ```
 
-## 🚀 How to Run
+## How to Run
 
 ### Requirements
 
@@ -41,7 +41,7 @@ git clone https://github.com/yourusername/ches-sd.git
 Ches_SD.java
 ```
 
-## 🎮 Controls
+## Controls
 <!--
 | Key   | Action     |
 | ----- | ---------- |
@@ -72,8 +72,7 @@ Ches_SD.java
 
 The game is still actively being developed. Features and systems may change as development continues.
 
-## 📜 License
-
+## License
 **ALL RIGHTS RESERVED**
 
 ## Author
