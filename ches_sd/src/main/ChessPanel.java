@@ -113,14 +113,29 @@ public class ChessPanel extends JPanel{
 		}
 	}
 	
-	private void moveSelectedPiece(int col, int row) {
+	private void moveSelectedPiece(int pickedCol, int pickedRow) {
 
-	    selectedPiece.col = col;
-	    selectedPiece.row = row;
+//	    selectedPiece.col = col;
+//	    selectedPiece.row = row;
+//
+//	    selectedPiece.updatePos();
+//
+//	    selectedPiece = null;
 
-	    selectedPiece.updatePos();
+	    if (selectedPiece.canMove(pickedCol, pickedRow)) {
 
-	    selectedPiece = null;
+	        selectedPiece.col = pickedCol;
+	        selectedPiece.row = pickedRow;
+
+	        selectedPiece.x = pickedCol * Board.SQ_SIZE + Board.HALFSQ;
+	        selectedPiece.y = pickedRow * Board.SQ_SIZE + Board.HALFSQ;
+
+	        selectedPiece.updatePos();
+
+	        selectedPiece = null;
+	        
+	    }
+
 	}
 	
 	public void updateGame() {
