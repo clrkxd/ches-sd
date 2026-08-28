@@ -79,6 +79,25 @@ public class SuperPiece {
 		prevRow = getRow(y);
 	}
 	
+	public void resetPos() {
+		
+		col = prevCol;
+		row = prevRow;
+		x = getX(col);
+		y = getY(row);
+	}
+	
+	public boolean canMove(int pickedCol, int pickedRow) {
+		return false;
+	}
+	
+	public boolean isInsideBoard(int pickedCol, int pickedRow) {
+		if (pickedCol >= 0 && pickedCol <= 7 && pickedRow >= 0 && pickedRow <= 7) {
+			return true;
+		}
+		return false;
+	}
+	
 	public void draw(Graphics2D g2) {
 		g2.drawImage(img, x, y, Board.SQ_SIZE, Board.SQ_SIZE, null);
 		g2.setColor(Color.red);

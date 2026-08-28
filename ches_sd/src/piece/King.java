@@ -13,7 +13,7 @@ public class King extends SuperPiece{
 		// TODO Auto-generated constructor stub
 		
 		type = Type.KING;
-		img = getImg("/piece/pawn");
+		img = getImg("/piece/king");
 
 		if(turn == ChessPanel.BLACK) {
 		    img = PaletteSwap.swap(
@@ -21,6 +21,17 @@ public class King extends SuperPiece{
 		        PiecePalette.BLACK
 		    );
 		}
+	}
+	
+	public boolean canMove(int pickedCol, int pickedRow) {
+		 if (isInsideBoard(pickedCol, pickedRow)) {
+			 
+			 if (Math.abs(pickedCol - prevCol) + Math.abs(pickedRow - prevRow) == 1 ||
+					 Math.abs(pickedCol - prevCol) * Math.abs(pickedRow - prevRow) == 1) {
+				 return true;
+			 }
+		 }
+		return false;
 	}
 
 	

@@ -40,6 +40,10 @@ public class ChessPanel extends JPanel{
 	public static final int BLACK = 1;
 	int currentTurn = WHITE;
 	
+	
+	boolean canMove;
+	boolean validSquare;
+	
 	public ChessPanel(MouseDetection md) {
 		this.md = md;
 		
@@ -80,7 +84,7 @@ public class ChessPanel extends JPanel{
 		pieces.add(new Bishop(WHITE, 2, 7));
 		pieces.add(new Bishop(WHITE, 5, 7));
 		pieces.add(new Queen(WHITE, 3, 7));
-		pieces.add(new King(WHITE, 4, 7));
+		pieces.add(new King(WHITE, 4, 5));
 		
 		// black
 		pieces.add(new Pawn(BLACK, 0, 1));
@@ -180,8 +184,11 @@ public class ChessPanel extends JPanel{
 
 	            if (draggin) {
 	                // DRAG AND DROP
+	            	if (validSquare) {
+	            		activePiece.updatePos();
+	            	}
 	               
-	                activePiece.updatePos();
+	                
 
 	            } else {
 
@@ -191,6 +198,7 @@ public class ChessPanel extends JPanel{
 	                pressCount = 0;
 	            }
 
+	            activePiece.resetPos();
 	            activePiece = null;
 	            draggin = false;  
 	        }
@@ -201,6 +209,9 @@ public class ChessPanel extends JPanel{
 	}
 	
 	private void simulateMove() {
+		
+		canMove = false;
+		validSquare = false;
 		
 	    int boardX = md.x;
 	    int boardY = md.y;
@@ -213,6 +224,11 @@ public class ChessPanel extends JPanel{
 	    
 	    activePiece.col = activePiece.getCol(activePiece.x);
 	    activePiece.row = activePiece.getRow(activePiece.y);
+	    
+	    if(activePiece.canMove(activePiece.col, activePiece.row)) {
+	    	canMove = true;
+	    	validSquare = true;
+	    }
 	}
 
 	public void paintComponent(Graphics g) {
@@ -233,10 +249,14 @@ public class ChessPanel extends JPanel{
 		}
 		
 		if (activePiece != null) {
-			g2.setColor(Color.WHITE);
-			g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.7f));
-			g2.fillRect(board.boardX + activePiece.col * Board.SQ_SIZE, board.boardY + activePiece.row * Board.SQ_SIZE, Board.SQ_SIZE, Board.SQ_SIZE);
-			g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+			
+			if (canMove) {
+				g2.setColor(Color.WHITE);
+				g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.7f));
+				g2.fillRect(board.boardX + activePiece.col * Board.SQ_SIZE, board.boardY + activePiece.row * Board.SQ_SIZE, Board.SQ_SIZE, Board.SQ_SIZE);
+				g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+			}
+			
 		
 			// draw the activePiece
 			activePiece.draw(g2);
