@@ -10,7 +10,6 @@ public class Ches_SD {
 		
 		ImageIcon icon = new ImageIcon(Ches_SD.class.getResource("/piece/pawn.png"));
 
-		
         w.setIconImage(icon.getImage());
 		
 		w.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
