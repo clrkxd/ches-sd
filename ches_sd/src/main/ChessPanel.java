@@ -115,12 +115,6 @@ public class ChessPanel extends JPanel{
 	
 	private void moveSelectedPiece(int pickedCol, int pickedRow) {
 
-//	    selectedPiece.col = col;
-//	    selectedPiece.row = row;
-//
-//	    selectedPiece.updatePos();
-//
-//	    selectedPiece = null;
 
 	    if (selectedPiece.canMove(pickedCol, pickedRow)) {
 
