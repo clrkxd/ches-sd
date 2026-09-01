@@ -303,9 +303,7 @@ public class ChessPanel extends JPanel{
 	
 	public void updateGame() {
 
-	    // =========================
 	    // MOUSE JUST PRESSED
-	    // =========================
 	    if (md.justPressed) {
 
 	        int col = md.x / Board.SQ_SIZE;
@@ -341,9 +339,7 @@ public class ChessPanel extends JPanel{
 	    }
 
 
-	    // =========================
 	    // DRAGGING
-	    // =========================
 	    if (md.pressed && activePiece != null) {
 
 	        if (md.dragged) {
@@ -355,9 +351,7 @@ public class ChessPanel extends JPanel{
 	    }
 
 
-	    // =========================
 	    // RELEASE
-	    // =========================
 	    if (!md.pressed && activePiece != null) {
 
 	        if (draggin) {
@@ -372,7 +366,7 @@ public class ChessPanel extends JPanel{
 	            // CLICK ONLY
 	            selectedPiece = activePiece;
 
-	            allLegalMoves(selectedPiece);
+//	            allLegalMoves(selectedPiece);
 	        }
 
 	        activePiece.resetPos();
@@ -436,7 +430,7 @@ private void allLegalMoves(SuperPiece p) {
 //			g2.drawRect(SuperPiece.pieceX, SuperPiece.pieceY, Board.SQ_SIZE, Board.SQ_SIZE);
 		}
 		
-		if (activePiece != null) {
+		if (activePiece != null || selectedPiece != null) {
 			
 			if (canMove) {
 				g2.setColor(Color.WHITE);
