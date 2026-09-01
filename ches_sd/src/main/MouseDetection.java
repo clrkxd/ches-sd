@@ -53,5 +53,7 @@ public class MouseDetection extends MouseAdapter{
 	public void mouseMoved(MouseEvent e) {
 		x = e.getX();
 		y = e.getY();
+		
+		pressed = false;
 	}
 }

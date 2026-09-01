@@ -128,100 +128,258 @@ public class ChessPanel extends JPanel{
 	        selectedPiece.updatePos();
 
 	        selectedPiece = null;
-	        
-	    }
+	        legalMoves.clear();
+	        }
 
 	}
 	
-	public void updateGame() {
-		
-		 int pressCount = 0;
-		
-//		selectedPiece = null;
-		// second click logic check this later
-		 if (md.justPressed) {
-			
-		        int col = md.x / Board.SQ_SIZE;
-		        int row = md.y / Board.SQ_SIZE;
-		        
-		        pressCount++;
-		        System.out.println("press Count:" + pressCount);
-		        
-		        
-
-		        // SECOND CLICK
-		        if (selectedPiece != null && pressCount == 1) {
-		        	
-		        	pressCount = 0;
-			        System.out.println("press Count:" + pressCount);
-
-		            moveSelectedPiece(col, row);
-
-		            md.justPressed = false;
-		            
+//	public void updateGame() {
+//		
+//		 
+//		
+////		selectedPiece = null;
+//		// second click logic check this later
+//		 if (md.justPressed) {
+//			
+//		        int col = md.x / Board.SQ_SIZE;
+//		        int row = md.y / Board.SQ_SIZE;
+//		        
+//		      
+////		        System.out.println("press Count:" + pressCount);
+//		        
+//		        
+//
+//		        // SECOND CLICK
+//		        if (selectedPiece != null) {
+//		        	
+////		        	pressCount = 0;
+////			        System.out.println("press Count:" + pressCount);
+//
+//		            moveSelectedPiece(col, row);
+//
+//		            md.justPressed = false;
+//		            
 //		            return;
-		        }
-		    }
-		
-		// mouse pressed
-		if (md.pressed) {
-			if (activePiece == null && selectedPiece == null) {
-				
-				int boardX = md.x - getX();
-				int boardY = md.y - getY();
-				
-//				pressCount += 1;
-			    int col = md.x / Board.SQ_SIZE;
-			    int row = md.y / Board.SQ_SIZE;
-				// if activePiece is null, user can pick up the pieces
-				for (SuperPiece p : sim) { //if md is on currentTurn's pieces, user can pick it up as the activePiecee
-					if (p.turn == currentTurn && p.col == col && p.row == row) {
-						activePiece = p;
-//						selectedPiece = activePiece;
-					}
-				}
-			} 
-			
-			// A piece is being held
-	        if (activePiece != null && md.dragged) {
+//		        }
+//		    }
+//		
+//		// mouse pressed
+//		if (md.pressed) {
+//			if (activePiece == null && selectedPiece == null) {
+//				
+//				int boardX = md.x - getX();
+//				int boardY = md.y - getY();
+//				
+////				pressCount += 1;
+//			    int col = md.x / Board.SQ_SIZE;
+//			    int row = md.y / Board.SQ_SIZE;
+//				// if activePiece is null, user can pick up the pieces
+//				for (SuperPiece p : sim) { //if md is on currentTurn's pieces, user can pick it up as the activePiecee
+//					if (p.turn == currentTurn && p.col == col && p.row == row) {
+//						activePiece = p;
+////						selectedPiece = activePiece;
+//					}
+//				}
+//			} 
+//			
+//			// A piece is being held
+//	        if (activePiece != null && md.dragged) {
+//	            draggin = true;
+//	            simulateMove();
+//	        }
+//		}
+//
+//		// Mouse released
+//	    if (!md.pressed) {
+//
+//	        if (activePiece != null) {
+//
+//	            if (draggin) {
+//	                // DRAG AND DROP
+//	            	if (validSquare) {
+//	            		activePiece.updatePos();
+//	            		
+//	            		allLegalMoves(activePiece);
+//	            	}
+//	               
+//	                
+//
+//	            } else {
+//
+//	                // SELECT TO MOVE
+//	                selectedPiece = activePiece;
+//	                System.out.println(selectedPiece.type);
+////	                pressCount = 0;
+//	                allLegalMoves(selectedPiece);
+//	            }
+//
+//	            activePiece.resetPos();
+//	            activePiece = null;
+//	            draggin = false; 
+////	            legalMoves.clear();
+//	        }
+//	    }
+//	    
+//	    // Reset click
+//	            md.justPressed = false;  
+//	}
+	
+//	public void updateGame() {
+//
+//	    // =========================
+//	    // MOUSE PRESSED
+//	    // =========================
+//	    if (md.justPressed) {
+//
+//	        int col = md.x / Board.SQ_SIZE;
+//	        int row = md.y / Board.SQ_SIZE;
+//
+//	        // If a piece is already selected,
+//	        // this click is the destination.
+//	        if (selectedPiece != null) {
+//
+//	            moveSelectedPiece(col, row);
+//
+//	            md.justPressed = false;
+//	            return;
+//	        }
+//
+//	        // Find piece to pick up
+//	        for (SuperPiece p : sim) {
+//
+//	            if (p.turn == currentTurn &&
+//	                p.col == col &&
+//	                p.row == row) {
+//
+//	                activePiece = p;
+//	                break;
+//	            }
+//	        }
+//
+//	        md.justPressed = false;
+//	    }
+//
+//
+//	    // =========================
+//	    // MOUSE HELD
+//	    // =========================
+//	    if (md.pressed && activePiece != null) {
+//
+//	        // Mouse moved while holding the piece
+//	        if (md.dragged) {
+//	            draggin = true;
+//	            simulateMove();
+//	        }
+//	    }
+//
+//
+//	    // =========================
+//	    // MOUSE RELEASED
+//	    // =========================
+//	    if (!md.pressed && activePiece != null) {
+//
+//	        if (draggin) {
+//
+//	            // DRAG AND DROP
+//	            if (validSquare) {
+//	                activePiece.updatePos();
+//	            }
+//
+//	        } else {
+//
+//	            // JUST CLICKED
+//	            selectedPiece = activePiece;
+//
+//	            System.out.println("Selected: " + selectedPiece.type);
+//
+//	            allLegalMoves(selectedPiece);
+//	        }
+//
+//	        activePiece.resetPos();
+//	        activePiece = null;
+//	        draggin = false;
+//	    }
+//	}
+	
+	public void updateGame() {
+
+	    // =========================
+	    // MOUSE JUST PRESSED
+	    // =========================
+	    if (md.justPressed) {
+
+	        int col = md.x / Board.SQ_SIZE;
+	        int row = md.y / Board.SQ_SIZE;
+
+	        // SECOND CLICK
+	        if (selectedPiece != null) {
+
+	            moveSelectedPiece(col, row);
+
+	            md.justPressed = false;
+	            return;
+	        }
+
+	        // FIRST CLICK
+	        if (activePiece == null) {
+
+	            for (SuperPiece p : sim) {
+
+	                if (p.turn == currentTurn &&
+	                    p.col == col &&
+	                    p.row == row) {
+
+	                    activePiece = p;
+	                    
+	                    allLegalMoves(activePiece);
+	                    break;
+	                }
+	            }
+	        }
+
+	        md.justPressed = false;
+	    }
+
+
+	    // =========================
+	    // DRAGGING
+	    // =========================
+	    if (md.pressed && activePiece != null) {
+
+	        if (md.dragged) {
+
 	            draggin = true;
+
 	            simulateMove();
 	        }
-		}
+	    }
 
-		// Mouse released
-	    if (!md.pressed) {
 
-	        if (activePiece != null) {
+	    // =========================
+	    // RELEASE
+	    // =========================
+	    if (!md.pressed && activePiece != null) {
 
-	            if (draggin) {
-	                // DRAG AND DROP
-	            	if (validSquare) {
-	            		activePiece.updatePos();
-	            		
-	            		allLegalMoves(activePiece);
-	            	}
-	               
-	                
+	        if (draggin) {
 
-	            } else {
-
-	                // SELECT TO MOVE
-	                selectedPiece = activePiece;
-	                System.out.println(selectedPiece.type);
-	                pressCount = 0;
-	                allLegalMoves(selectedPiece);
+	            // DRAG AND DROP
+	            if (validSquare) {
+	                activePiece.updatePos();
 	            }
 
-	            activePiece.resetPos();
-	            activePiece = null;
-	            draggin = false; 
-	            legalMoves.clear();
+	        } else {
+
+	            // CLICK ONLY
+	            selectedPiece = activePiece;
+
+	            allLegalMoves(selectedPiece);
 	        }
+
+	        activePiece.resetPos();
+
+	        activePiece = null;
+	        draggin = false;
 	    }
-	    
-	    // Reset click
-	            md.justPressed = false;  
 	}
 	
 	private void simulateMove() {
