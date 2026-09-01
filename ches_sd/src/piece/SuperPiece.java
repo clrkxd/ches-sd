@@ -7,6 +7,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import main.ChessPanel;
 import main.GamePanel;
 import mech.Board;
 
@@ -18,6 +19,7 @@ public class SuperPiece {
 	public int turn; // color of turn
 	public static int pieceX;
 	public static int pieceY;
+	public SuperPiece hittin;
 	
 	public SuperPiece(int turn, int col, int row) {
 		this.turn = turn;
@@ -95,6 +97,35 @@ public class SuperPiece {
 		if (pickedCol >= 0 && pickedCol <= 7 && pickedRow >= 0 && pickedRow <= 7) {
 			return true;
 		}
+		return false;
+	}
+	
+	public SuperPiece gettingHit(int pickedCol, int pickedRow) {
+		for (SuperPiece p : ChessPanel.sim) {
+			if (p.col == pickedCol && p.row == pickedRow && p != this) {
+				return p;
+			}
+		}
+		return null;
+	}
+	
+	public boolean isValidSquare(int pickedCol, int pickedRow) {
+		hittin = gettingHit(pickedCol, pickedRow);
+		
+		if (hittin == null) {
+			return true;
+		} else {
+			if (hittin.turn != this.turn) {
+				return true;
+			} else {
+				hittin = null;
+			}
+		}
+		
+//		if (gettingHit(pickedCol, pickedRow) == null) {
+//			return true;
+//		}
+		
 		return false;
 	}
 	

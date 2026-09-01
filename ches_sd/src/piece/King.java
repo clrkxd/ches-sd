@@ -28,7 +28,10 @@ public class King extends SuperPiece{
 			 
 			 if (Math.abs(pickedCol - prevCol) + Math.abs(pickedRow - prevRow) == 1 ||
 					 Math.abs(pickedCol - prevCol) * Math.abs(pickedRow - prevRow) == 1) {
-				 return true;
+				 if (isValidSquare(pickedCol, pickedRow)) {
+					 return true;
+				 }
+				 
 			 }
 		 }
 		return false;
