@@ -387,8 +387,6 @@ public class ChessPanel extends JPanel{
 	    activePiece.x = boardX - Board.HALFSQ;
 	    activePiece.y = boardY - Board.HALFSQ;
 		
-//		activePiece.x = md.x;
-//		activePiece.y = md.y;
 	    
 	    activePiece.col = activePiece.getCol(activePiece.x);
 	    activePiece.row = activePiece.getRow(activePiece.y);
