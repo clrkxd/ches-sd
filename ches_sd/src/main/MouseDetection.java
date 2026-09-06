@@ -21,8 +21,6 @@ public class MouseDetection extends MouseAdapter{
 		dragged = false;
 		justPressed = true;
 
-//		pressCount += 1;
-//		System.out.println(pressCount);
 	    pressX = e.getX();
 	    pressY = e.getY();
 		x = e.getX();
