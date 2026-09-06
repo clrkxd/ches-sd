@@ -1,24 +1,11 @@
 package main;
 
-import java.awt.AlphaComposite;
+
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.util.ArrayList;
 
 import javax.swing.JPanel;
-
 import mech.Board;
-import mech.MoveMechanics;
-import piece.Bishop;
-import piece.King;
-import piece.Knight;
-import piece.Pawn;
-import piece.Queen;
-import piece.Rook;
-import piece.SuperPiece;
 
 public class GamePanel extends JPanel implements Runnable{
 	

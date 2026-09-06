@@ -9,9 +9,7 @@ public class MouseDetection extends MouseAdapter{
 	public int x, y;
 	public boolean pressed;
 	public boolean dragged;
-//	public boolean justPressed;
 	public boolean justPressed;
-//	public int pressCount;
 	
 	public int pressX, pressY;
 
