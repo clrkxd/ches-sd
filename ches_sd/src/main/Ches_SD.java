@@ -8,7 +8,7 @@ public class Ches_SD {
 	public static void main(String[] args) {
 		JFrame w = new JFrame("ches-sd");
 		
-		ImageIcon icon = new ImageIcon(Ches_SD.class.getResource("/piece/pawn.png"));
+		ImageIcon icon = new ImageIcon(Ches_SD.class.getResource("/appicon/icon.png"));
 
         w.setIconImage(icon.getImage());
 		
