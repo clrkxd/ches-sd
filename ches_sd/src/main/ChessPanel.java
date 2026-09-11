@@ -447,7 +447,10 @@ private void allLegalMoves(SuperPiece p) {
 			
 		
 			// draw the activePiece
-			activePiece.draw(g2);
+			if (activePiece != null) {
+			    activePiece.draw(g2);
+			}
+
 		}
 		
 
