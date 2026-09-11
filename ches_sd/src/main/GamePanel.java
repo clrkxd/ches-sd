@@ -70,33 +70,7 @@ public class GamePanel extends JPanel implements Runnable{
 		}
 	}
 	
-	// sleep loop for lower CPU usage
-//	@Override
-//	public void run() {
-//	    double drawInterval = 1000000000.0 / FPS;
-//	    double nextDrawTime = System.nanoTime() + drawInterval;
-//
-//	    while (gt != null) {
-//	        update();
-//	        repaint();
-//
-//	        try {
-//	            double remainingTime = nextDrawTime - System.nanoTime();
-//	            remainingTime /= 1000000;
-//
-//	            if (remainingTime < 0) {
-//	                remainingTime = 0;
-//	            }
-//
-//	            Thread.sleep((long) remainingTime);
-//
-//	        } catch (InterruptedException e) {
-//	            e.printStackTrace();
-//	        }
-//
-//	        nextDrawTime += drawInterval;
-//	    }
-//	}
+
 	
 	private void update() {
 		chessPanel.updateGame();
