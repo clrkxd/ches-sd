@@ -323,9 +323,7 @@ public class ChessPanel extends JPanel{
 
 	            for (SuperPiece p : sim) {
 
-	                if (p.turn == currentTurn &&
-	                    p.col == col &&
-	                    p.row == row) {
+	                if (p.turn == currentTurn && p.col == col && p.row == row) {
 
 	                    activePiece = p;
 	                    
@@ -422,9 +420,9 @@ private void allLegalMoves(SuperPiece p) {
 		for (SuperPiece p: sim) {
 			p.draw(g2);
 			
-//			g2.setColor(Color.RED);
-//
-//			g2.drawRect(SuperPiece.pieceX, SuperPiece.pieceY, Board.SQ_SIZE, Board.SQ_SIZE);
+			g2.setColor(Color.RED);
+
+			g2.drawRect(SuperPiece.pieceX, SuperPiece.pieceY, Board.SQ_SIZE, Board.SQ_SIZE);
 		}
 		
 		if (activePiece != null || selectedPiece != null) {
