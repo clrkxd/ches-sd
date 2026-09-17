@@ -61,17 +61,6 @@ public class SuperPiece {
 	public int getRow(int y) {
 		return (y + Board.HALFSQ) / Board.SQ_SIZE;
 	}
-//	
-//	public void centerThePiece() {
-////		int boardSize = SQ_SIZE * 8;
-////		boardX = (GamePanel.FIN_W - boardSize) / 2;
-////		boardY = (GamePanel.FIN_H - boardSize) / 2;	
-//		
-//		int boardWidth = Board.MAX_COL * Board.SQ_SIZE;
-//        int boardHeight = Board.MAX_ROW * Board.SQ_SIZE;
-//        pieceX = (GamePanel.FIN_W - boardWidth) / 2;
-//        pieceY = (GamePanel.FIN_H - boardHeight) / 2;
-//	}
 	
 	public void updatePos() {
 		
