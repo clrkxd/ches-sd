@@ -448,10 +448,6 @@ private void allLegalMoves(SuperPiece p) {
 			if (activePiece != null) {
 			    activePiece.draw(g2);
 			}
-
 		}
-		
-
 	}
-
 }
