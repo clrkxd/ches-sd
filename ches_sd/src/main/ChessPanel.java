@@ -419,9 +419,7 @@ private void allLegalMoves(SuperPiece p) {
 		// pieces
 		for (SuperPiece p: sim) {
 			p.draw(g2);
-			
 			g2.setColor(Color.RED);
-
 			g2.drawRect(SuperPiece.pieceX, SuperPiece.pieceY, Board.SQ_SIZE, Board.SQ_SIZE);
 		}
 		
