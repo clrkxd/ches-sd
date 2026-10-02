@@ -23,5 +23,14 @@ public class Bishop extends SuperPiece{
 		}
 	}
 
-	
+	public boolean canMove(int pickedCol, int pickedRow) {
+		if (isInsideBoard(pickedCol, pickedRow) && isSameSq(pickedCol, pickedRow) == false) {
+			if (Math.abs(pickedCol - prevCol) == Math.abs(pickedRow - prevRow)) {
+				if (isValidSquare(pickedCol, pickedRow) && isOnDiagonalLine(pickedCol, pickedRow) == false) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 }

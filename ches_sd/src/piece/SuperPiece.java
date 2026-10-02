@@ -134,7 +134,7 @@ public class SuperPiece {
 		return false;
 	}
 	
-	public boolean pieceIsOnStraightLine(int pickedCol, int pickedRow) {
+	public boolean isOnStraightLine(int pickedCol, int pickedRow) {
 		// when piece is moving to the left
 		for (int c = prevCol - 1; c > pickedCol; c--) {
 			for(SuperPiece piece : ChessPanel.sim) {
@@ -175,6 +175,61 @@ public class SuperPiece {
 			}
 		}
 		
+		
+		return false;
+	}
+	
+	public boolean isOnDiagonalLine(int pickedCol, int pickedRow) {
+		
+		
+		if (pickedRow < prevRow) {
+			// up left
+			for (int c = prevCol - 1; c > pickedCol; c--) {
+				int diff = Math.abs(c - prevCol);
+				for (SuperPiece piece : ChessPanel.sim) {
+					if (piece.col == c && piece.row == prevRow - diff) {
+						hittin = piece;
+						return true;
+					}
+				}
+			}
+		
+			// up right
+			for (int c = prevCol + 1; c < pickedCol; c++) {
+				int diff = Math.abs(c - prevCol);
+				for (SuperPiece piece : ChessPanel.sim) {
+					if (piece.col == c && piece.row == prevRow - diff) {
+						hittin = piece;
+						return true;
+					}
+				}
+			}
+			
+		}
+		
+		if (pickedRow > prevRow) {
+			// down left
+			for (int c = prevCol - 1; c > pickedCol; c--) {
+				int diff = Math.abs(c - prevCol);
+				for (SuperPiece piece : ChessPanel.sim) {
+					if (piece.col == c && piece.row == prevRow + diff) {
+						hittin = piece;
+						return true;
+					}
+				}
+			}
+		
+			// down right
+			for (int c = prevCol + 1; c < pickedCol; c++) {
+				int diff = Math.abs(c - prevCol);
+				for (SuperPiece piece : ChessPanel.sim) {
+					if (piece.col == c && piece.row == prevRow + diff) {
+						hittin = piece;
+						return true;
+					}
+				}
+			}
+		}
 		
 		return false;
 	}
