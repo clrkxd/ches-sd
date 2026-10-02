@@ -22,6 +22,17 @@ public class Knight extends SuperPiece{
 		    );
 		}
 	}
+	
+	public boolean canMove(int pickedCol, int pickedRow) {
+		if (isInsideBoard(pickedCol, pickedRow)) {
+			if (Math.abs(pickedCol - prevCol) * Math.abs(pickedRow - prevRow) == 2) { // 1:2 or 2:1
+				if (isValidSquare(pickedCol, pickedRow)) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 
 	
 }
