@@ -98,6 +98,13 @@ public class SuperPiece {
 		return false;
 	}
 	
+	public boolean isSameSq(int pickedCol, int pickedRow) {
+		if (pickedCol == prevCol && pickedRow == prevRow) {
+			return true;
+		}
+		return false;
+	}
+	
 	public SuperPiece gettingHit(int pickedCol, int pickedRow) {
 		for (SuperPiece p : ChessPanel.sim) {
 			if (p.col == pickedCol && p.row == pickedRow && p != this) {
@@ -123,6 +130,51 @@ public class SuperPiece {
 //		if (gettingHit(pickedCol, pickedRow) == null) {
 //			return true;
 //		}
+		
+		return false;
+	}
+	
+	public boolean pieceIsOnStraightLine(int pickedCol, int pickedRow) {
+		// when piece is moving to the left
+		for (int c = prevCol - 1; c > pickedCol; c--) {
+			for(SuperPiece piece : ChessPanel.sim) {
+				if (piece.col == c && piece.row == pickedRow) {
+					hittin = piece;
+					return true;
+				}
+			}
+		}
+		
+		// right
+		for (int c = prevCol + 1; c < pickedCol; c++) {
+			for(SuperPiece piece : ChessPanel.sim) {
+				if (piece.col == c && piece.row == pickedRow) {
+					hittin = piece;
+					return true;
+				}
+			}
+		}
+		
+		// up
+		for (int r = prevRow - 1; r > pickedRow; r--) {
+			for(SuperPiece piece : ChessPanel.sim) {
+				if (piece.col == pickedCol && piece.row == r) {
+					hittin = piece;
+					return true;
+				}
+			}
+		}
+		
+		// down
+		for (int r = prevRow + 1; r < pickedRow; r++) {
+			for(SuperPiece piece : ChessPanel.sim) {
+				if (piece.col == pickedCol && piece.row == r) {
+					hittin = piece;
+					return true;
+				}
+			}
+		}
+		
 		
 		return false;
 	}
