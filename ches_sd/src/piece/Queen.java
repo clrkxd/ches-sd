@@ -23,5 +23,23 @@ public class Queen extends SuperPiece{
 		}
 	}
 
-	
+	public boolean canMove(int pickedCol, int pickedRow) {
+		if (isInsideBoard(pickedCol, pickedRow) && isSameSq(pickedCol, pickedRow) == false) {
+			
+			// straight
+				if (pickedCol == prevCol || pickedRow == prevRow) {
+					if (isValidSquare(pickedCol, pickedRow) && isOnStraightLine(pickedCol, pickedRow) == false) {
+						return true;
+					}
+				}
+				
+			// diagonal
+				if (Math.abs(pickedCol - prevCol) == Math.abs(pickedRow - prevRow)) {
+					if (isValidSquare(pickedCol, pickedRow) && isOnDiagonalLine(pickedCol, pickedRow) == false) {
+						return true;
+					}
+				}
+		}
+		return false;
+	}
 }
