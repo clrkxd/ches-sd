@@ -441,7 +441,6 @@ private void allLegalMoves(SuperPiece p) {
 				g2.fillOval(x + 18, y + 18,28,28);
 			}
 			
-		
 			// draw the activePiece
 			if (activePiece != null) {
 			    activePiece.draw(g2);
