@@ -289,8 +289,8 @@ public class ChessPanel extends JPanel{
 				int x = move[0] * Board.SQ_SIZE;
 				int y = move[1] * Board.SQ_SIZE;
 				
-				g2.setColor(Color.green);
-				g2.fillOval(x + 18, y + 18,28,28);
+				g2.setColor(new Color(0,128,0));
+				g2.fillOval(x + 23, y + 23,18,18);
 			}
 			
 			// draw the activePiece
