@@ -118,6 +118,11 @@ public class ChessPanel extends JPanel{
 
 
 	    if (selectedPiece.canMove(pickedCol, pickedRow)) {
+	    	
+	    	// Capture
+	        if (selectedPiece.hittin != null) {
+	            sim.remove(selectedPiece.hittin.getIndex());
+	        }
 
 	        selectedPiece.col = pickedCol;
 	        selectedPiece.row = pickedRow;
@@ -356,7 +361,9 @@ public class ChessPanel extends JPanel{
 
 	            // DRAG AND DROP
 	            if (validSquare) {
-	                activePiece.updatePos();
+	                copyPieces(sim, pieces);
+	            	activePiece.updatePos();
+	                
 	            }
 
 	        } else {
@@ -364,9 +371,11 @@ public class ChessPanel extends JPanel{
 	            // CLICK ONLY
 	            selectedPiece = activePiece;
 
+	            copyPieces(sim, pieces);
 //	            allLegalMoves(selectedPiece);
 	        }
 
+//            copyPieces(sim, pieces);
 	        activePiece.resetPos();
 
 	        activePiece = null;
@@ -379,6 +388,9 @@ public class ChessPanel extends JPanel{
 		canMove = false;
 		validSquare = false;
 		
+        copyPieces(sim, pieces);
+
+		
 	    int boardX = md.x;
 	    int boardY = md.y;
 
@@ -390,11 +402,17 @@ public class ChessPanel extends JPanel{
 	    
 	    if(activePiece.canMove(activePiece.col, activePiece.row)) {
 	    	canMove = true;
+	    	
+	    	//captures
+	    	if (activePiece.hittin != null) {
+	    		sim.remove(activePiece.hittin.getIndex());
+	    	}
+	    	
 	    	validSquare = true;
 	    }
 	}
 	
-private void allLegalMoves(SuperPiece p) {
+	private void allLegalMoves(SuperPiece p) {
 		
 		legalMoves.clear();
 		
@@ -425,10 +443,12 @@ private void allLegalMoves(SuperPiece p) {
 		
 		if (activePiece != null || selectedPiece != null) {
 			
+			 SuperPiece piece = (activePiece != null) ? activePiece : selectedPiece;
+			
 			if (canMove) {
 				g2.setColor(Color.WHITE);
 				g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.7f));
-				g2.fillRect(board.boardX + activePiece.col * Board.SQ_SIZE, board.boardY + activePiece.row * Board.SQ_SIZE, Board.SQ_SIZE, Board.SQ_SIZE);
+				g2.fillRect(board.boardX + piece.col * Board.SQ_SIZE, board.boardY + piece.row * Board.SQ_SIZE, Board.SQ_SIZE, Board.SQ_SIZE);
 				g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
 			}
 			
@@ -442,8 +462,8 @@ private void allLegalMoves(SuperPiece p) {
 			}
 			
 			// draw the activePiece
-			if (activePiece != null) {
-			    activePiece.draw(g2);
+			if (piece != null) {
+			    piece.draw(g2);
 			}
 		}
 	}

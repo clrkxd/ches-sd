@@ -62,6 +62,15 @@ public class SuperPiece {
 		return (y + Board.HALFSQ) / Board.SQ_SIZE;
 	}
 	
+	public int getIndex() {
+		for (int i = 0; i < ChessPanel.sim.size(); i++) {
+			if (ChessPanel.sim.get(i) == this) {
+				return i;
+			}
+		}
+		return 0;
+	}
+	
 	public void updatePos() {
 		
 		x = getX(col);
