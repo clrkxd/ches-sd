@@ -41,6 +41,13 @@ public class Pawn extends SuperPiece{
 			if (pickedCol == prevCol && pickedRow == prevRow + moveDirection && hittin == null) {
 				return true;
 			}
+			
+			// 2 square movement
+			if (pickedCol == prevCol && pickedRow == prevRow + moveDirection*2 && hittin == null && moved == false && isOnStraightLine(pickedCol, pickedRow) == false) {
+				return true;
+			}
+			
+			
 		}
 		return false;
 	}

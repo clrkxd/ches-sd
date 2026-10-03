@@ -21,6 +21,8 @@ public class SuperPiece {
 	public static int pieceY;
 	public SuperPiece hittin;
 	
+	public boolean moved;
+	
 	public SuperPiece(int turn, int col, int row) {
 		this.turn = turn;
 		this.col = col;
@@ -77,6 +79,7 @@ public class SuperPiece {
 		y = getY(row);
 		prevCol = getCol(x);
 		prevRow = getRow(y);
+		moved = true;
 	}
 	
 	public void resetPos() {
