@@ -47,7 +47,10 @@ public class Pawn extends SuperPiece{
 				return true;
 			}
 			
-			
+			// diagonal movement & capture if an enemy piece is diagonally in front of it 
+			if (Math.abs(pickedCol - prevCol) == 1 && pickedRow == prevRow + moveDirection && hittin != null && hittin.turn != turn) {
+					return true;
+			}
 		}
 		return false;
 	}
