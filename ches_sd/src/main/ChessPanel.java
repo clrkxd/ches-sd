@@ -134,6 +134,9 @@ public class ChessPanel extends JPanel{
 
 	        selectedPiece = null;
 	        legalMoves.clear();
+	        
+	        
+	        changeTurn();
 	        }
 
 	}
@@ -195,7 +198,7 @@ public class ChessPanel extends JPanel{
 	            if (validSquare) {
 	                copyPieces(sim, pieces);
 	            	activePiece.updatePos();
-	                
+	                changeTurn();
 	            }
 
 	        } else {
@@ -205,11 +208,13 @@ public class ChessPanel extends JPanel{
 
 	            copyPieces(sim, pieces);
 //	            allLegalMoves(selectedPiece);
+//	            changeTurn();
 	        }
 
 //            copyPieces(sim, pieces);
 	        activePiece.resetPos();
 
+//	        changeTurn();
 	        activePiece = null;
 	        draggin = false;
 	    }
@@ -244,6 +249,15 @@ public class ChessPanel extends JPanel{
 	    }
 	}
 	
+	private void changeTurn() {
+		if (currentTurn == WHITE) {
+			currentTurn = BLACK;
+		} else {
+			currentTurn = WHITE;
+		}
+		
+//		activePiece = null;
+	}
 	private void allLegalMoves(SuperPiece p) {
 		
 		legalMoves.clear();
