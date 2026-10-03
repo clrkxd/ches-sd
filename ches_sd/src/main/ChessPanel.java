@@ -208,13 +208,11 @@ public class ChessPanel extends JPanel{
 
 	            copyPieces(sim, pieces);
 //	            allLegalMoves(selectedPiece);
-//	            changeTurn();
 	        }
 
 //            copyPieces(sim, pieces);
 	        activePiece.resetPos();
 
-//	        changeTurn();
 	        activePiece = null;
 	        draggin = false;
 	    }
