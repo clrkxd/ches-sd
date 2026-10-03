@@ -23,5 +23,26 @@ public class Pawn extends SuperPiece{
 		}
 	}
 
+	public boolean canMove(int pickedCol, int pickedRow) {
+		if (isInsideBoard(pickedCol, pickedRow) && isSameSq(pickedCol, pickedRow) == false) {
+			
+			// moveDirection
+			int moveDirection;
+			if (turn == ChessPanel.WHITE) {
+				moveDirection = -1;
+			} else {
+				moveDirection = 1;
+			}
+			
+			// check hittin, dont use isValidSquare
+			hittin = gettingHit(pickedCol, pickedRow);
+			
+			// 1 square move
+			if (pickedCol == prevCol && pickedRow == prevRow + moveDirection && hittin == null) {
+				return true;
+			}
+		}
+		return false;
+	}
 	
 }
