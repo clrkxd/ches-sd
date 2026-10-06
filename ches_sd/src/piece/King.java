@@ -33,6 +33,11 @@ public class King extends SuperPiece{
 				 }
 				 
 			 }
+			 
+			 // castle
+			 if (moved == false) {
+				 
+			 }
 		 }
 		return false;
 	}

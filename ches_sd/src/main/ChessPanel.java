@@ -33,6 +33,7 @@ public class ChessPanel extends JPanel{
 	// piece selection UI
 	SuperPiece activePiece;
 	SuperPiece selectedPiece;
+	SuperPiece castle;
 	boolean draggin = false;
 	
 	
@@ -80,11 +81,11 @@ public class ChessPanel extends JPanel{
 		pieces.add(new Pawn(WHITE, 7, 6));
 		pieces.add(new Rook(WHITE, 0, 7));
 		pieces.add(new Rook(WHITE, 7, 7));
-		pieces.add(new Knight(WHITE, 1, 7));
-		pieces.add(new Knight(WHITE, 6, 7));
-		pieces.add(new Bishop(WHITE, 2, 7));
-		pieces.add(new Bishop(WHITE, 5, 7));
-		pieces.add(new Queen(WHITE, 3, 7));
+//		pieces.add(new Knight(WHITE, 1, 7));
+//		pieces.add(new Knight(WHITE, 6, 7));
+//		pieces.add(new Bishop(WHITE, 2, 7));
+//		pieces.add(new Bishop(WHITE, 5, 7));
+//		pieces.add(new Queen(WHITE, 3, 7));
 		pieces.add(new King(WHITE, 4, 7));
 		
 		// black
@@ -98,11 +99,11 @@ public class ChessPanel extends JPanel{
 		pieces.add(new Pawn(BLACK, 7, 1));
 		pieces.add(new Rook(BLACK, 0, 0));
 		pieces.add(new Rook(BLACK, 7, 0));
-		pieces.add(new Knight(BLACK, 1, 0));
-		pieces.add(new Knight(BLACK, 6, 0));
-		pieces.add(new Bishop(BLACK, 2, 0));
-		pieces.add(new Bishop(BLACK, 5, 0));
-		pieces.add(new Queen(BLACK, 3, 0));
+//		pieces.add(new Knight(BLACK, 1, 0));
+//		pieces.add(new Knight(BLACK, 6, 0));
+//		pieces.add(new Bishop(BLACK, 2, 0));
+//		pieces.add(new Bishop(BLACK, 5, 0));
+//		pieces.add(new Queen(BLACK, 3, 0));
 		pieces.add(new King(BLACK, 4, 0));
 	}
 	
@@ -207,10 +208,8 @@ public class ChessPanel extends JPanel{
 	            selectedPiece = activePiece;
 
 	            copyPieces(sim, pieces);
-//	            allLegalMoves(selectedPiece);
 	        }
 
-//            copyPieces(sim, pieces);
 	        activePiece.resetPos();
 
 	        activePiece = null;
