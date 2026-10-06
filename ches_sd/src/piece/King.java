@@ -45,7 +45,23 @@ public class King extends SuperPiece{
 							}
 						}
 				 }
+				 
 				 // long castle
+				 if (pickedCol == prevCol - 2 && pickedRow == prevRow && isOnStraightLine(pickedCol, pickedRow) == false) {
+						SuperPiece p[] = new SuperPiece[2];
+						for (SuperPiece piece : ChessPanel.sim) {
+							if (piece.col  == prevCol - 3 && piece.row == pickedRow) {
+								p[0] = piece;
+							}
+							if (piece.col == prevCol - 4 && piece.row == pickedRow) {
+								p[1] = piece;
+							}
+							if (p[0] == null && p[1] != null && p[1].moved == false) {
+								ChessPanel.castle = p[1];
+								return true;
+							}
+						}
+					}
 			 }
 		 }
 		return false;
