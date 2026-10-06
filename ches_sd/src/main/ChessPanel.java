@@ -124,9 +124,16 @@ public class ChessPanel extends JPanel{
 	        if (selectedPiece.hittin != null) {
 	            sim.remove(selectedPiece.hittin.getIndex());
 	        }
+	        
+	     // Determine castling
+	        checkCastle();
 
 	        selectedPiece.col = pickedCol;
 	        selectedPiece.row = pickedRow;
+	        
+	        if (castle != null) {
+        		castle.updatePos();
+        	}
 
 	        selectedPiece.x = pickedCol * Board.SQ_SIZE + Board.HALFSQ;
 	        selectedPiece.y = pickedRow * Board.SQ_SIZE + Board.HALFSQ;
@@ -135,6 +142,7 @@ public class ChessPanel extends JPanel{
 
 	        selectedPiece = null;
 	        legalMoves.clear();
+	        
 	        
 
 	        changeTurn();
@@ -153,6 +161,7 @@ public class ChessPanel extends JPanel{
 	        // SECOND CLICK
 	        if (selectedPiece != null) {
 
+//	        	simulateMove();
 	            moveSelectedPiece(col, row);
 	            
 	            
