@@ -136,7 +136,7 @@ public class ChessPanel extends JPanel{
 	        selectedPiece = null;
 	        legalMoves.clear();
 	        
-	        
+
 	        changeTurn();
 	        }
 
@@ -154,6 +154,8 @@ public class ChessPanel extends JPanel{
 	        if (selectedPiece != null) {
 
 	            moveSelectedPiece(col, row);
+	            
+	            
 
 	            md.justPressed = false;
 	            return;
@@ -199,6 +201,10 @@ public class ChessPanel extends JPanel{
 	            if (validSquare) {
 	                copyPieces(sim, pieces);
 	            	activePiece.updatePos();
+	            	
+	            	if (castle != null) {
+	            		castle.updatePos();
+	            	}
 	                changeTurn();
 	            }
 
@@ -208,8 +214,10 @@ public class ChessPanel extends JPanel{
 	            selectedPiece = activePiece;
 
 	            copyPieces(sim, pieces);
+	            
 	        }
 
+	        
 	        activePiece.resetPos();
 
 	        activePiece = null;
@@ -224,6 +232,14 @@ public class ChessPanel extends JPanel{
 		
         copyPieces(sim, pieces);
 
+        
+        //reset the castling position
+        if (castle != null) {
+        	castle.col = castle.prevCol;
+        	castle.x = castle.getX(castle.col);
+        	castle = null;
+        }
+        
 		
 	    int boardX = md.x;
 	    int boardY = md.y;
@@ -242,8 +258,20 @@ public class ChessPanel extends JPanel{
 	    		sim.remove(activePiece.hittin.getIndex());
 	    	}
 	    	
+	    	checkCastle();
 	    	validSquare = true;
 	    }
+	}
+	
+	private void checkCastle() {
+		if (castle != null) {
+			if (castle.col == 0) {
+				castle.col += 3;
+			} else if (castle.col == 7) {
+				castle.col -= 2;
+			}
+			castle.x = castle.getX(castle.col);
+		}
 	}
 	
 	private void changeTurn() {
