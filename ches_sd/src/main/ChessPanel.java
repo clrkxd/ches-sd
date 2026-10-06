@@ -33,7 +33,7 @@ public class ChessPanel extends JPanel{
 	// piece selection UI
 	SuperPiece activePiece;
 	SuperPiece selectedPiece;
-	SuperPiece castle;
+	public static SuperPiece castle;
 	boolean draggin = false;
 	
 	
