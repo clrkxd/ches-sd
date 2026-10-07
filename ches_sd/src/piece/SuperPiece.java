@@ -75,7 +75,6 @@ public class SuperPiece {
 	}
 	
 	public void updatePos() {
-		
 		// check en passant
 		if (type == Type.PAWN) {
 			if (Math.abs(row - prevRow) == 2) {
