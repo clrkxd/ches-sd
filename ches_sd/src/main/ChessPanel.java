@@ -488,9 +488,16 @@ public class ChessPanel extends JPanel{
 						
 //						g2.setColor(Color.RED);
 //					    g2.fillRect(600, 100, 100, 100);
+						
+						
+						
 						for (SuperPiece p : promotion) {
 							
+							int x = p.getX(p.col);
+					        int y = p.getY(p.row);
 							
+					        g2.setColor(Color.WHITE);
+						    g2.fillRect(600, 100, Board.SQ_SIZE, Board.SQ_SIZE * 4);
 //							System.out.println(
 //							        p.type + " col=" + p.col + " row=" + p.row +
 //							        " x=" + p.getX(p.col) +
@@ -498,6 +505,7 @@ public class ChessPanel extends JPanel{
 //							    );
 							
 							g2.drawImage(p.img, p.getX(p.col), p.getY(p.row), Board.SQ_SIZE, Board.SQ_SIZE, null);
+							g2.drawImage(p.img, x, y, Board.SQ_SIZE, Board.SQ_SIZE, null);
 						}
 					}
 				}
