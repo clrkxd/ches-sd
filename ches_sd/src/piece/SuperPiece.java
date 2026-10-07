@@ -22,6 +22,7 @@ public class SuperPiece {
 	public SuperPiece hittin;
 	
 	public boolean moved;
+	public boolean pawnJump;
 	
 	public SuperPiece(int turn, int col, int row) {
 		this.turn = turn;
@@ -74,6 +75,13 @@ public class SuperPiece {
 	}
 	
 	public void updatePos() {
+		
+		// check en passant
+		if (type == Type.PAWN) {
+			if (Math.abs(row - prevRow) == 2) {
+				pawnJump = true;
+			}
+		}
 		
 		x = getX(col);
 		y = getY(row);

@@ -286,8 +286,20 @@ public class ChessPanel extends JPanel{
 	private void changeTurn() {
 		if (currentTurn == WHITE) {
 			currentTurn = BLACK;
+			
+			for (SuperPiece p : pieces) {
+				if (p.turn == BLACK) {
+					p.pawnJump = false;
+				}
+			}
 		} else {
 			currentTurn = WHITE;
+			
+			for (SuperPiece p : pieces) {
+				if (p.turn == WHITE) {
+					p.pawnJump = false;
+				}
+			}
 		}
 		
 //		activePiece = null;

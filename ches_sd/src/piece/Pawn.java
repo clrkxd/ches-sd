@@ -51,6 +51,16 @@ public class Pawn extends SuperPiece{
 			if (Math.abs(pickedCol - prevCol) == 1 && pickedRow == prevRow + moveDirection && hittin != null && hittin.turn != turn) {
 					return true;
 			}
+			
+			// en passant
+			if (Math.abs(pickedCol - prevCol) == 1 && pickedRow == prevRow + moveDirection) {
+				for (SuperPiece piece : ChessPanel.sim) {
+					if (piece.col == pickedCol && piece.row == prevRow && piece.pawnJump == true) {
+						hittin = piece;
+						return true;
+					}
+				}
+			}
 		}
 		return false;
 	}
