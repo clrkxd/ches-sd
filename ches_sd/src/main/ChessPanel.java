@@ -3,8 +3,10 @@ package main;
 import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
@@ -18,6 +20,7 @@ import piece.Pawn;
 import piece.Queen;
 import piece.Rook;
 import piece.SuperPiece;
+import piece.Type;
 
 public class ChessPanel extends JPanel{
 
@@ -29,6 +32,7 @@ public class ChessPanel extends JPanel{
 	public static ArrayList<SuperPiece> pieces = new ArrayList<>(); // backup
 	public static ArrayList<SuperPiece> sim = new ArrayList<>(); // simulates the pieces
 	public ArrayList<int[]> legalMoves = new ArrayList<>(); // green dots
+	ArrayList<SuperPiece> promotion = new ArrayList<>(); // promoting pawns
 	
 	// piece selection UI
 	SuperPiece activePiece;
@@ -45,6 +49,7 @@ public class ChessPanel extends JPanel{
 	
 	boolean canMove;
 	boolean validSquare;
+	boolean prom;
 	
 	public ChessPanel(MouseDetection md) {
 		this.md = md;
@@ -65,47 +70,73 @@ public class ChessPanel extends JPanel{
 
         movMech = new MoveMechanics(this, md);
 
-        setThemPieces();
+//        setThemPieces();
+		testPromotion();
+//		testIllegal();
+//		testStalemate();
         copyPieces(pieces, sim);
 	}
 
-	public void setThemPieces() {
-		// white 
-		pieces.add(new Pawn(WHITE, 0, 6));
-		pieces.add(new Pawn(WHITE, 1, 6));
-		pieces.add(new Pawn(WHITE, 2, 6));
-		pieces.add(new Pawn(WHITE, 3, 6));
-		pieces.add(new Pawn(WHITE, 4, 6));
-		pieces.add(new Pawn(WHITE, 5, 6));
-		pieces.add(new Pawn(WHITE, 6, 6));
-		pieces.add(new Pawn(WHITE, 7, 6));
-		pieces.add(new Rook(WHITE, 0, 7));
-		pieces.add(new Rook(WHITE, 7, 7));
+//	public void setThemPieces() {
+//		// white 
+//		pieces.add(new Pawn(WHITE, 0, 6));
+//		pieces.add(new Pawn(WHITE, 1, 6));
+//		pieces.add(new Pawn(WHITE, 2, 6));
+//		pieces.add(new Pawn(WHITE, 3, 6));
+//		pieces.add(new Pawn(WHITE, 4, 6));
+//		pieces.add(new Pawn(WHITE, 5, 6));
+//		pieces.add(new Pawn(WHITE, 6, 6));
+//		pieces.add(new Pawn(WHITE, 7, 6));
+//		pieces.add(new Rook(WHITE, 0, 7));
+//		pieces.add(new Rook(WHITE, 7, 7));
 //		pieces.add(new Knight(WHITE, 1, 7));
 //		pieces.add(new Knight(WHITE, 6, 7));
 //		pieces.add(new Bishop(WHITE, 2, 7));
 //		pieces.add(new Bishop(WHITE, 5, 7));
 //		pieces.add(new Queen(WHITE, 3, 7));
-		pieces.add(new King(WHITE, 4, 7));
-		
-		// black
-		pieces.add(new Pawn(BLACK, 0, 1));
-		pieces.add(new Pawn(BLACK, 1, 1));
-		pieces.add(new Pawn(BLACK, 2, 1));
-		pieces.add(new Pawn(BLACK, 3, 1));
-		pieces.add(new Pawn(BLACK, 4, 1));
-		pieces.add(new Pawn(BLACK, 5, 1));
-		pieces.add(new Pawn(BLACK, 6, 1));
-		pieces.add(new Pawn(BLACK, 7, 1));
-		pieces.add(new Rook(BLACK, 0, 0));
-		pieces.add(new Rook(BLACK, 7, 0));
+//		pieces.add(new King(WHITE, 4, 7));
+//		
+//		// black
+//		pieces.add(new Pawn(BLACK, 0, 1));
+//		pieces.add(new Pawn(BLACK, 1, 1));
+//		pieces.add(new Pawn(BLACK, 2, 1));
+//		pieces.add(new Pawn(BLACK, 3, 1));
+//		pieces.add(new Pawn(BLACK, 4, 1));
+//		pieces.add(new Pawn(BLACK, 5, 1));
+//		pieces.add(new Pawn(BLACK, 6, 1));
+//		pieces.add(new Pawn(BLACK, 7, 1));
+//		pieces.add(new Rook(BLACK, 0, 0));
+//		pieces.add(new Rook(BLACK, 7, 0));
 //		pieces.add(new Knight(BLACK, 1, 0));
 //		pieces.add(new Knight(BLACK, 6, 0));
 //		pieces.add(new Bishop(BLACK, 2, 0));
 //		pieces.add(new Bishop(BLACK, 5, 0));
 //		pieces.add(new Queen(BLACK, 3, 0));
-		pieces.add(new King(BLACK, 4, 0));
+//		pieces.add(new King(BLACK, 4, 0));
+//	}
+	
+	
+	// TEST
+	public void testPromotion() {
+		pieces.add(new Pawn(WHITE, 0, 3));
+		pieces.add(new Pawn(BLACK, 7, 4));
 	}
+	
+//	public void testIllegal() {
+//		pieces.add(new Pawn(WHITE, 7, 6));
+//		pieces.add(new King(WHITE, 3, 7));
+//		pieces.add(new King(BLACK, 0, 3));
+//		pieces.add(new Bishop(BLACK, 1, 4));
+//		pieces.add(new Queen(BLACK, 4, 5));
+//	}
+//	
+//	public void testStalemate() {
+//		pieces.add(new Queen(BLACK, 2, 1));
+//		pieces.add(new King(BLACK, 2, 4));
+//		pieces.add(new King(WHITE, 0, 3));
+//		
+//		currentTurn = BLACK;
+//	}
 	
 	private void copyPieces(ArrayList<SuperPiece> from, ArrayList<SuperPiece> to) {
 		
@@ -145,93 +176,121 @@ public class ChessPanel extends JPanel{
 	        
 	        
 
-	        changeTurn();
+	        if (canPromote() == true) {
+        		prom = true;
+        	} else {
+        		changeTurn();
+        	}
 	        }
 
 	}
 	
 	public void updateGame() {
+		
+		
+		System.out.println("UPDATE: prom = " + prom);
+		
+		if (prom) {
+			promote();
+			
+			
+		} else {
+				    // MOUSE JUST PRESSED
+		    if (md.justPressed) {
+	
+		        int col = md.x / Board.SQ_SIZE;
+		        int row = md.y / Board.SQ_SIZE;
+	
+		        // SECOND CLICK
+		        if (selectedPiece != null) {
+	
+	//	        	simulateMove();
+		            moveSelectedPiece(col, row);
+		            
+		            
+	
+		            md.justPressed = false;
+		            return;
+		        }
+	
+		        // FIRST CLICK
+		        if (activePiece == null) {
+	
+		            for (SuperPiece p : sim) {
+	
+		                if (p.turn == currentTurn && p.col == col && p.row == row) {
+	
+		                    activePiece = p;
+		                    
+		                    allLegalMoves(activePiece);
+		                    break;
+		                }
+		            }
+		        }
+	
+		        md.justPressed = false;
+		    }
+	
+	
+		    // DRAGGING
+		    if (md.pressed && activePiece != null) {
+	
+		        if (md.dragged) {
+	
+		            draggin = true;
+	
+		            simulateMove();
+		        }
+		    }
+	
+	
+		    // RELEASE
+		    if (!md.pressed && activePiece != null) {
+	
+		        if (draggin) {
+	
+		            // DRAG AND DROP
+		            if (validSquare) {
+		                copyPieces(sim, pieces);
+		            	activePiece.updatePos();
+		            	
+		            	if (castle != null) {
+		            		castle.updatePos();
+		            	}
+		            	
+		            	if (canPromote()) {
+		            		prom = true;
+		            		
+		            		
+		            	} else {
+		            		changeTurn();
+		            	}
+		            	
+//		            	System.out.println("TYPE: " + activePiece.type);
+//	            		System.out.println("TURN: " + currentTurn);
+//	            		System.out.println("ROW: " + activePiece.row);
+//	            		System.out.println("CAN PROMOTE: " + canPromote());
+//		                
+		            }
+	
+		        } else {
+	
+		            // CLICK ONLY
+		            selectedPiece = activePiece;
+	
+		            copyPieces(sim, pieces);
+		            
+		        }
+	
+		        
+		        activePiece.resetPos();
+	
+		        activePiece = null;
+		        draggin = false;
+		    }
+		}
 
-	    // MOUSE JUST PRESSED
-	    if (md.justPressed) {
 
-	        int col = md.x / Board.SQ_SIZE;
-	        int row = md.y / Board.SQ_SIZE;
-
-	        // SECOND CLICK
-	        if (selectedPiece != null) {
-
-//	        	simulateMove();
-	            moveSelectedPiece(col, row);
-	            
-	            
-
-	            md.justPressed = false;
-	            return;
-	        }
-
-	        // FIRST CLICK
-	        if (activePiece == null) {
-
-	            for (SuperPiece p : sim) {
-
-	                if (p.turn == currentTurn && p.col == col && p.row == row) {
-
-	                    activePiece = p;
-	                    
-	                    allLegalMoves(activePiece);
-	                    break;
-	                }
-	            }
-	        }
-
-	        md.justPressed = false;
-	    }
-
-
-	    // DRAGGING
-	    if (md.pressed && activePiece != null) {
-
-	        if (md.dragged) {
-
-	            draggin = true;
-
-	            simulateMove();
-	        }
-	    }
-
-
-	    // RELEASE
-	    if (!md.pressed && activePiece != null) {
-
-	        if (draggin) {
-
-	            // DRAG AND DROP
-	            if (validSquare) {
-	                copyPieces(sim, pieces);
-	            	activePiece.updatePos();
-	            	
-	            	if (castle != null) {
-	            		castle.updatePos();
-	            	}
-	                changeTurn();
-	            }
-
-	        } else {
-
-	            // CLICK ONLY
-	            selectedPiece = activePiece;
-
-	            copyPieces(sim, pieces);
-	            
-	        }
-
-	        
-	        activePiece.resetPos();
-
-	        activePiece = null;
-	        draggin = false;
-	    }
 	}
 	
 	private void simulateMove() {
@@ -317,6 +376,64 @@ public class ChessPanel extends JPanel{
 			}
 		}
 	}
+	
+	private boolean canPromote() {
+		
+		if (activePiece.type == Type.PAWN) {
+			if (currentTurn == WHITE && activePiece.row == 0) {
+				promotion.clear();
+				promotion.add(new Rook(currentTurn, activePiece.col, activePiece.row));
+				promotion.add(new Knight(currentTurn, activePiece.col, activePiece.row + 1));
+				promotion.add(new Bishop(currentTurn, activePiece.col, activePiece.row + 2));
+				promotion.add(new Queen(currentTurn, activePiece.col, activePiece.row + 3));
+				return true;
+			}
+			if ( currentTurn == BLACK && activePiece.row == 7) {
+				promotion.clear();
+				promotion.add(new Rook(currentTurn, activePiece.col, activePiece.row));
+				promotion.add(new Knight(currentTurn, activePiece.col, activePiece.row - 1));
+				promotion.add(new Bishop(currentTurn, activePiece.col, activePiece.row - 2));
+				promotion.add(new Queen(currentTurn, activePiece.col, activePiece.row - 3));
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	private void promote() {
+		
+		if (!prom || activePiece == null) {
+	        return;
+	    }
+		
+		 if (md.pressed) {
+			 for (SuperPiece piece : promotion) {
+				 	if (piece.col == md.x/Board.SQ_SIZE && piece.row == md.y/Board.SQ_SIZE) {
+				 		switch (piece.type) {
+				 		case ROOK:
+				 			sim.add(new Rook(currentTurn, activePiece.col, activePiece.row));
+				 			break;
+				 		case KNIGHT:
+				 			sim.add(new Knight(currentTurn, activePiece.col, activePiece.row));
+				 			break;
+				 		case BISHOP:
+				 			sim.add(new Bishop(currentTurn, activePiece.col, activePiece.row));
+				 			break;
+				 		case QUEEN:
+				 			sim.add(new Queen(currentTurn, activePiece.col, activePiece.row));
+				 			break;
+				 		default:
+				 			break;
+				 		}
+				 		sim.remove(activePiece.getIndex());
+				 		copyPieces(sim, pieces);
+				 		activePiece = null;
+				 		prom = false;
+				 		changeTurn();
+				 	}
+			 }
+		 }
+	}
 
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
@@ -329,8 +446,8 @@ public class ChessPanel extends JPanel{
 		// pieces
 		for (SuperPiece p: sim) {
 			p.draw(g2);
-			g2.setColor(Color.RED);
-			g2.drawRect(SuperPiece.pieceX, SuperPiece.pieceY, Board.SQ_SIZE, Board.SQ_SIZE);
+//			g2.setColor(Color.RED);
+//			g2.drawRect(SuperPiece.pieceX, SuperPiece.pieceY, Board.SQ_SIZE, Board.SQ_SIZE);
 		}
 		
 		if (activePiece != null || selectedPiece != null) {
@@ -357,6 +474,31 @@ public class ChessPanel extends JPanel{
 			if (piece != null) {
 			    piece.draw(g2);
 			}
-		}
+			
+			
 	}
+		// STATUS
+					g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+					g2.setFont(new Font("Book Antiqua", Font.PLAIN, 40));
+					g2.setColor(Color.WHITE);
+//					System.out.println("PROM: " + prom);
+//							System.out.println("PROMOTION SIZE: " + promotion.size());
+					if (prom) {
+//						g2.drawString("Promote to:", 600, 100);
+						
+//						g2.setColor(Color.RED);
+//					    g2.fillRect(600, 100, 100, 100);
+						for (SuperPiece p : promotion) {
+							
+							
+//							System.out.println(
+//							        p.type + " col=" + p.col + " row=" + p.row +
+//							        " x=" + p.getX(p.col) +
+//							        " y=" + p.getY(p.row)
+//							    );
+							
+							g2.drawImage(p.img, p.getX(p.col), p.getY(p.row), Board.SQ_SIZE, Board.SQ_SIZE, null);
+						}
+					}
+				}
 }
