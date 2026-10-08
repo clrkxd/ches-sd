@@ -49,7 +49,7 @@ public class ChessPanel extends JPanel{
 	
 	boolean canMove;
 	boolean validSquare;
-	boolean prom;
+	boolean promoting;
 	
 	public ChessPanel(MouseDetection md) {
 		this.md = md;
@@ -177,7 +177,7 @@ public class ChessPanel extends JPanel{
 	        activePiece = selectedPiece;
 
 	        if (canPromote()) {
-        		prom = true;
+        		promoting = true;
         	} else {
         		changeTurn();
         	}
@@ -189,7 +189,7 @@ public class ChessPanel extends JPanel{
 	
 	public void updateGame() {
 		
-		if (prom) {
+		if (promoting) {
 			promote();
 			System.out.println("prom is okay");
 			
@@ -270,7 +270,7 @@ public class ChessPanel extends JPanel{
 		            	}
 		            	
 		            	if (canPromote()) {
-		            		prom = true;
+		            		promoting = true;
 		            	} else {
 		            		changeTurn();
 		            	}
@@ -285,7 +285,7 @@ public class ChessPanel extends JPanel{
 		            copyPieces(sim, pieces);
 		            
 		        }
-		        if (!prom) {
+		        if (!promoting) {
 		            activePiece.resetPos();
 		            activePiece = null;
 		        }
@@ -409,7 +409,7 @@ public class ChessPanel extends JPanel{
 	
 	private void promote() {
 		
-		if (!prom || activePiece == null) {
+		if (!promoting || activePiece == null) {
 	        return;
 	    }
 		
@@ -422,31 +422,31 @@ public class ChessPanel extends JPanel{
 		            if (md.x >= x && md.x < x + Board.SQ_SIZE && md.y >= y && md.y < y + Board.SQ_SIZE) {
 		                    
 		                    switch (p.type) {
-		                    case ROOK:
-		                        sim.add(new Rook(currentTurn, activePiece.col, activePiece.row));
-		                        break;
-		                        
-		                    case KNIGHT:
-		                        sim.add(new Knight(currentTurn, activePiece.col, activePiece.row));
-		                        break;
-		                        
-		                    case BISHOP:
-		                        sim.add(new Bishop(currentTurn, activePiece.col, activePiece.row));
-		                        break;
-		                        
-		                    case QUEEN:
-		                        sim.add(new Queen(currentTurn, activePiece.col, activePiece.row));
-		                        break;
-		                        
-		                    default:
-		                        break;
+			                    case ROOK:
+			                        sim.add(new Rook(currentTurn, activePiece.col, activePiece.row));
+			                        break;
+			                        
+			                    case KNIGHT:
+			                        sim.add(new Knight(currentTurn, activePiece.col, activePiece.row));
+			                        break;
+			                        
+			                    case BISHOP:
+			                        sim.add(new Bishop(currentTurn, activePiece.col, activePiece.row));
+			                        break;
+			                        
+			                    case QUEEN:
+			                        sim.add(new Queen(currentTurn, activePiece.col, activePiece.row));
+			                        break;
+			                        
+			                    default:
+			                        break;
 		                    }
 		                    
 		                    sim.remove(activePiece.getIndex());
 		                    copyPieces(sim, pieces);
 		                    
 		                    activePiece = null;
-		                    prom = false;
+		                    promoting = false;
 		                    changeTurn();
 		                    
 		                    break;
@@ -498,7 +498,7 @@ public class ChessPanel extends JPanel{
 			
 	}
 
-			if (prom) {
+			if (promoting) {
 				
 //						g2.setColor(Color.RED);
 //					    g2.fillRect(600, 100, 100, 100);
