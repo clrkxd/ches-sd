@@ -32,7 +32,7 @@ public class ChessPanel extends JPanel{
 	public static ArrayList<SuperPiece> pieces = new ArrayList<>(); // backup
 	public static ArrayList<SuperPiece> sim = new ArrayList<>(); // simulates the pieces
 	public ArrayList<int[]> legalMoves = new ArrayList<>(); // green dots
-	ArrayList<SuperPiece> promotion = new ArrayList<>(); // promoting pawns
+	ArrayList<SuperPiece> promoteTo = new ArrayList<>(); // promoting pawns
 	
 	// piece selection UI
 	SuperPiece activePiece;
@@ -188,9 +188,6 @@ public class ChessPanel extends JPanel{
 	}
 	
 	public void updateGame() {
-		
-		
-//		System.out.println("UPDATE: prom = " + prom);
 		
 		if (prom) {
 			promote();
@@ -391,19 +388,19 @@ public class ChessPanel extends JPanel{
 		
 		if (activePiece.type == Type.PAWN) {
 			if (currentTurn == WHITE && activePiece.row == 0) {
-				promotion.clear();
-				promotion.add(new Rook(currentTurn, activePiece.col, activePiece.row));
-				promotion.add(new Knight(currentTurn, activePiece.col, activePiece.row + 1));
-				promotion.add(new Bishop(currentTurn, activePiece.col, activePiece.row + 2));
-				promotion.add(new Queen(currentTurn, activePiece.col, activePiece.row + 3));
+				promoteTo.clear();
+				promoteTo.add(new Rook(currentTurn, activePiece.col, activePiece.row));
+				promoteTo.add(new Knight(currentTurn, activePiece.col, activePiece.row + 1));
+				promoteTo.add(new Bishop(currentTurn, activePiece.col, activePiece.row + 2));
+				promoteTo.add(new Queen(currentTurn, activePiece.col, activePiece.row + 3));
 				return true;
 			}
 			if (currentTurn == BLACK && activePiece.row == 7) {
-				promotion.clear();
-				promotion.add(new Rook(currentTurn, activePiece.col, activePiece.row));
-				promotion.add(new Knight(currentTurn, activePiece.col, activePiece.row - 1));
-				promotion.add(new Bishop(currentTurn, activePiece.col, activePiece.row - 2));
-				promotion.add(new Queen(currentTurn, activePiece.col, activePiece.row - 3));
+				promoteTo.clear();
+				promoteTo.add(new Rook(currentTurn, activePiece.col, activePiece.row));
+				promoteTo.add(new Knight(currentTurn, activePiece.col, activePiece.row - 1));
+				promoteTo.add(new Bishop(currentTurn, activePiece.col, activePiece.row - 2));
+				promoteTo.add(new Queen(currentTurn, activePiece.col, activePiece.row - 3));
 				return true;
 			}
 		}
@@ -417,7 +414,7 @@ public class ChessPanel extends JPanel{
 	    }
 		
 		 if (md.pressed) {
-			 for (SuperPiece p : promotion) {
+			 for (SuperPiece p : promoteTo) {
 				 
 				 	int x = p.getX(p.col);
 		            int y = p.getY(p.row);
@@ -507,7 +504,7 @@ public class ChessPanel extends JPanel{
 //					    g2.fillRect(600, 100, 100, 100);
 			
 				
-				for (SuperPiece p : promotion) {
+				for (SuperPiece p : promoteTo) {
 					
 					int x = p.getX(p.col);
 			        int y = p.getY(p.row);
