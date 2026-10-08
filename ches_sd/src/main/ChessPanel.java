@@ -223,8 +223,6 @@ public class ChessPanel extends JPanel{
 	//	        	simulateMove();
 		            moveSelectedPiece(col, row);
 		            
-		            
-	
 		            md.justPressed = false;
 		            return;
 		        }
@@ -280,11 +278,6 @@ public class ChessPanel extends JPanel{
 		            		changeTurn();
 		            	}
 		            	
-//		            	System.out.println("TYPE: " + activePiece.type);
-//	            		System.out.println("TURN: " + currentTurn);
-//	            		System.out.println("ROW: " + activePiece.row);
-//	            		System.out.println("CAN PROMOTE: " + canPromote());
-//		                
 		            }
 	
 		        } else {
@@ -295,12 +288,6 @@ public class ChessPanel extends JPanel{
 		            copyPieces(sim, pieces);
 		            
 		        }
-	
-		        
-//		        activePiece.resetPos();
-//	
-//		        activePiece = null;
-		        
 		        if (!prom) {
 		            activePiece.resetPos();
 		            activePiece = null;
@@ -431,31 +418,6 @@ public class ChessPanel extends JPanel{
 		
 		 if (md.pressed) {
 			 for (SuperPiece p : promotion) {
-//				 	if (p.col == md.x/Board.SQ_SIZE && p.row == md.y/Board.SQ_SIZE) {
-//				 		switch (p.type) {
-//				 		case ROOK:
-//				 			sim.add(new Rook(currentTurn, activePiece.col, activePiece.row));
-//				 			break;
-//				 		case KNIGHT:
-//				 			sim.add(new Knight(currentTurn, activePiece.col, activePiece.row));
-//				 			break;
-//				 		case BISHOP:
-//				 			sim.add(new Bishop(currentTurn, activePiece.col, activePiece.row));
-//				 			break;
-//				 		case QUEEN:
-//				 			sim.add(new Queen(currentTurn, activePiece.col, activePiece.row));
-//				 			break;
-//				 		default:
-//				 			break;
-//				 		}
-//				 		
-//				 		  
-//				 		sim.remove(activePiece.getIndex());
-//				 		copyPieces(sim, pieces);
-//				 		activePiece = null;
-//				 		prom = false;
-//				 		changeTurn();
-//				 	}
 				 
 				 	int x = p.getX(p.col);
 		            int y = p.getY(p.row);
@@ -538,19 +500,12 @@ public class ChessPanel extends JPanel{
 			
 			
 	}
-		// STATUS
-//					g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-//					g2.setFont(new Font("Book Antiqua", Font.PLAIN, 40));
-//					g2.setColor(Color.WHITE);
-//					System.out.println("PROM: " + prom);
-//							System.out.println("PROMOTION SIZE: " + promotion.size());
+
 			if (prom) {
-//						g2.drawString("Promote to:", 600, 100);
 				
 //						g2.setColor(Color.RED);
 //					    g2.fillRect(600, 100, 100, 100);
-				
-				
+			
 				
 				for (SuperPiece p : promotion) {
 					
