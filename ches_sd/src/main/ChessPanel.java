@@ -174,14 +174,16 @@ public class ChessPanel extends JPanel{
 	        selectedPiece = null;
 	        legalMoves.clear();
 	        
-	        
+	        activePiece = selectedPiece;
 
 	        if (canPromote()) {
         		prom = true;
         	} else {
         		changeTurn();
         	}
-	        }
+	        
+	        selectedPiece = null;
+        }
 
 	}
 	
@@ -381,6 +383,10 @@ public class ChessPanel extends JPanel{
 	}
 	
 	private boolean canPromote() {
+		
+		if (activePiece == null) {
+	        return false;
+	    }
 		
 		if (activePiece.type == Type.PAWN) {
 			if (currentTurn == WHITE && activePiece.row == 0) {
