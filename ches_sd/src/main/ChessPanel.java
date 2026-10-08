@@ -203,8 +203,7 @@ public class ChessPanel extends JPanel{
 		        // SECOND CLICK
 		        if (selectedPiece != null) {
 	
-		        	// If clicked another piece of the current turn,
-		            // select that piece instead.
+		        	// If clicked another piece of the current turn, select that piece instead.
 		            for (SuperPiece p : sim) {
 		                if (p.turn == currentTurn && p.col == col && p.row == row) {
 
@@ -292,8 +291,6 @@ public class ChessPanel extends JPanel{
 		        draggin = false;
 		    }
 		}
-
-
 	}
 	
 	private void simulateMove() {
@@ -363,8 +360,7 @@ public class ChessPanel extends JPanel{
 				}
 			}
 		}
-		
-//		activePiece = null;
+
 	}
 	private void allLegalMoves(SuperPiece p) {
 		
@@ -488,6 +484,8 @@ public class ChessPanel extends JPanel{
 				
 				g2.setColor(new Color(0,128,0));
 				g2.fillOval(x + 23, y + 23, 18, 18);
+				
+				
 			}
 			
 			// draw the activePiece

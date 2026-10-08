@@ -137,10 +137,6 @@ public class SuperPiece {
 			}
 		}
 		
-//		if (gettingHit(pickedCol, pickedRow) == null) {
-//			return true;
-//		}
-		
 		return false;
 	}
 	
