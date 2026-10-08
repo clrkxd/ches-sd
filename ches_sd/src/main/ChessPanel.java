@@ -206,6 +206,20 @@ public class ChessPanel extends JPanel{
 		        // SECOND CLICK
 		        if (selectedPiece != null) {
 	
+		        	// If clicked another piece of the current turn,
+		            // select that piece instead.
+		            for (SuperPiece p : sim) {
+		                if (p.turn == currentTurn && p.col == col && p.row == row) {
+
+		                    selectedPiece = p;
+		                    activePiece = p;
+
+		                    allLegalMoves(selectedPiece);
+
+		                    md.justPressed = false;
+		                    return;
+		                }
+		            }
 	//	        	simulateMove();
 		            moveSelectedPiece(col, row);
 		            
