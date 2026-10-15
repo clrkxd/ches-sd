@@ -187,6 +187,7 @@ public class ChessPanel extends JPanel{
 
 	}
 	
+	// ANG GULO GULO AYUSIN DAPAT STRUCTURE NETO SOMEDAY!
 	public void updateGame() {
 		
 		if (promoting) {
@@ -338,11 +339,11 @@ public class ChessPanel extends JPanel{
 	    	
 	    }
 	    
-	    System.out.println("Simulating move");
-	    System.out.println("Mouse pressed: " + md.pressed);
-	    System.out.println("Captured piece: " + activePiece.hittin);
-	    
-	    System.out.println("RELEASE HANDLER");
+//	    System.out.println("Simulating move");
+//	    System.out.println("Mouse pressed: " + md.pressed);
+//	    System.out.println("Captured piece: " + activePiece.hittin);
+//	    
+//	    System.out.println("RELEASE HANDLER");
 	}
 	
 	private void checkCastle() {
