@@ -93,7 +93,7 @@ public class ChessPanel extends JPanel{
 		pieces.add(new Knight(WHITE, 6, 7));
 		pieces.add(new Bishop(WHITE, 2, 7));
 		pieces.add(new Bishop(WHITE, 5, 7));
-		pieces.add(new Queen(WHITE, 3, 7));
+		pieces.add(new Queen(WHITE, 3, 4));
 		pieces.add(new King(WHITE, 4, 7));
 		
 		// black
@@ -251,6 +251,7 @@ public class ChessPanel extends JPanel{
 	
 		            simulateMove();
 		        }
+//		        simulateMove();
 		    }
 	
 	
@@ -261,6 +262,12 @@ public class ChessPanel extends JPanel{
 	
 		            // DRAG AND DROP
 		            if (validSquare) {
+		            	
+		            	// captures
+		    	    	if (activePiece.hittin != null) {
+		    	    		sim.remove(activePiece.hittin.getIndex());
+		    	    	}
+		            	
 		                copyPieces(sim, pieces);
 		            	activePiece.updatePos();
 		            	
@@ -322,13 +329,20 @@ public class ChessPanel extends JPanel{
 	    	canMove = true;
 	    	
 	    	//captures
-	    	if (activePiece.hittin != null) {
-	    		sim.remove(activePiece.hittin.getIndex());
-	    	}
+//	    	if (activePiece.hittin != null) {
+//	    		sim.remove(activePiece.hittin.getIndex());
+//	    	}
 	    	
 	    	checkCastle();
 	    	validSquare = true;
+	    	
 	    }
+	    
+	    System.out.println("Simulating move");
+	    System.out.println("Mouse pressed: " + md.pressed);
+	    System.out.println("Captured piece: " + activePiece.hittin);
+	    
+	    System.out.println("RELEASE HANDLER");
 	}
 	
 	private void checkCastle() {
@@ -493,6 +507,15 @@ public class ChessPanel extends JPanel{
 			    piece.draw(g2);
 			}
 			
+//			if (activePiece != null) {
+//			    g2.setColor(Color.RED);
+//			    g2.drawRect(
+//			        activePiece.col * Board.SQ_SIZE,
+//			        activePiece.row * Board.SQ_SIZE,
+//			        Board.SQ_SIZE,
+//			        Board.SQ_SIZE
+//			    );
+//			}
 			
 	}
 

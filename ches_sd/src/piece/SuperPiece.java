@@ -33,7 +33,6 @@ public class SuperPiece {
 		prevCol = col;
 		prevRow = row;
 		
-//		centerThePiece();
 	}
 	
 	public BufferedImage getImg(String pathImg) {
