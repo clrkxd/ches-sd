@@ -148,9 +148,17 @@ public class ChessPanel extends JPanel{
 	}
 	
 	private void moveSelectedPiece(int pickedCol, int pickedRow) {
+		
+		 // Reject moves that would leave your king in check
+	    for (int[] move : illegalMoves) {
+	        if (move[0] == pickedCol && move[1] == pickedRow) {
+	            return;
+	        }
+	    }
 
-		//check legality
-	    if (selectedPiece.canMove(pickedCol, pickedRow)) {
+	    if (selectedPiece != null &&
+	            selectedPiece.canMove(pickedCol, pickedRow)) {
+
 	    	
 	    	// Capture
 	        if (selectedPiece.hittin != null) {
@@ -189,7 +197,49 @@ public class ChessPanel extends JPanel{
 	        selectedPiece = null;
 	        legalMoves.clear();
 	        activePiece = null;
-        }
+	    }
+
+//		//check legality
+//	    if (selectedPiece.canMove(pickedCol, pickedRow)) {
+//	    	
+//	    	// Capture
+//	        if (selectedPiece.hittin != null) {
+//	            sim.remove(selectedPiece.hittin.getIndex());
+//	        }
+//	        
+//	     // Determine castling
+//	        checkCastle();
+//
+//	        selectedPiece.col = pickedCol;
+//	        selectedPiece.row = pickedRow;
+//	        
+//	        if (castle != null) {
+//        		castle.updatePos();
+//        	}
+//
+//	        selectedPiece.x = pickedCol * Board.SQ_SIZE + Board.HALFSQ;
+//	        selectedPiece.y = pickedRow * Board.SQ_SIZE + Board.HALFSQ;
+// 
+////	        if (isKingDoingIllegal(selectedPiece) == false) {
+////	    		validSquare = true;
+////	    	}
+//	        selectedPiece.updatePos();
+//
+//	        
+//	        
+//	        activePiece = selectedPiece;
+//
+//	        if (canPromote()) {
+//        		promoting = true;
+//        	} else {
+//        		changeTurn();
+//        	}
+//	        
+//	       
+//	        selectedPiece = null;
+//	        legalMoves.clear();
+//	        activePiece = null;
+//        }
 
 	}
 	
