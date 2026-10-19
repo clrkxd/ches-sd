@@ -15,12 +15,7 @@ public class Board {
 	public final static int HALFSQ = SQ_SIZE/2;
 	
 	public int boardX;
-	public int boardY;
-	
-	public Board() {
-		
-	}
-	
+	public int boardY;	
 	             	
 	public void draw(Graphics2D g2) {
 		

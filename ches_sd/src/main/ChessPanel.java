@@ -178,9 +178,6 @@ public class ChessPanel extends JPanel{
 	        selectedPiece.x = pickedCol * Board.SQ_SIZE + Board.HALFSQ;
 	        selectedPiece.y = pickedRow * Board.SQ_SIZE + Board.HALFSQ;
  
-//	        if (isKingDoingIllegal(selectedPiece) == false) {
-//	    		validSquare = true;
-//	    	}
 	        selectedPiece.updatePos();
 
 	        
@@ -198,49 +195,6 @@ public class ChessPanel extends JPanel{
 	        legalMoves.clear();
 	        activePiece = null;
 	    }
-
-//		//check legality
-//	    if (selectedPiece.canMove(pickedCol, pickedRow)) {
-//	    	
-//	    	// Capture
-//	        if (selectedPiece.hittin != null) {
-//	            sim.remove(selectedPiece.hittin.getIndex());
-//	        }
-//	        
-//	     // Determine castling
-//	        checkCastle();
-//
-//	        selectedPiece.col = pickedCol;
-//	        selectedPiece.row = pickedRow;
-//	        
-//	        if (castle != null) {
-//        		castle.updatePos();
-//        	}
-//
-//	        selectedPiece.x = pickedCol * Board.SQ_SIZE + Board.HALFSQ;
-//	        selectedPiece.y = pickedRow * Board.SQ_SIZE + Board.HALFSQ;
-// 
-////	        if (isKingDoingIllegal(selectedPiece) == false) {
-////	    		validSquare = true;
-////	    	}
-//	        selectedPiece.updatePos();
-//
-//	        
-//	        
-//	        activePiece = selectedPiece;
-//
-//	        if (canPromote()) {
-//        		promoting = true;
-//        	} else {
-//        		changeTurn();
-//        	}
-//	        
-//	       
-//	        selectedPiece = null;
-//	        legalMoves.clear();
-//	        activePiece = null;
-//        }
-
 	}
 	
 	// ANG GULO GULO AYUSIN DAPAT STRUCTURE NETO SOMEDAY!
