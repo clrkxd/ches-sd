@@ -33,6 +33,7 @@ public class ChessPanel extends JPanel{
 	public static ArrayList<SuperPiece> sim = new ArrayList<>(); // simulates the pieces
 	public ArrayList<int[]> legalMoves = new ArrayList<>(); // green dots
 	ArrayList<SuperPiece> promoteTo = new ArrayList<>(); // promoting pawns
+	private ArrayList<int[]> illegalMoves = new ArrayList<>(); //checks illegal moves in select-to-move
 	
 	// piece selection UI
 	SuperPiece activePiece;
@@ -70,9 +71,9 @@ public class ChessPanel extends JPanel{
 
         movMech = new MoveMechanics(this, md);
 
-        setThemPieces();
+//        setThemPieces();
 //		testPromotion();
-//		testIllegal();
+		testIllegal();
 //		testStalemate();
         copyPieces(pieces, sim);
 	}
@@ -93,7 +94,7 @@ public class ChessPanel extends JPanel{
 		pieces.add(new Knight(WHITE, 6, 7));
 		pieces.add(new Bishop(WHITE, 2, 7));
 		pieces.add(new Bishop(WHITE, 5, 7));
-		pieces.add(new Queen(WHITE, 3, 4));
+		pieces.add(new Queen(WHITE, 3, 7));
 		pieces.add(new King(WHITE, 4, 7));
 		
 		// black
@@ -122,13 +123,13 @@ public class ChessPanel extends JPanel{
 //		pieces.add(new Pawn(BLACK, 7, 4));
 //	}
 	
-//	public void testIllegal() {
-//		pieces.add(new Pawn(WHITE, 7, 6));
-//		pieces.add(new King(WHITE, 3, 7));
-//		pieces.add(new King(BLACK, 0, 3));
-//		pieces.add(new Bishop(BLACK, 1, 4));
-//		pieces.add(new Queen(BLACK, 4, 5));
-//	}
+	public void testIllegal() {
+		pieces.add(new Pawn(WHITE, 7, 6));
+		pieces.add(new King(WHITE, 3, 7));
+		pieces.add(new King(BLACK, 0, 3));
+		pieces.add(new Bishop(BLACK, 1, 4));
+		pieces.add(new Queen(BLACK, 4, 5));
+	}
 //	
 //	public void testStalemate() {
 //		pieces.add(new Queen(BLACK, 2, 1));
@@ -148,7 +149,7 @@ public class ChessPanel extends JPanel{
 	
 	private void moveSelectedPiece(int pickedCol, int pickedRow) {
 
-
+		//check legality
 	    if (selectedPiece.canMove(pickedCol, pickedRow)) {
 	    	
 	    	// Capture
@@ -168,11 +169,13 @@ public class ChessPanel extends JPanel{
 
 	        selectedPiece.x = pickedCol * Board.SQ_SIZE + Board.HALFSQ;
 	        selectedPiece.y = pickedRow * Board.SQ_SIZE + Board.HALFSQ;
-
+ 
+//	        if (isKingDoingIllegal(selectedPiece) == false) {
+//	    		validSquare = true;
+//	    	}
 	        selectedPiece.updatePos();
 
-	        selectedPiece = null;
-	        legalMoves.clear();
+	        
 	        
 	        activePiece = selectedPiece;
 
@@ -182,7 +185,10 @@ public class ChessPanel extends JPanel{
         		changeTurn();
         	}
 	        
+	       
 	        selectedPiece = null;
+	        legalMoves.clear();
+	        activePiece = null;
         }
 
 	}
@@ -335,7 +341,12 @@ public class ChessPanel extends JPanel{
 //	    	}
 	    	
 	    	checkCastle();
-	    	validSquare = true;
+	    	
+	    	if (isKingDoingIllegal(activePiece) == false) {
+	    		validSquare = true;
+	    	}
+	    	
+	    	
 	    	
 	    }
 	    
@@ -344,6 +355,18 @@ public class ChessPanel extends JPanel{
 //	    System.out.println("Captured piece: " + activePiece.hittin);
 //	    
 //	    System.out.println("RELEASE HANDLER");
+	}
+	
+	private boolean isKingDoingIllegal(SuperPiece king) {
+		
+		if (king.type == Type.KING) {
+			for (SuperPiece p : pieces) {
+				if (p != king && p.turn != king.turn && p.canMove(king.col, king.row)) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 	
 	private void checkCastle() {
@@ -486,10 +509,19 @@ public class ChessPanel extends JPanel{
 			 SuperPiece piece = (activePiece != null) ? activePiece : selectedPiece;
 			
 			if (canMove) {
-				g2.setColor(Color.WHITE);
-				g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.7f));
-				g2.fillRect(board.boardX + piece.col * Board.SQ_SIZE, board.boardY + piece.row * Board.SQ_SIZE, Board.SQ_SIZE, Board.SQ_SIZE);
-				g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+				
+				if (isKingDoingIllegal(piece)) {
+					g2.setColor(Color.GRAY);
+					g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.7f));
+					g2.fillRect(board.boardX + piece.col * Board.SQ_SIZE, board.boardY + piece.row * Board.SQ_SIZE, Board.SQ_SIZE, Board.SQ_SIZE);
+					g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+				} else {
+					g2.setColor(Color.WHITE);
+					g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.7f));
+					g2.fillRect(board.boardX + piece.col * Board.SQ_SIZE, board.boardY + piece.row * Board.SQ_SIZE, Board.SQ_SIZE, Board.SQ_SIZE);
+					g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+				}
+				
 			}
 			
 			for (int[] move : legalMoves) {
