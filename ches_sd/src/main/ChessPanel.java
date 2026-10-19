@@ -400,18 +400,67 @@ public class ChessPanel extends JPanel{
 		}
 
 	}
+//	private void allLegalMoves(SuperPiece p) {
+//		
+//		legalMoves.clear();
+//		
+//		for (int col = 0; col < 8; col++) {
+//			for (int row = 0; row < 8; row++) {
+//				
+//				if (p.canMove(col, row)) {
+//					legalMoves.add(new int[] {col, row});
+//				}
+//			}
+//		}
+//	}
 	private void allLegalMoves(SuperPiece p) {
-		
-		legalMoves.clear();
-		
-		for (int col = 0; col < 8; col++) {
-			for (int row = 0; row < 8; row++) {
-				
-				if (p.canMove(col, row)) {
-					legalMoves.add(new int[] {col, row});
-				}
-			}
-		}
+
+	    legalMoves.clear();
+	    illegalMoves.clear();
+
+	    int originalCol = p.col;
+	    int originalRow = p.row;
+	    int originalX = p.x;
+	    int originalY = p.y;
+
+	    for (int col = 0; col < 8; col++) {
+	        for (int row = 0; row < 8; row++) {
+
+	            if (!p.canMove(col, row)) {
+	                continue;
+	            }
+
+	            // Temporarily move the piece
+	            p.col = col;
+	            p.row = row;
+	            p.x = col * Board.SQ_SIZE + Board.HALFSQ;
+	            p.y = row * Board.SQ_SIZE + Board.HALFSQ;
+
+	            SuperPiece king = null;
+
+	            for (SuperPiece piece : sim) {
+	                if (piece.type == Type.KING && piece.turn == p.turn) {
+	                    king = piece;
+	                    break;
+	                }
+	            }
+
+	            // Check king safety
+	            boolean illegal = king != null && isKingDoingIllegal(king);
+
+	            // Restore the piece
+	            p.col = originalCol;
+	            p.row = originalRow;
+	            p.x = originalX;
+	            p.y = originalY;
+
+	            if (illegal) {
+	                illegalMoves.add(new int[] {col, row});
+	            } else {
+	                legalMoves.add(new int[] {col, row});
+	            }
+	        }
+	    }
 	}
 	
 	private boolean canPromote() {
@@ -524,6 +573,7 @@ public class ChessPanel extends JPanel{
 				
 			}
 			
+			// Green dots: moves that the piece can use
 			for (int[] move : legalMoves) {
 				
 				int x = move[0] * Board.SQ_SIZE;
@@ -533,6 +583,16 @@ public class ChessPanel extends JPanel{
 				g2.fillOval(x + 23, y + 23, 18, 18);
 				
 				
+			}
+			
+			// Red dots: moves that leave the king in check
+			for (int[] move : illegalMoves) {
+
+			    int x = move[0] * Board.SQ_SIZE;
+			    int y = move[1] * Board.SQ_SIZE;
+
+			    g2.setColor(Color.RED);
+			    g2.fillOval(x + 23, y + 23, 18, 18);
 			}
 			
 			// draw the activePiece
