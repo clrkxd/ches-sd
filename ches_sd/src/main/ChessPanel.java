@@ -28,16 +28,17 @@ public class ChessPanel extends JPanel{
 	MouseDetection md;
 	MoveMechanics movMech;
 	
+	
 	// pieces and simulation
 	public static ArrayList<SuperPiece> pieces = new ArrayList<>(); // backup
 	public static ArrayList<SuperPiece> sim = new ArrayList<>(); // simulates the pieces
 	public ArrayList<int[]> legalMoves = new ArrayList<>(); // green dots
-	ArrayList<SuperPiece> promoteTo = new ArrayList<>(); // promoting pawns
-	private ArrayList<int[]> illegalMoves = new ArrayList<>(); //checks illegal moves in select-to-move
+	public ArrayList<SuperPiece> promoteTo = new ArrayList<>(); // promoting pawns
+	public ArrayList<int[]> illegalMoves = new ArrayList<>(); //checks illegal moves in select-to-move
 	
 	// piece selection UI
-	SuperPiece activePiece;
-	SuperPiece selectedPiece;
+	public SuperPiece activePiece;
+	public SuperPiece selectedPiece;
 	public static SuperPiece castle;
 	boolean draggin = false;
 	
@@ -45,16 +46,16 @@ public class ChessPanel extends JPanel{
 	// color
 	public static final int WHITE = 0;
 	public static final int BLACK = 1;
-	int currentTurn = WHITE;
+	public static int currentTurn = WHITE;
 	
 	
 	boolean canMove;
 	boolean validSquare;
-	boolean promoting;
+	public boolean promoting;
 	
 	public ChessPanel(MouseDetection md) {
 		this.md = md;
-		
+		movMech = new MoveMechanics(this, md);
 		addMouseMotionListener(md);
 		addMouseListener(md);
 		
@@ -69,13 +70,69 @@ public class ChessPanel extends JPanel{
 	    setFocusable(true);
 	    requestFocusInWindow();
 
-        movMech = new MoveMechanics(this, md);
+//        movMech = new MoveMechanics(this, md);
 
 //        setThemPieces();
 //		testPromotion();
 		testIllegal();
 //		testStalemate();
         copyPieces(pieces, sim);
+	}
+	
+	public ArrayList<SuperPiece> getPieces() {
+	    return pieces;
+	}
+
+	public ArrayList<SuperPiece> getSim() {
+	    return sim;
+	}
+
+	public ArrayList<int[]> getLegalMoves() {
+	    return legalMoves;
+	}
+
+	public ArrayList<int[]> getIllegalMoves() {
+	    return illegalMoves;
+	}
+
+	public ArrayList<SuperPiece> getPromoteTo() {
+	    return promoteTo;
+	}
+
+	public SuperPiece getActivePiece() {
+	    return activePiece;
+	}
+
+	public void setActivePiece(SuperPiece activePiece) {
+	    this.activePiece = activePiece;
+	}
+
+	public SuperPiece getCastle() {
+	    return castle;
+	}
+
+	public int getCurrentTurn() {
+	    return currentTurn;
+	}
+
+	public void setCurrentTurn(int currentTurn) {
+	    this.currentTurn = currentTurn;
+	}
+
+	public boolean isPromoting() {
+	    return promoting;
+	}
+
+	public void setPromoting(boolean promoting) {
+	    this.promoting = promoting;
+	}
+	
+	public SuperPiece getSelectedPiece() {
+	    return selectedPiece;
+	}
+
+	public void setSelectedPiece(SuperPiece selectedPiece) {
+	    this.selectedPiece = selectedPiece;
 	}
 
 	public void setThemPieces() {
@@ -139,7 +196,7 @@ public class ChessPanel extends JPanel{
 //		currentTurn = BLACK;
 //	}
 	
-	private void copyPieces(ArrayList<SuperPiece> from, ArrayList<SuperPiece> to) {
+	public void copyPieces(ArrayList<SuperPiece> from, ArrayList<SuperPiece> to) {
 		
 		to.clear();
 		for (int i=0; i<from.size(); i++) {
@@ -147,61 +204,61 @@ public class ChessPanel extends JPanel{
 		}
 	}
 	
-	private void moveSelectedPiece(int pickedCol, int pickedRow) {
-		
-		 // Reject moves that would leave your king in check
-	    for (int[] move : illegalMoves) {
-	        if (move[0] == pickedCol && move[1] == pickedRow) {
-	            return;
-	        }
-	    }
-
-	    if (selectedPiece != null &&
-	            selectedPiece.canMove(pickedCol, pickedRow)) {
-
-	    	
-	    	// Capture
-	        if (selectedPiece.hittin != null) {
-	            sim.remove(selectedPiece.hittin.getIndex());
-	        }
-	        
-	     // Determine castling
-	        checkCastle();
-
-	        selectedPiece.col = pickedCol;
-	        selectedPiece.row = pickedRow;
-	        
-	        if (castle != null) {
-        		castle.updatePos();
-        	}
-
-	        selectedPiece.x = pickedCol * Board.SQ_SIZE + Board.HALFSQ;
-	        selectedPiece.y = pickedRow * Board.SQ_SIZE + Board.HALFSQ;
- 
-	        selectedPiece.updatePos();
-
-	        
-	        
-	        activePiece = selectedPiece;
-
-	        if (canPromote()) {
-        		promoting = true;
-        	} else {
-        		changeTurn();
-        	}
-	        
-	       
-	        selectedPiece = null;
-	        legalMoves.clear();
-	        activePiece = null;
-	    }
-	}
+//	private void moveSelectedPiece(int pickedCol, int pickedRow) {
+//		
+//		 // Reject moves that would leave your king in check
+//	    for (int[] move : illegalMoves) {
+//	        if (move[0] == pickedCol && move[1] == pickedRow) {
+//	            return;
+//	        }
+//	    }
+//
+//	    if (selectedPiece != null &&
+//	            selectedPiece.canMove(pickedCol, pickedRow)) {
+//
+//	    	
+//	    	// Capture
+//	        if (selectedPiece.hittin != null) {
+//	            sim.remove(selectedPiece.hittin.getIndex());
+//	        }
+//	        
+//	     // Determine castling
+//	        checkCastle();
+//
+//	        selectedPiece.col = pickedCol;
+//	        selectedPiece.row = pickedRow;
+//	        
+//	        if (castle != null) {
+//        		castle.updatePos();
+//        	}
+//
+//	        selectedPiece.x = pickedCol * Board.SQ_SIZE + Board.HALFSQ;
+//	        selectedPiece.y = pickedRow * Board.SQ_SIZE + Board.HALFSQ;
+// 
+//	        selectedPiece.updatePos();
+//
+//	        
+//	        
+//	        activePiece = selectedPiece;
+//
+//	        if (canPromote()) {
+//        		promoting = true;
+//        	} else {
+//        		changeTurn();
+//        	}
+//	        
+//	       
+//	        selectedPiece = null;
+//	        legalMoves.clear();
+//	        activePiece = null;
+//	    }
+//	}
 	
 	// ANG GULO GULO AYUSIN DAPAT STRUCTURE NETO SOMEDAY!
 	public void updateGame() {
 		
 		if (promoting) {
-			promote();
+			movMech.promote();
 			System.out.println("prom is okay");
 			
 		} else {
@@ -221,14 +278,14 @@ public class ChessPanel extends JPanel{
 		                    selectedPiece = p;
 		                    activePiece = p;
 
-		                    allLegalMoves(selectedPiece);
+		                    movMech.allLegalMoves(selectedPiece);
 
 		                    md.justPressed = false;
 		                    return;
 		                }
 		            }
 	//	        	simulateMove();
-		            moveSelectedPiece(col, row);
+		            movMech.moveSelectedPiece(col, row);
 		            
 		            md.justPressed = false;
 		            return;
@@ -243,7 +300,7 @@ public class ChessPanel extends JPanel{
 	
 		                    activePiece = p;
 		                    
-		                    allLegalMoves(activePiece);
+		                    movMech.allLegalMoves(activePiece);
 		                    break;
 		                }
 		            }
@@ -286,10 +343,10 @@ public class ChessPanel extends JPanel{
 		            		castle.updatePos();
 		            	}
 		            	
-		            	if (canPromote()) {
+		            	if (movMech.canPromote()) {
 		            		promoting = true;
 		            	} else {
-		            		changeTurn();
+		            		movMech.changeTurn();
 		            	}
 		            	
 		            }
@@ -344,9 +401,9 @@ public class ChessPanel extends JPanel{
 //	    		sim.remove(activePiece.hittin.getIndex());
 //	    	}
 	    	
-	    	checkCastle();
+	    	movMech.checkCastle();
 	    	
-	    	if (isKingDoingIllegal(activePiece) == false) {
+	    	if (movMech.isKingDoingIllegal(activePiece) == false) {
 	    		validSquare = true;
 	    	}
 	    	
@@ -361,186 +418,186 @@ public class ChessPanel extends JPanel{
 //	    System.out.println("RELEASE HANDLER");
 	}
 	
-	private boolean isKingDoingIllegal(SuperPiece king) {
-		
-		if (king.type == Type.KING) {
-			for (SuperPiece p : pieces) {
-				if (p != king && p.turn != king.turn && p.canMove(king.col, king.row)) {
-					return true;
-				}
-			}
-		}
-		return false;
-	}
-	
-	private void checkCastle() {
-		if (castle != null) {
-			if (castle.col == 0) {
-				castle.col += 3;
-			} else if (castle.col == 7) {
-				castle.col -= 2;
-			}
-			castle.x = castle.getX(castle.col);
-		}
-	}
-	
-	private void changeTurn() {
-		if (currentTurn == WHITE) {
-			currentTurn = BLACK;
-			
-			for (SuperPiece p : pieces) {
-				if (p.turn == BLACK) {
-					p.pawnJump = false;
-				}
-			}
-		} else {
-			currentTurn = WHITE;
-			
-			for (SuperPiece p : pieces) {
-				if (p.turn == WHITE) {
-					p.pawnJump = false;
-				}
-			}
-		}
-
-	}
-//	private void allLegalMoves(SuperPiece p) {
+//	private boolean isKingDoingIllegal(SuperPiece king) {
 //		
-//		legalMoves.clear();
-//		
-//		for (int col = 0; col < 8; col++) {
-//			for (int row = 0; row < 8; row++) {
-//				
-//				if (p.canMove(col, row)) {
-//					legalMoves.add(new int[] {col, row});
+//		if (king.type == Type.KING) {
+//			for (SuperPiece p : pieces) {
+//				if (p != king && p.turn != king.turn && p.canMove(king.col, king.row)) {
+//					return true;
 //				}
 //			}
 //		}
+//		return false;
 //	}
-	private void allLegalMoves(SuperPiece p) {
-
-	    legalMoves.clear();
-	    illegalMoves.clear();
-
-	    int originalCol = p.col;
-	    int originalRow = p.row;
-	    int originalX = p.x;
-	    int originalY = p.y;
-
-	    for (int col = 0; col < 8; col++) {
-	        for (int row = 0; row < 8; row++) {
-
-	            if (!p.canMove(col, row)) {
-	                continue;
-	            }
-
-	            // Temporarily move the piece
-	            p.col = col;
-	            p.row = row;
-	            p.x = col * Board.SQ_SIZE + Board.HALFSQ;
-	            p.y = row * Board.SQ_SIZE + Board.HALFSQ;
-
-	            SuperPiece king = null;
-
-	            for (SuperPiece piece : sim) {
-	                if (piece.type == Type.KING && piece.turn == p.turn) {
-	                    king = piece;
-	                    break;
-	                }
-	            }
-
-	            // Check king safety
-	            boolean illegal = king != null && isKingDoingIllegal(king);
-
-	            // Restore the piece
-	            p.col = originalCol;
-	            p.row = originalRow;
-	            p.x = originalX;
-	            p.y = originalY;
-
-	            if (illegal) {
-	                illegalMoves.add(new int[] {col, row});
-	            } else {
-	                legalMoves.add(new int[] {col, row});
-	            }
-	        }
-	    }
-	}
-	
-	private boolean canPromote() {
-		
-		if (activePiece == null) {
-	        return false;
-	    }
-		
-		if (activePiece.type == Type.PAWN) {
-			if (currentTurn == WHITE && activePiece.row == 0) {
-				promoteTo.clear();
-				promoteTo.add(new Rook(currentTurn, activePiece.col, activePiece.row));
-				promoteTo.add(new Knight(currentTurn, activePiece.col, activePiece.row + 1));
-				promoteTo.add(new Bishop(currentTurn, activePiece.col, activePiece.row + 2));
-				promoteTo.add(new Queen(currentTurn, activePiece.col, activePiece.row + 3));
-				return true;
-			}
-			if (currentTurn == BLACK && activePiece.row == 7) {
-				promoteTo.clear();
-				promoteTo.add(new Rook(currentTurn, activePiece.col, activePiece.row));
-				promoteTo.add(new Knight(currentTurn, activePiece.col, activePiece.row - 1));
-				promoteTo.add(new Bishop(currentTurn, activePiece.col, activePiece.row - 2));
-				promoteTo.add(new Queen(currentTurn, activePiece.col, activePiece.row - 3));
-				return true;
-			}
-		}
-		return false;
-	}
-	
-	private void promote() {
-		
-		if (!promoting || activePiece == null) {
-	        return;
-	    }
-		
-		 if (md.pressed) {
-			 for (SuperPiece p : promoteTo) {
-				 
-				 	int x = p.getX(p.col);
-		            int y = p.getY(p.row);
-		            
-		            if (md.x >= x && md.x < x + Board.SQ_SIZE && md.y >= y && md.y < y + Board.SQ_SIZE) {
-		                    
-		                    switch (p.type) {
-			                    case ROOK:
-			                        sim.add(new Rook(currentTurn, activePiece.col, activePiece.row));
-			                        break;
-			                        
-			                    case KNIGHT:
-			                        sim.add(new Knight(currentTurn, activePiece.col, activePiece.row));
-			                        break;
-			                        
-			                    case BISHOP:
-			                        sim.add(new Bishop(currentTurn, activePiece.col, activePiece.row));
-			                        break;
-			                        
-			                    case QUEEN:
-			                        sim.add(new Queen(currentTurn, activePiece.col, activePiece.row));
-			                        break;
-			                        
-			                    default:
-			                        break;
-		                    }
-		                    
-		                    sim.remove(activePiece.getIndex());
-		                    copyPieces(sim, pieces);
-		                    
-		                    activePiece = null;
-		                    promoting = false;
-		                    changeTurn();
-		                    
-		                    break;
-		            }
-			 }
-		 }
-	}
+//	
+//	private void checkCastle() {
+//		if (castle != null) {
+//			if (castle.col == 0) {
+//				castle.col += 3;
+//			} else if (castle.col == 7) {
+//				castle.col -= 2;
+//			}
+//			castle.x = castle.getX(castle.col);
+//		}
+//	}
+//	
+//	private void changeTurn() {
+//		if (currentTurn == WHITE) {
+//			currentTurn = BLACK;
+//			
+//			for (SuperPiece p : pieces) {
+//				if (p.turn == BLACK) {
+//					p.pawnJump = false;
+//				}
+//			}
+//		} else {
+//			currentTurn = WHITE;
+//			
+//			for (SuperPiece p : pieces) {
+//				if (p.turn == WHITE) {
+//					p.pawnJump = false;
+//				}
+//			}
+//		}
+//
+//	}
+////	private void allLegalMoves(SuperPiece p) {
+////		
+////		legalMoves.clear();
+////		
+////		for (int col = 0; col < 8; col++) {
+////			for (int row = 0; row < 8; row++) {
+////				
+////				if (p.canMove(col, row)) {
+////					legalMoves.add(new int[] {col, row});
+////				}
+////			}
+////		}
+////	}
+//	private void allLegalMoves(SuperPiece p) {
+//
+//	    legalMoves.clear();
+//	    illegalMoves.clear();
+//
+//	    int originalCol = p.col;
+//	    int originalRow = p.row;
+//	    int originalX = p.x;
+//	    int originalY = p.y;
+//
+//	    for (int col = 0; col < 8; col++) {
+//	        for (int row = 0; row < 8; row++) {
+//
+//	            if (!p.canMove(col, row)) {
+//	                continue;
+//	            }
+//
+//	            // Temporarily move the piece
+//	            p.col = col;
+//	            p.row = row;
+//	            p.x = col * Board.SQ_SIZE + Board.HALFSQ;
+//	            p.y = row * Board.SQ_SIZE + Board.HALFSQ;
+//
+//	            SuperPiece king = null;
+//
+//	            for (SuperPiece piece : sim) {
+//	                if (piece.type == Type.KING && piece.turn == p.turn) {
+//	                    king = piece;
+//	                    break;
+//	                }
+//	            }
+//
+//	            // Check king safety
+//	            boolean illegal = king != null && isKingDoingIllegal(king);
+//
+//	            // Restore the piece
+//	            p.col = originalCol;
+//	            p.row = originalRow;
+//	            p.x = originalX;
+//	            p.y = originalY;
+//
+//	            if (illegal) {
+//	                illegalMoves.add(new int[] {col, row});
+//	            } else {
+//	                legalMoves.add(new int[] {col, row});
+//	            }
+//	        }
+//	    }
+//	}
+//	
+//	private boolean canPromote() {
+//		
+//		if (activePiece == null) {
+//	        return false;
+//	    }
+//		
+//		if (activePiece.type == Type.PAWN) {
+//			if (currentTurn == WHITE && activePiece.row == 0) {
+//				promoteTo.clear();
+//				promoteTo.add(new Rook(currentTurn, activePiece.col, activePiece.row));
+//				promoteTo.add(new Knight(currentTurn, activePiece.col, activePiece.row + 1));
+//				promoteTo.add(new Bishop(currentTurn, activePiece.col, activePiece.row + 2));
+//				promoteTo.add(new Queen(currentTurn, activePiece.col, activePiece.row + 3));
+//				return true;
+//			}
+//			if (currentTurn == BLACK && activePiece.row == 7) {
+//				promoteTo.clear();
+//				promoteTo.add(new Rook(currentTurn, activePiece.col, activePiece.row));
+//				promoteTo.add(new Knight(currentTurn, activePiece.col, activePiece.row - 1));
+//				promoteTo.add(new Bishop(currentTurn, activePiece.col, activePiece.row - 2));
+//				promoteTo.add(new Queen(currentTurn, activePiece.col, activePiece.row - 3));
+//				return true;
+//			}
+//		}
+//		return false;
+//	}
+//	
+//	private void promote() {
+//		
+//		if (!promoting || activePiece == null) {
+//	        return;
+//	    }
+//		
+//		 if (md.pressed) {
+//			 for (SuperPiece p : promoteTo) {
+//				 
+//				 	int x = p.getX(p.col);
+//		            int y = p.getY(p.row);
+//		            
+//		            if (md.x >= x && md.x < x + Board.SQ_SIZE && md.y >= y && md.y < y + Board.SQ_SIZE) {
+//		                    
+//		                    switch (p.type) {
+//			                    case ROOK:
+//			                        sim.add(new Rook(currentTurn, activePiece.col, activePiece.row));
+//			                        break;
+//			                        
+//			                    case KNIGHT:
+//			                        sim.add(new Knight(currentTurn, activePiece.col, activePiece.row));
+//			                        break;
+//			                        
+//			                    case BISHOP:
+//			                        sim.add(new Bishop(currentTurn, activePiece.col, activePiece.row));
+//			                        break;
+//			                        
+//			                    case QUEEN:
+//			                        sim.add(new Queen(currentTurn, activePiece.col, activePiece.row));
+//			                        break;
+//			                        
+//			                    default:
+//			                        break;
+//		                    }
+//		                    
+//		                    sim.remove(activePiece.getIndex());
+//		                    copyPieces(sim, pieces);
+//		                    
+//		                    activePiece = null;
+//		                    promoting = false;
+//		                    changeTurn();
+//		                    
+//		                    break;
+//		            }
+//			 }
+//		 }
+//	}
 
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
@@ -563,7 +620,7 @@ public class ChessPanel extends JPanel{
 			
 			if (canMove) {
 				
-				if (isKingDoingIllegal(piece)) {
+				if (movMech.isKingDoingIllegal(piece)) {
 					g2.setColor(Color.GRAY);
 					g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.7f));
 					g2.fillRect(board.boardX + piece.col * Board.SQ_SIZE, board.boardY + piece.row * Board.SQ_SIZE, Board.SQ_SIZE, Board.SQ_SIZE);
