@@ -110,26 +110,6 @@ public class MoveMechanics {
 		}
 	}
 	
-//	private void changeTurn() {
-//		if (chP.getCurrentTurn() == ChessPanel.WHITE) {
-//			chP.getCurrentTurn() = ChessPanel.BLACK;
-//			
-//			for (SuperPiece p : chP.getPieces()) {
-//				if (p.turn == ChessPanel.BLACK) {
-//					p.pawnJump = false;
-//				}
-//			}
-//		} else {
-//			chP.currentTurn = ChessPanel.WHITE;
-//			
-//			for (SuperPiece p : chP.getPieces()) {
-//				if (p.turn == ChessPanel.WHITE) {
-//					p.pawnJump = false;
-//				}
-//			}
-//		}
-//
-//	}
 	public void changeTurn() {
 	    int nextTurn = chP.getCurrentTurn() == ChessPanel.WHITE
 	            ? ChessPanel.BLACK
