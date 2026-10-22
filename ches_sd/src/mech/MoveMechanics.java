@@ -100,13 +100,13 @@ public class MoveMechanics {
 	}
 	
 	public void checkCastle() {
-		if (chP.castle != null) {
-			if (chP.castle.col == 0) {
-				chP.castle.col += 3;
-			} else if (chP.castle.col == 7) {
-				chP.castle.col -= 2;
+		if (ChessPanel.castle != null) {
+			if (ChessPanel.castle.col == 0) {
+				ChessPanel.castle.col += 3;
+			} else if (ChessPanel.castle.col == 7) {
+				ChessPanel.castle.col -= 2;
 			}
-			chP.castle.x = chP.castle.getX(chP.castle.col);
+			ChessPanel.castle.x = ChessPanel.castle.getX(ChessPanel.castle.col);
 		}
 	}
 	
