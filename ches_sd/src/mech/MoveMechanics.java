@@ -111,9 +111,7 @@ public class MoveMechanics {
 	}
 	
 	public void changeTurn() {
-	    int nextTurn = chP.getCurrentTurn() == ChessPanel.WHITE
-	            ? ChessPanel.BLACK
-	            : ChessPanel.WHITE;
+	    int nextTurn = chP.getCurrentTurn() == ChessPanel.WHITE ? ChessPanel.BLACK : ChessPanel.WHITE;
 
 	    chP.setCurrentTurn(nextTurn);
 
