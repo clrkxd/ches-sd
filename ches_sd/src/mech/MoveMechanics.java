@@ -208,6 +208,7 @@ public class MoveMechanics {
 	public boolean canPromote() {
 		
 		 SuperPiece activePiece = chP.getActivePiece();
+//		 SuperPiece selected = chP.getSelectedPiece();
 		
 		if (activePiece == null) {
 	        return false;
@@ -236,13 +237,16 @@ public class MoveMechanics {
 	
 	public void promote() {
 		
+		System.out.println("ENTERED PROMOTE()");
 		 SuperPiece activePiece = chP.getActivePiece();
 		
 		if (!chP.isPromoting() == true || activePiece == null) {
 	        return;
 	    }
 		
-		 if (md.pressed) {
+//		 if (md.pressed) {
+		if (md.justPressed) {
+	        md.justPressed = false;
 			 for (SuperPiece p : chP.getPromoteTo()) {
 				 
 				 	int x = p.getX(p.col);
