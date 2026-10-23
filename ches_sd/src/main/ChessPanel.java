@@ -240,8 +240,9 @@ public class ChessPanel extends JPanel{
 	public void updateGame() {
 		
 		if (promoting) {
-			movMech.promote();
+			
 			System.out.println("prom is okay");
+			movMech.promote();
 			
 		} else {
 				    // MOUSE JUST PRESSED
@@ -494,7 +495,7 @@ public class ChessPanel extends JPanel{
 //							    );
 					
 					g2.drawImage(p.img, p.getX(p.col), p.getY(p.row), Board.SQ_SIZE, Board.SQ_SIZE, null);
-					g2.drawImage(p.img, x, y, Board.SQ_SIZE, Board.SQ_SIZE, null);
+//					g2.drawImage(p.img, x, y, Board.SQ_SIZE, Board.SQ_SIZE, null);
 				}
 			}
 	}

@@ -39,6 +39,8 @@ public class MoveMechanics {
 	    if (chP.getSelectedPiece() != null &&
 	    		chP.getSelectedPiece().canMove(pickedCol, pickedRow)) {
 
+	    	 // Synchronize piece lists
+//	        chP.copyPieces(chP.getSim(), chP.getPieces());
 	    	
 	    	// Capture
 	        if (chP.getSelectedPiece().hittin != null) {
@@ -59,6 +61,8 @@ public class MoveMechanics {
 	        if (rook != null) {
 	            rook.updatePos();
 	        }
+	     // Set the moved piece as active before checking promotion
+//	        chP.setActivePiece(selected);
 
 	        chP.getSelectedPiece().x = pickedCol * Board.SQ_SIZE + Board.HALFSQ;
 	        chP.getSelectedPiece().y = pickedRow * Board.SQ_SIZE + Board.HALFSQ;
@@ -71,16 +75,32 @@ public class MoveMechanics {
 	        
 	        // Check promotion
 	        chP.setActivePiece(selected);
-
-	        if (canPromote()) {
-	        	chP.setPromoting(true);
-       	} else {
-       		changeTurn();
-       		chP.setActivePiece(null);
-       	}
 	        
+	        boolean promotionMove = canPromote();
+
+	        
+
+	        if (promotionMove) {
+	            chP.setPromoting(true);
+	        } else {
+	            changeTurn();
+	            chP.setActivePiece(null);
+	        }
 	        chP.setSelectedPiece(null);
 	        chP.getLegalMoves().clear();
+//	        if (canPromote()) {
+//	        	chP.setPromoting(true);
+//	        	
+//	        	System.out.println("Select-to-move promotion triggered");
+//	            System.out.println("Active piece: " + chP.getActivePiece());
+//	            System.out.println("Promotion options: " + chP.getPromoteTo().size());
+//       	} else {
+//       		changeTurn();
+//       		chP.setActivePiece(null);
+//       	}
+//	        
+//	        chP.setSelectedPiece(null);
+//	        chP.getLegalMoves().clear();
 //	        selectedPiece = null;
 //	        legalMoves.clear();
 //	        activePiece = null;
@@ -229,6 +249,8 @@ public class MoveMechanics {
 		            int y = p.getY(p.row);
 		            
 		            if (md.x >= x && md.x < x + Board.SQ_SIZE && md.y >= y && md.y < y + Board.SQ_SIZE) {
+		            	
+		            	chP.getSim().remove(activePiece);
 		                    
 		                    switch (p.type) {
 			                    case ROOK:
@@ -248,17 +270,26 @@ public class MoveMechanics {
 			                        break;
 			                        
 			                    default:
-			                        break;
+//			                        break;
+			                    	return;
 		                    }
 		                    
-		                    chP.getSim().remove(activePiece.getIndex());
+//		                    chP.getSim().remove(activePiece.getIndex());
+//		                    chP.copyPieces(chP.getSim(), chP.getPieces());
+//		                    
+//		                    activePiece = null;
+////		                    chP.promoting = false;
+//		                    chP.setPromoting(false);
+//		                    changeTurn();
+//		                    
+//		                    break;
 		                    chP.copyPieces(chP.getSim(), chP.getPieces());
-		                    
-		                    activePiece = null;
-//		                    chP.promoting = false;
+		                    chP.setActivePiece(null);
+		                    chP.setSelectedPiece(null);
+		                    chP.getLegalMoves().clear();
+		                    chP.getPromoteTo().clear();
 		                    chP.setPromoting(false);
 		                    changeTurn();
-		                    
 		                    break;
 		            }
 			 }
