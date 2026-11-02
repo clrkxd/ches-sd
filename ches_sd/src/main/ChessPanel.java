@@ -418,6 +418,20 @@ public class ChessPanel extends JPanel{
 		// board
 		board.draw(g2);
 		
+		SuperPiece kingInCheck = movMech.getKingInCheck();
+
+		if (kingInCheck != null) {
+
+		    g2.setColor(Color.RED);
+
+		    g2.fillRect(
+		        kingInCheck.col * Board.SQ_SIZE,
+		        kingInCheck.row * Board.SQ_SIZE,
+		        Board.SQ_SIZE,
+		        Board.SQ_SIZE
+		    );
+		}
+		
 		// pieces
 		for (SuperPiece p: sim) {
 			p.draw(g2);
@@ -483,10 +497,15 @@ public class ChessPanel extends JPanel{
 //				
 //			}
 			
+
+			
 			// draw the activePiece
-			if (piece != null) {
-			    piece.draw(g2);
-			}
+			for (SuperPiece p : sim) {
+		        p.draw(g2);
+		    }
+//			if (piece != null) {
+//			    piece.draw(g2);
+//			}
 			
 //			if (activePiece != null) {
 //			    g2.setColor(Color.RED);

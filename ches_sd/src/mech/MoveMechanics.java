@@ -119,6 +119,17 @@ public class MoveMechanics {
 		return false;
 	}
 	
+	public SuperPiece getKingInCheck() {
+
+	    SuperPiece king = getKing(false);
+
+	    if (king != null && isKingDoingIllegal(king)) {
+	        return king;
+	    }
+
+	    return null;
+	}
+	
 	public boolean isCheck() {
 		
 		SuperPiece king = getKing(true);
