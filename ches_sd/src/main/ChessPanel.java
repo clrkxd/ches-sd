@@ -39,6 +39,7 @@ public class ChessPanel extends JPanel{
 	// piece selection UI
 	public SuperPiece activePiece;
 	public SuperPiece selectedPiece;
+	public SuperPiece checks;
 	public static SuperPiece castle;
 	boolean draggin = false;
 	
@@ -52,6 +53,7 @@ public class ChessPanel extends JPanel{
 	boolean canMove;
 	boolean validSquare;
 	public boolean promoting;
+	boolean endG;
 	
 	public ChessPanel(MouseDetection md) {
 		this.md = md;
@@ -326,11 +328,18 @@ public class ChessPanel extends JPanel{
 		            		castle.updatePos();
 		            	}
 		            	
-		            	if (movMech.canPromote()) {
-		            		promoting = true;
+		            	if(movMech.isCheck()) {
+		            		// game over
+		            		
 		            	} else {
-		            		movMech.changeTurn();
+		            		if (movMech.canPromote()) {
+			            		promoting = true;
+			            	} else {
+			            		movMech.changeTurn();
+			            	}
 		            	}
+		            	
+		            	
 		            	
 		            }
 	
@@ -457,6 +466,22 @@ public class ChessPanel extends JPanel{
 			    g2.setColor(Color.RED);
 			    g2.fillOval(x + 23, y + 23, 18, 18);
 			}
+			
+//			if (movMech.isCheck() == true) {
+//				
+//				for (int[] move : illegalMoves) {
+//
+//				    int x = move[0] * Board.SQ_SIZE;
+//				    int y = move[1] * Board.SQ_SIZE;
+//
+//				    g2.setColor(Color.RED);
+//				    g2.fillOval(x + 23, y + 23, 18, 18);
+//				    
+//			
+//				}
+//			
+//				
+//			}
 			
 			// draw the activePiece
 			if (piece != null) {

@@ -119,6 +119,39 @@ public class MoveMechanics {
 		return false;
 	}
 	
+	public boolean isCheck() {
+		
+		SuperPiece king = getKing(true);
+		
+		if(chP.getActivePiece().canMove(king.col, king.row)) {
+			chP.checks = chP.activePiece;
+			return true;
+		} else {
+			chP.checks = null;
+		}
+		
+		return false;
+	}
+	
+	public SuperPiece getKing(boolean enemy) {
+		
+	SuperPiece king = null;
+			
+	for (SuperPiece p : chP.getPieces()) {
+		if (enemy) {
+			if (p.type == Type.KING && p.turn != chP.getCurrentTurn()) {
+				king = p;
+			}
+		} else {
+			if (p.type == Type.KING && p.turn == chP.getCurrentTurn()) {
+				king = p;
+			}
+		}
+		
+	}
+		return king;	
+	}
+	
 	public void checkCastle() {
 		if (ChessPanel.castle != null) {
 			if (ChessPanel.castle.col == 0) {
