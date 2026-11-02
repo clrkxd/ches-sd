@@ -130,6 +130,19 @@ public class MoveMechanics {
 	    return null;
 	}
 	
+	
+	public boolean hoyCheckPoAngKing() {
+		SuperPiece king = getKing(false);
+		
+		for (SuperPiece p : chP.getPieces()) {
+			if (p.turn != king.turn && p.canMove(king.col, king.row)) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
 	public boolean isCheck() {
 		
 		SuperPiece king = getKing(true);

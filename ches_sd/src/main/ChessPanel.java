@@ -395,9 +395,11 @@ public class ChessPanel extends JPanel{
 	    	
 	    	movMech.checkCastle();
 	    	
-	    	if (movMech.isKingDoingIllegal(activePiece) == false) {
+	    	if (movMech.isKingDoingIllegal(activePiece) == false && movMech.hoyCheckPoAngKing() == false) {
 	    		validSquare = true;
 	    	}
+	    	
+	    	
 	    	
 	    	
 	    	
