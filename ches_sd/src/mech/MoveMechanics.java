@@ -199,19 +199,6 @@ public class MoveMechanics {
 	    }
 	}
 	
-//	private void allLegalMoves(SuperPiece p) {
-//		
-//		legalMoves.clear();
-//		
-//		for (int col = 0; col < 8; col++) {
-//			for (int row = 0; row < 8; row++) {
-//				
-//				if (p.canMove(col, row)) {
-//					legalMoves.add(new int[] {col, row});
-//				}
-//			}
-//		}
-//	}
 	public void allLegalMoves(SuperPiece p) {
 
 		chP.getLegalMoves().clear();
@@ -335,15 +322,6 @@ public class MoveMechanics {
 			                    	return;
 		                    }
 		                    
-//		                    chP.getSim().remove(activePiece.getIndex());
-//		                    chP.copyPieces(chP.getSim(), chP.getPieces());
-//		                    
-//		                    activePiece = null;
-////		                    chP.promoting = false;
-//		                    chP.setPromoting(false);
-//		                    changeTurn();
-//		                    
-//		                    break;
 		                    chP.copyPieces(chP.getSim(), chP.getPieces());
 		                    chP.setActivePiece(null);
 		                    chP.setSelectedPiece(null);
