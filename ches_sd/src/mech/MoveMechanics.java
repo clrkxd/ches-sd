@@ -176,6 +176,152 @@ public class MoveMechanics {
 		return king;	
 	}
 	
+	public boolean isCheckMate() {
+		
+		SuperPiece king = getKing(true);
+		
+		if (kingCanMove(king)) {
+			return false;
+		} else {
+			// checks if a piece can block the attack 
+			// checks the pos of checking piece and king
+			int colDiff = Math.abs(chP.checks.col - king.col);
+			int rowDiff = Math.abs(chP.checks.row - king.row);
+			
+
+			if (colDiff == 0) {
+				// checkingP is attacking vertically
+				if (chP.checks.row < king.row) {
+					for (int row = chP.checks.row; row < king.row; row++) {
+						for (SuperPiece piece : chP.getSim()) {
+							if (piece != king && piece.turn != chP.getCurrentTurn() && piece.canMove(chP.checks.col, row)) {
+								return false;
+							}
+						}
+					}
+				}
+				if (chP.checks.row > king.row) {
+					for (int row = chP.checks.row; row > king.row; row--) {
+						for (SuperPiece piece : chP.getSim()) {
+							if (piece != king && piece.turn != chP.getCurrentTurn() && piece.canMove(chP.checks.col, row)) {
+								return false;
+							}
+						}
+					}
+				}
+			}
+			else if (rowDiff == 0) {
+				// checkingP is attacking horizontally
+				if (chP.checks.col < king.col) {
+					for (int col = chP.checks.col; col < king.col; col++) {
+						for (SuperPiece piece : chP.getSim()) {
+							if (piece != king && piece.turn != chP.getCurrentTurn() && piece.canMove(col, chP.checks.row)) {
+								return false;
+							}
+						}
+					}
+				}
+				if (chP.checks.col > king.col) {
+					for (int col = chP.checks.col; col > king.col; col--) {
+						for (SuperPiece piece : chP.getSim()) {
+							if (piece != king && piece.turn != chP.getCurrentTurn() && piece.canMove(col, chP.checks.row)) {
+								return false;
+							}
+						}
+					}
+				}
+			}
+			else if (colDiff == rowDiff) {
+				// checkingP is attacking diagonally
+				if (chP.checks.row < king.row) {
+					if (chP.checks.col < king.col) {
+						for (int col = chP.checks.col, row = chP.checks.row; col < king.col; col++, row++) {
+							for (SuperPiece piece : chP.getSim()) {
+								if (piece != king && piece.turn != chP.getCurrentTurn() && piece.canMove(col, row)) {
+									return false;
+								}
+							}
+						}
+					}
+					if (chP.checks.col > king.col) {
+						for (int col = chP.checks.col, row = chP.checks.row; col > king.col; col--, row++) {
+							for (SuperPiece piece : chP.getSim()) {
+								if (piece != king && piece.turn != chP.getCurrentTurn() && piece.canMove(col, row)) {
+									return false;
+								}
+							}
+						}
+					}
+				}
+				if (chP.checks.row > king.row) {
+					if (chP.checks.col < king.col) {
+						for (int col = chP.checks.col, row = chP.checks.row; col < king.col; col++, row--) {
+							for (SuperPiece piece : chP.getSim()) {
+								if (piece != king && piece.turn != chP.getCurrentTurn() && piece.canMove(col, row)) {
+									return false;
+								}
+							}
+						}
+					}
+					if (chP.checks.col > king.col) {
+						for (int col = chP.checks.col, row = chP.checks.row; col > king.col; col--, row--) {
+							for (SuperPiece piece : chP.getSim()) {
+								if (piece != king && piece.turn != chP.getCurrentTurn() && piece.canMove(col, row)) {
+									return false;
+								}
+							}
+						}
+					}
+				}
+			}
+			else {
+				// a knight is attacking
+			}
+		}
+		
+		return true;
+		
+	}
+	public boolean kingCanMove(SuperPiece king) {
+		
+		//simulate if there are square that the king can move to
+		if (isValidMove(king , -1, -1)) { return true;}
+		if (isValidMove(king , 0, -1)) { return true;}
+		if (isValidMove(king , 1, -1)) { return true;}
+		if (isValidMove(king , -1, 0)) { return true;}
+		if (isValidMove(king , 1, 0)) { return true;}
+		if (isValidMove(king , -1, 1)) { return true;}
+		if (isValidMove(king , 0, 1)) { return true;}
+		if (isValidMove(king , 1, 1)) { return true;}
+		return false;
+		
+	}
+	public boolean isValidMove(SuperPiece king, int colPlus, int rowPlus) {
+		
+boolean isValidMove = false;
+		
+		// update king's pos
+		king.col += colPlus;
+		king.row += rowPlus;
+		
+		if (king.canMove(king.col, king.row)) {
+			if (king.hittin != null) {
+				chP.getSim().remove(king.hittin.getIndex());
+				}
+			if (isKingDoingIllegal(king) == false) {
+				isValidMove = true;
+			}
+		}
+		
+		// reset the king's pos and restore the removed piece
+		king.resetPos();
+		chP.copyPieces(chP.getSim(), chP.getPieces());
+		
+		return isValidMove;
+		
+//		return false;
+	}
+	
 	public void checkCastle() {
 		if (ChessPanel.castle != null) {
 			if (ChessPanel.castle.col == 0) {
