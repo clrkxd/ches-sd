@@ -328,15 +328,10 @@ public class ChessPanel extends JPanel{
 		            		castle.updatePos();
 		            	}
 		            	
-		            	if(movMech.isCheck()) {
-		            		// game over
-		            		
+		            	if (movMech.canPromote()) {
+		            	    promoting = true;
 		            	} else {
-		            		if (movMech.canPromote()) {
-			            		promoting = true;
-			            	} else {
-			            		movMech.changeTurn();
-			            	}
+		            	    movMech.changeTurn();
 		            	}
 		            	
 		            	

@@ -1,5 +1,7 @@
 package mech;
 
+import java.util.ArrayList;
+
 import main.ChessPanel;
 //import main.GamePanel;
 import main.MouseDetection;
@@ -218,9 +220,57 @@ public class MoveMechanics {
 	    return null;
 	}
 	
+
+	public boolean isStalemate() {
+
+	    // Stalemate cannot happen if the current player is in check.
+	    if (isCheck()) {
+	        return false;
+	    }
+
+	    // Save the displayed move lists so we don't erase the selection highlights.
+	    ArrayList<int[]> savedLegalMoves =
+	            new ArrayList<>(chP.getLegalMoves());
+
+	    ArrayList<int[]> savedIllegalMoves =
+	            new ArrayList<>(chP.getIllegalMoves());
+
+	    for (SuperPiece p : chP.getSim()) {
+
+	        // Only check pieces belonging to the current player.
+	        if (p.turn == chP.getCurrentTurn()) {
+
+	            allLegalMoves(p);
+
+	            // One legal move is enough to rule out stalemate.
+	            if (!chP.getLegalMoves().isEmpty()) {
+
+	                chP.getLegalMoves().clear();
+	                chP.getLegalMoves().addAll(savedLegalMoves);
+
+	                chP.getIllegalMoves().clear();
+	                chP.getIllegalMoves().addAll(savedIllegalMoves);
+
+	                return false;
+	            }
+	        }
+	    }
+
+	    // Restore the displayed move lists.
+	    chP.getLegalMoves().clear();
+	    chP.getLegalMoves().addAll(savedLegalMoves);
+
+	    chP.getIllegalMoves().clear();
+	    chP.getIllegalMoves().addAll(savedIllegalMoves);
+
+	    return true;
+	}
+	
 	public boolean isCheckMate() {
 		
-		SuperPiece king = getKing(true);
+		SuperPiece king = getKing(false);
+//		SuperPiece king = getKing(true);
+
 		
 		if (kingCanMove(king)) {
 			return false;
@@ -404,11 +454,12 @@ boolean isValidMove = false;
 		        System.out.println("CHECK!");
 
 		        if (isCheckMate()) {
-
 		            System.out.println("CHECKMATE!");
-
-		            // TODO: Set game over state
 		        }
+
+		    } else if (isStalemate()) {
+
+		        System.out.println("STALEMATE!");
 		    }
 	}
 	
