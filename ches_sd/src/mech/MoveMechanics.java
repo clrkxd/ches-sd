@@ -109,14 +109,33 @@ public class MoveMechanics {
 	
 	public boolean isKingDoingIllegal(SuperPiece king) {
 		
-		if (king.type == Type.KING) {
-			for (SuperPiece p : chP.getPieces()) {
-				if (p != king && p.turn != king.turn && p.canMove(king.col, king.row)) {
-					return true;
-				}
-			}
-		}
-		return false;
+//		if (king.type == Type.KING) {
+//			for (SuperPiece p : chP.getPieces()) {
+//				if (p != king && p.turn != king.turn && p.canMove(king.col, king.row)) {
+//					return true;
+//				}
+//			}
+//		}
+//		return false;
+		
+		 if (king == null) {
+		        return false;
+		    }
+
+		    if (king.type == Type.KING) {
+
+		        for (SuperPiece p : chP.getSim()) {
+
+		            if (p != king &&
+		                p.turn != king.turn &&
+		                p.canMove(king.col, king.row)) {
+
+		                return true;
+		            }
+		        }
+		    }
+
+		    return false;
 	}
 	
 	public SuperPiece getKingInCheck() {
@@ -144,36 +163,59 @@ public class MoveMechanics {
 	}
 	
 	public boolean isCheck() {
-		
-		SuperPiece king = getKing(true);
-		
-		if(chP.getActivePiece().canMove(king.col, king.row)) {
-			chP.checks = chP.activePiece;
-			return true;
-		} else {
-			chP.checks = null;
-		}
-		
-		return false;
+		 SuperPiece king = getKing(false);
+
+		    if (king == null) {
+		        return false;
+		    }
+
+		    for (SuperPiece p : chP.getSim()) {
+
+		        if (p.turn != king.turn &&
+		            p.canMove(king.col, king.row)) {
+
+		            chP.checks = p;
+		            return true;
+		        }
+		    }
+
+		    chP.checks = null;
+		    return false;
 	}
 	
 	public SuperPiece getKing(boolean enemy) {
 		
-	SuperPiece king = null;
-			
-	for (SuperPiece p : chP.getPieces()) {
-		if (enemy) {
-			if (p.type == Type.KING && p.turn != chP.getCurrentTurn()) {
-				king = p;
-			}
-		} else {
-			if (p.type == Type.KING && p.turn == chP.getCurrentTurn()) {
-				king = p;
-			}
-		}
+//	SuperPiece king = null;
+//			
+//	for (SuperPiece p : chP.getPieces()) {
+//		if (enemy) {
+//			if (p.type == Type.KING && p.turn != chP.getCurrentTurn()) {
+//				king = p;
+//			}
+//		} else {
+//			if (p.type == Type.KING && p.turn == chP.getCurrentTurn()) {
+//				king = p;
+//			}
+//		}
+//		
+//	}
+//		return king;	
 		
-	}
-		return king;	
+		for (SuperPiece p : chP.getSim()) {
+
+	        if (p.type == Type.KING) {
+
+	            if (enemy && p.turn != chP.getCurrentTurn()) {
+	                return p;
+	            }
+
+	            if (!enemy && p.turn == chP.getCurrentTurn()) {
+	                return p;
+	            }
+	        }
+	    }
+
+	    return null;
 	}
 	
 	public boolean isCheckMate() {
@@ -334,15 +376,40 @@ boolean isValidMove = false;
 	}
 	
 	public void changeTurn() {
-	    int nextTurn = chP.getCurrentTurn() == ChessPanel.WHITE ? ChessPanel.BLACK : ChessPanel.WHITE;
+//	    int nextTurn = chP.getCurrentTurn() == ChessPanel.WHITE ? ChessPanel.BLACK : ChessPanel.WHITE;
+//
+//	    chP.setCurrentTurn(nextTurn);
+//
+//	    for (SuperPiece p : chP.getPieces()) {
+//	        if (p.turn == nextTurn) {
+//	            p.pawnJump = false;
+//	        }
+//	    }
+		int nextTurn = chP.getCurrentTurn() == ChessPanel.WHITE
+		        ? ChessPanel.BLACK
+		        : ChessPanel.WHITE;
 
-	    chP.setCurrentTurn(nextTurn);
+		    chP.setCurrentTurn(nextTurn);
 
-	    for (SuperPiece p : chP.getPieces()) {
-	        if (p.turn == nextTurn) {
-	            p.pawnJump = false;
-	        }
-	    }
+		    for (SuperPiece p : chP.getSim()) {
+
+		        if (p.turn == nextTurn) {
+		            p.pawnJump = false;
+		        }
+		    }
+
+		    // Check the opponent's King
+		    if (isCheck()) {
+
+		        System.out.println("CHECK!");
+
+		        if (isCheckMate()) {
+
+		            System.out.println("CHECKMATE!");
+
+		            // TODO: Set game over state
+		        }
+		    }
 	}
 	
 	public void allLegalMoves(SuperPiece p) {
