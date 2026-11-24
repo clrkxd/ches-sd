@@ -367,7 +367,7 @@ public class MoveMechanics {
 				}
 			}
 			else {
-				// a knight is attacking
+				// a knight is attacking brp
 			}
 		}
 		
@@ -390,7 +390,7 @@ public class MoveMechanics {
 	}
 	public boolean isValidMove(SuperPiece king, int colPlus, int rowPlus) {
 		
-boolean isValidMove = false;
+		boolean isValidMove = false;
 		
 		// update king's pos
 		king.col += colPlus;
@@ -410,8 +410,6 @@ boolean isValidMove = false;
 		chP.copyPieces(chP.getSim(), chP.getPieces());
 		
 		return isValidMove;
-		
-//		return false;
 	}
 	
 	public void checkCastle() {
